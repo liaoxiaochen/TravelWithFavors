@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceMainController">
+            <connections>
+                <outlet property="closeBtn" destination="3xd-Uh-f2L" id="HHX-NV-gZb"/>
+                <outlet property="view" destination="eQ8-HL-OZi" id="p5n-Ib-KpB"/>
+                <outlet property="webView" destination="Kmb-DB-EsU" id="zwH-hi-5mF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="eQ8-HL-OZi">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kmb-DB-EsU">
+                    <rect key="frame" x="0.0" y="44" width="375" height="589"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6i-aO-tAK">
+                    <rect key="frame" x="0.0" y="44" width="375" height="0.0"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vxs-ZA-54v">
+                            <constraints>
+                                <constraint firstAttribute="width" id="zM3-Vy-u2f"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" image="fanhui@2x">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="goBackBtnClick:" destination="-1" eventType="touchUpInside" id="17J-pd-NN1"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmU-GV-CsZ">
+                            <rect key="frame" x="167" y="-12" width="41" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xd-Uh-f2L">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="0w6-Ju-zaO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="关闭">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="closeBtnClick:" destination="-1" eventType="touchUpInside" id="nvb-t0-Lff"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="RmU-GV-CsZ" firstAttribute="centerY" secondItem="H6i-aO-tAK" secondAttribute="centerY" id="0ge-BA-BXw"/>
+                        <constraint firstItem="Vxs-ZA-54v" firstAttribute="top" secondItem="H6i-aO-tAK" secondAttribute="top" id="1WN-WG-eAq"/>
+                        <constraint firstAttribute="bottom" secondItem="3xd-Uh-f2L" secondAttribute="bottom" id="5mg-7u-VPX"/>
+                        <constraint firstItem="RmU-GV-CsZ" firstAttribute="centerX" secondItem="H6i-aO-tAK" secondAttribute="centerX" id="9b6-eD-Jc6"/>
+                        <constraint firstAttribute="height" id="Btx-J4-guG"/>
+                        <constraint firstItem="Vxs-ZA-54v" firstAttribute="leading" secondItem="H6i-aO-tAK" secondAttribute="leading" id="Fn6-LQ-MNR"/>
+                        <constraint firstAttribute="bottom" secondItem="Vxs-ZA-54v" secondAttribute="bottom" id="kE8-Wp-FyA"/>
+                        <constraint firstItem="3xd-Uh-f2L" firstAttribute="top" secondItem="H6i-aO-tAK" secondAttribute="top" id="kEz-KU-PlE"/>
+                        <constraint firstItem="3xd-Uh-f2L" firstAttribute="leading" secondItem="Vxs-ZA-54v" secondAttribute="trailing" id="lZE-Ay-W0d"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="H6i-aO-tAK" secondAttribute="trailing" id="8QO-Po-LgB"/>
+                <constraint firstAttribute="trailing" secondItem="Kmb-DB-EsU" secondAttribute="trailing" id="FLF-AL-lHY"/>
+                <constraint firstAttribute="bottomMargin" secondItem="Kmb-DB-EsU" secondAttribute="bottom" id="Gr0-0E-2bS"/>
+                <constraint firstItem="Kmb-DB-EsU" firstAttribute="top" secondItem="H6i-aO-tAK" secondAttribute="bottom" id="HoX-gf-irA"/>
+                <constraint firstItem="Kmb-DB-EsU" firstAttribute="leading" secondItem="eQ8-HL-OZi" secondAttribute="leading" id="OiY-Kf-agp"/>
+                <constraint firstItem="H6i-aO-tAK" firstAttribute="leading" secondItem="eQ8-HL-OZi" secondAttribute="leading" id="wl6-f1-isc"/>
+                <constraint firstAttribute="topMargin" secondItem="H6i-aO-tAK" secondAttribute="top" id="wmR-ZL-ogH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="fanhui@2x" width="16" height="16"/>
+    </resources>
+</document>

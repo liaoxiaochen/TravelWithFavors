@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MyLevelCollectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hjhy.png" translatesAutoresizingMaskIntoConstraints="NO" id="jxf-O3-iOQ">
+                        <rect key="frame" x="2" y="12" width="67" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="ErC-gz-WQ6"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="会员等级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcZ-PC-Dx4">
+                        <rect key="frame" x="71" y="17" width="67" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="zcZ-PC-Dx4" firstAttribute="leading" secondItem="jxf-O3-iOQ" secondAttribute="trailing" constant="2" id="JSF-gs-bJe"/>
+                <constraint firstItem="zcZ-PC-Dx4" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="VWk-S7-b3X"/>
+                <constraint firstItem="jxf-O3-iOQ" firstAttribute="width" secondItem="zcZ-PC-Dx4" secondAttribute="width" id="XcN-ka-qtq"/>
+                <constraint firstAttribute="trailing" secondItem="zcZ-PC-Dx4" secondAttribute="trailing" constant="2" id="Y2J-1F-IP3"/>
+                <constraint firstItem="jxf-O3-iOQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="b07-Pp-KVo"/>
+                <constraint firstItem="jxf-O3-iOQ" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="fka-Qc-fcn"/>
+            </constraints>
+            <size key="customSize" width="140" height="50"/>
+            <connections>
+                <outlet property="levelImageView" destination="jxf-O3-iOQ" id="s0U-eT-b6y"/>
+                <outlet property="levelLabel" destination="zcZ-PC-Dx4" id="9cP-tx-W0x"/>
+            </connections>
+            <point key="canvasLocation" x="-12" y="96"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="hjhy.png" width="25" height="25"/>
+    </resources>
+</document>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="OrderChangeTypePetCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzo-lL-rw3">
+                        <rect key="frame" x="71" y="15" width="35" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="1q2-Rn-NJQ"/>
+                            <constraint firstAttribute="width" constant="35" id="Kgr-Vz-gPq"/>
+                        </constraints>
+                        <state key="normal" image="gqsb_btn.png"/>
+                        <connections>
+                            <action selector="ruleClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="83v-aL-m78"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="改签费用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t5-ne-E4S">
+                        <rect key="frame" x="187" y="19" width="57.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单号：12345678901234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TtW-Ec-Bjv">
+                        <rect key="frame" x="10" y="50" width="224" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uM-zx-n0N">
+                        <rect key="frame" x="251" y="19" width="49" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="改签状态" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fR-Fh-CxU">
+                        <rect key="frame" x="10" y="18" width="61.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宠物编号：12345678901234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DO9-de-rga">
+                        <rect key="frame" x="10" y="70" width="300" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="DO9-de-rga" secondAttribute="trailing" constant="10" id="4cq-oO-nCI"/>
+                    <constraint firstItem="Vzo-lL-rw3" firstAttribute="centerY" secondItem="9fR-Fh-CxU" secondAttribute="centerY" id="9UR-8V-5q5"/>
+                    <constraint firstItem="TtW-Ec-Bjv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Cym-n8-D5A"/>
+                    <constraint firstItem="1uM-zx-n0N" firstAttribute="leading" secondItem="7t5-ne-E4S" secondAttribute="trailing" constant="6" id="Gpy-wG-FOf"/>
+                    <constraint firstItem="9fR-Fh-CxU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="IUQ-nx-sYm"/>
+                    <constraint firstAttribute="trailing" secondItem="1uM-zx-n0N" secondAttribute="trailing" constant="20" id="Jvs-EJ-ME7"/>
+                    <constraint firstItem="9fR-Fh-CxU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="O6G-Vd-KUl"/>
+                    <constraint firstItem="7t5-ne-E4S" firstAttribute="centerY" secondItem="1uM-zx-n0N" secondAttribute="centerY" id="a31-Fk-3tb"/>
+                    <constraint firstItem="DO9-de-rga" firstAttribute="top" secondItem="TtW-Ec-Bjv" secondAttribute="bottom" constant="3" id="f1w-mO-UPN"/>
+                    <constraint firstItem="TtW-Ec-Bjv" firstAttribute="top" secondItem="Vzo-lL-rw3" secondAttribute="bottom" constant="11" id="qRH-n3-q5X"/>
+                    <constraint firstItem="1uM-zx-n0N" firstAttribute="centerY" secondItem="9fR-Fh-CxU" secondAttribute="centerY" id="r1q-vF-AGB"/>
+                    <constraint firstItem="DO9-de-rga" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="u0c-Up-WaR"/>
+                    <constraint firstItem="Vzo-lL-rw3" firstAttribute="leading" secondItem="9fR-Fh-CxU" secondAttribute="trailing" id="vm2-PB-oyQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="changeStatusLB" destination="9fR-Fh-CxU" id="iPK-hB-wet"/>
+                <outlet property="feeLB" destination="1uM-zx-n0N" id="oxN-Dq-Nrs"/>
+                <outlet property="feeTitleLB" destination="7t5-ne-E4S" id="65H-Cw-aab"/>
+                <outlet property="orderNoLB" destination="TtW-Ec-Bjv" id="wuh-3l-fM5"/>
+                <outlet property="petNoLB" destination="DO9-de-rga" id="Sfm-l8-Q7d"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="gqsb_btn.png" width="15" height="15"/>
+    </resources>
+</document>

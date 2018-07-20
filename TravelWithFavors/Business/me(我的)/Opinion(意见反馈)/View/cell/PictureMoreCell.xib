@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PictureMoreCell">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwa-ww-XlC">
+                        <rect key="frame" x="0.0" y="10" width="60" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="添加照片" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqJ-j4-wGS">
+                                <rect key="frame" x="0.0" y="40.5" width="60" height="13.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="1" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yjfk_tjzp.png" translatesAutoresizingMaskIntoConstraints="NO" id="aL6-3B-qcW">
+                                <rect key="frame" x="17.5" y="8.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="v5z-7M-WRf"/>
+                                    <constraint firstAttribute="height" constant="25" id="y1w-Np-xLz"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VqJ-j4-wGS" secondAttribute="trailing" id="Akj-uy-JpM"/>
+                            <constraint firstItem="VqJ-j4-wGS" firstAttribute="top" secondItem="aL6-3B-qcW" secondAttribute="bottom" constant="7" id="PoQ-GQ-z1K"/>
+                            <constraint firstItem="aL6-3B-qcW" firstAttribute="centerX" secondItem="Jwa-ww-XlC" secondAttribute="centerX" id="S5Y-RW-BwE"/>
+                            <constraint firstAttribute="bottom" secondItem="VqJ-j4-wGS" secondAttribute="bottom" constant="6" id="s6m-aD-pNT"/>
+                            <constraint firstItem="VqJ-j4-wGS" firstAttribute="leading" secondItem="Jwa-ww-XlC" secondAttribute="leading" id="tYq-zK-uTp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Jwa-ww-XlC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="AhP-no-PfW"/>
+                <constraint firstAttribute="bottom" secondItem="Jwa-ww-XlC" secondAttribute="bottom" id="Ute-Zk-zHt"/>
+                <constraint firstAttribute="trailing" secondItem="Jwa-ww-XlC" secondAttribute="trailing" constant="10" id="sqF-eC-243"/>
+                <constraint firstItem="Jwa-ww-XlC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="vVc-3l-1b5"/>
+            </constraints>
+            <size key="customSize" width="72" height="70"/>
+            <point key="canvasLocation" x="12" y="111"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="yjfk_tjzp.png" width="25" height="25"/>
+    </resources>
+</document>

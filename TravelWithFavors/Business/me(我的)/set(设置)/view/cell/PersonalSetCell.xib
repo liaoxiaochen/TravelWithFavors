@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="PersonalSetCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85G-QA-Ycm">
+                        <rect key="frame" x="0.0" y="48.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="zZY-2o-Vge"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VE-fp-byM">
+                        <rect key="frame" x="10" y="0.0" width="35.5" height="48.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zfb_gd.png" translatesAutoresizingMaskIntoConstraints="NO" id="pFX-kt-oBe">
+                        <rect key="frame" x="304" y="18" width="6" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="a62-tS-dqg"/>
+                            <constraint firstAttribute="height" constant="12" id="fru-Sr-tQX"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已开启" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6r-eN-EcN">
+                        <rect key="frame" x="251" y="0.0" width="43" height="48.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3VE-fp-byM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7OF-SD-Og0"/>
+                    <constraint firstAttribute="bottom" secondItem="85G-QA-Ycm" secondAttribute="bottom" id="Cty-ht-g04"/>
+                    <constraint firstItem="d6r-eN-EcN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DT9-ni-KbT"/>
+                    <constraint firstAttribute="trailing" secondItem="85G-QA-Ycm" secondAttribute="trailing" id="Gx2-eX-0Ow"/>
+                    <constraint firstItem="85G-QA-Ycm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="R3N-uD-yzO"/>
+                    <constraint firstItem="85G-QA-Ycm" firstAttribute="top" secondItem="d6r-eN-EcN" secondAttribute="bottom" id="UeP-Ye-rKn"/>
+                    <constraint firstItem="85G-QA-Ycm" firstAttribute="top" secondItem="3VE-fp-byM" secondAttribute="bottom" id="Xcj-5O-arO"/>
+                    <constraint firstItem="pFX-kt-oBe" firstAttribute="centerY" secondItem="d6r-eN-EcN" secondAttribute="centerY" id="i62-OU-pNr"/>
+                    <constraint firstItem="pFX-kt-oBe" firstAttribute="leading" secondItem="d6r-eN-EcN" secondAttribute="trailing" constant="10" id="iB8-sW-az4"/>
+                    <constraint firstItem="3VE-fp-byM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kg4-W7-IQp"/>
+                    <constraint firstAttribute="trailing" secondItem="pFX-kt-oBe" secondAttribute="trailing" constant="10" id="wHh-Oo-Bnm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="leftLabel" destination="3VE-fp-byM" id="295-Pg-xOE"/>
+                <outlet property="rightLabel" destination="d6r-eN-EcN" id="ZDB-ra-TrL"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="zfb_gd.png" width="6" height="11"/>
+    </resources>
+</document>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OrderBackApplyView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa1-xF-xvw">
+                    <rect key="frame" x="0.0" y="351" width="375" height="316"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJa-BL-uFl">
+                            <rect key="frame" x="0.0" y="265" width="375" height="1"/>
+                            <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="De9-We-joL"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2GL-sN-7zs">
+                            <rect key="frame" x="225" y="265" width="150" height="51"/>
+                            <color key="backgroundColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="Mpb-y5-cjq"/>
+                                <constraint firstAttribute="height" constant="51" id="sSB-6w-oK4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="提交申请"/>
+                            <connections>
+                                <action selector="applyClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Gx1-Iz-4G9"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收取退票费：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6M-nu-Edq">
+                            <rect key="frame" x="10" y="274" width="80" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥900" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4p-Dj-WqK">
+                            <rect key="frame" x="90" y="274" width="38" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退票总额：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Xq-Bd-CE6">
+                            <rect key="frame" x="10" y="296" width="76.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥600" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjP-zi-K7F">
+                            <rect key="frame" x="86.5" y="296" width="43.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需退票乘客总价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1CC-CD-hvk">
+                            <rect key="frame" x="10" y="23" width="100" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmk-8g-I9V">
+                            <rect key="frame" x="208" y="23" width="47" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退票费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cC8-6t-n9l">
+                            <rect key="frame" x="10" y="48" width="43" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-￥900" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBg-ps-Iar">
+                            <rect key="frame" x="208" y="48" width="47" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退款总额：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuy-3n-Uax">
+                            <rect key="frame" x="10" y="72" width="71.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥600" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anT-DU-APJ">
+                            <rect key="frame" x="214.5" y="72" width="40.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退款说明" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUA-35-2nq">
+                            <rect key="frame" x="10" y="107" width="57.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退票总计=退票乘客所付总价-退票费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tc-ii-axg">
+                            <rect key="frame" x="10" y="175.5" width="355" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需退票乘客总价：已选乘机人所支付的总价格，包括机票价、 税费，保险等" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7q-64-dK9">
+                            <rect key="frame" x="10" y="130" width="355" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="KBg-ps-Iar" firstAttribute="centerY" secondItem="cC8-6t-n9l" secondAttribute="centerY" id="1NF-bb-87q"/>
+                        <constraint firstItem="0tc-ii-axg" firstAttribute="top" secondItem="x7q-64-dK9" secondAttribute="bottom" constant="14" id="2Ni-dh-Rg3"/>
+                        <constraint firstItem="O4p-Dj-WqK" firstAttribute="centerY" secondItem="l6M-nu-Edq" secondAttribute="centerY" id="2sO-qM-VoW"/>
+                        <constraint firstItem="XUA-35-2nq" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="3y2-uU-4yF"/>
+                        <constraint firstItem="cC8-6t-n9l" firstAttribute="top" secondItem="1CC-CD-hvk" secondAttribute="bottom" constant="8" id="6hR-zp-key"/>
+                        <constraint firstItem="KBg-ps-Iar" firstAttribute="trailing" secondItem="pmk-8g-I9V" secondAttribute="trailing" id="8E6-CR-Hry"/>
+                        <constraint firstItem="0tc-ii-axg" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="BEp-Fr-99i"/>
+                        <constraint firstAttribute="bottom" secondItem="0Xq-Bd-CE6" secondAttribute="bottom" constant="2" id="D40-6S-Efc"/>
+                        <constraint firstAttribute="bottom" secondItem="ZJa-BL-uFl" secondAttribute="bottom" constant="50" id="DEV-fj-OQa"/>
+                        <constraint firstItem="rjP-zi-K7F" firstAttribute="leading" secondItem="0Xq-Bd-CE6" secondAttribute="trailing" id="DTD-NL-pkh"/>
+                        <constraint firstAttribute="trailing" secondItem="ZJa-BL-uFl" secondAttribute="trailing" id="Dfx-1i-QfA"/>
+                        <constraint firstItem="l6M-nu-Edq" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="H5n-dO-mks"/>
+                        <constraint firstAttribute="trailing" secondItem="x7q-64-dK9" secondAttribute="trailing" constant="10" id="Jdh-qG-jY8"/>
+                        <constraint firstItem="x7q-64-dK9" firstAttribute="top" secondItem="XUA-35-2nq" secondAttribute="bottom" constant="6" id="K5z-2v-WPw"/>
+                        <constraint firstItem="Kuy-3n-Uax" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="Kfp-95-dXg"/>
+                        <constraint firstItem="1CC-CD-hvk" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="LlV-Qo-vJv"/>
+                        <constraint firstAttribute="bottom" secondItem="2GL-sN-7zs" secondAttribute="bottom" id="O8s-iw-jxT"/>
+                        <constraint firstItem="O4p-Dj-WqK" firstAttribute="leading" secondItem="l6M-nu-Edq" secondAttribute="trailing" id="QVS-TP-vAF"/>
+                        <constraint firstAttribute="trailing" secondItem="0tc-ii-axg" secondAttribute="trailing" constant="10" id="Uz7-Dh-pzy"/>
+                        <constraint firstItem="ZJa-BL-uFl" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" id="VVY-Im-lou"/>
+                        <constraint firstItem="cC8-6t-n9l" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="W2U-ft-nwM"/>
+                        <constraint firstItem="anT-DU-APJ" firstAttribute="centerY" secondItem="Kuy-3n-Uax" secondAttribute="centerY" id="a40-2f-yFZ"/>
+                        <constraint firstItem="anT-DU-APJ" firstAttribute="trailing" secondItem="pmk-8g-I9V" secondAttribute="trailing" id="aHh-UF-tCe"/>
+                        <constraint firstItem="l6M-nu-Edq" firstAttribute="top" secondItem="ZJa-BL-uFl" secondAttribute="bottom" constant="8" id="aqq-1Y-bjq"/>
+                        <constraint firstAttribute="height" constant="316" id="c28-AI-DfJ"/>
+                        <constraint firstItem="1CC-CD-hvk" firstAttribute="top" secondItem="fa1-xF-xvw" secondAttribute="top" constant="23" id="doo-jo-wOw"/>
+                        <constraint firstItem="0Xq-Bd-CE6" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="eil-fY-dvW"/>
+                        <constraint firstItem="rjP-zi-K7F" firstAttribute="centerY" secondItem="0Xq-Bd-CE6" secondAttribute="centerY" id="fXf-lC-Nod"/>
+                        <constraint firstItem="XUA-35-2nq" firstAttribute="top" secondItem="Kuy-3n-Uax" secondAttribute="bottom" constant="18" id="gOY-ci-44j"/>
+                        <constraint firstAttribute="trailing" secondItem="2GL-sN-7zs" secondAttribute="trailing" id="n1b-Do-c4p"/>
+                        <constraint firstAttribute="trailing" secondItem="pmk-8g-I9V" secondAttribute="trailing" constant="120" id="oKZ-1x-WMB"/>
+                        <constraint firstItem="x7q-64-dK9" firstAttribute="leading" secondItem="fa1-xF-xvw" secondAttribute="leading" constant="10" id="oom-h0-iB0"/>
+                        <constraint firstItem="pmk-8g-I9V" firstAttribute="centerY" secondItem="1CC-CD-hvk" secondAttribute="centerY" id="xkg-W4-qAy"/>
+                        <constraint firstItem="Kuy-3n-Uax" firstAttribute="top" secondItem="cC8-6t-n9l" secondAttribute="bottom" constant="7" id="ygh-Fm-tqF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="fa1-xF-xvw" secondAttribute="trailing" id="Vh5-L4-O3h"/>
+                <constraint firstAttribute="bottom" secondItem="fa1-xF-xvw" secondAttribute="bottom" id="bmN-Tr-fgZ"/>
+                <constraint firstItem="fa1-xF-xvw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xXr-Xv-4vx"/>
+            </constraints>
+            <connections>
+                <outlet property="backMoneyLabel" destination="rjP-zi-K7F" id="f7m-XE-Lbh"/>
+                <outlet property="backPriceLabel" destination="anT-DU-APJ" id="v3z-St-xQ3"/>
+                <outlet property="detailLabel" destination="x7q-64-dK9" id="NJN-E1-I9R"/>
+                <outlet property="priceLabel" destination="KBg-ps-Iar" id="lXa-xZ-fm8"/>
+                <outlet property="shouXuFeiLabel" destination="O4p-Dj-WqK" id="V0I-fs-pEd"/>
+                <outlet property="totalPriceLabel" destination="pmk-8g-I9V" id="Uwe-rL-VzE"/>
+            </connections>
+            <point key="canvasLocation" x="107" y="99"/>
+        </view>
+    </objects>
+</document>

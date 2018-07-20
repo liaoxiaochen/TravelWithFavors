@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="OrderDetailChangeCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ha8-gs-eMb">
+                        <rect key="frame" x="81.5" y="12" width="50" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="W3s-lV-dVF"/>
+                            <constraint firstAttribute="height" constant="20" id="eCo-ZR-XOJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="退票">
+                            <color key="titleColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="backTagitClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tGG-qu-NoO"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xid-2N-Hhm">
+                        <rect key="frame" x="188.5" y="12" width="50" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="uSV-F2-fPs"/>
+                            <constraint firstAttribute="width" constant="50" id="ySb-gn-eLC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="改签"/>
+                        <connections>
+                            <action selector="changeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="J0t-f6-scx"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Qw-yO-RCf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Q67-Qv-Twv"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hib-2L-siE">
+                        <rect key="frame" x="125" y="12" width="70" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="jRJ-Oc-s7F"/>
+                            <constraint firstAttribute="width" constant="70" id="zgL-yN-QB6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="重新支付">
+                            <color key="titleColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="repayClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7hu-s7-43c"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3Qw-yO-RCf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7NX-uO-FMD"/>
+                    <constraint firstItem="hib-2L-siE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RpO-9f-1iN"/>
+                    <constraint firstItem="Ha8-gs-eMb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="2/3" id="S4d-Lc-eMb"/>
+                    <constraint firstItem="Ha8-gs-eMb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SzL-KB-ghN"/>
+                    <constraint firstAttribute="trailing" secondItem="3Qw-yO-RCf" secondAttribute="trailing" id="T1c-XI-10A"/>
+                    <constraint firstItem="hib-2L-siE" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="aWd-VS-Egi"/>
+                    <constraint firstItem="xid-2N-Hhm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aov-zT-aHZ"/>
+                    <constraint firstItem="xid-2N-Hhm" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="4/3" id="bfa-UR-O6j"/>
+                    <constraint firstItem="3Qw-yO-RCf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="j34-oh-jRO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="backBtn" destination="Ha8-gs-eMb" id="ad3-dM-4sN"/>
+                <outlet property="changeBtn" destination="xid-2N-Hhm" id="oc0-kg-PJF"/>
+                <outlet property="repayBtn" destination="hib-2L-siE" id="05G-a3-iQS"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="54" id="KGk-i7-Jjw" customClass="NotifiSetCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pwh-23-xyd">
+                        <rect key="frame" x="261" y="11" width="51" height="31"/>
+                        <color key="onTintColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <action selector="switchValueChange:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Nrp-ap-t1S"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sag-ao-d9b">
+                        <rect key="frame" x="10" y="18" width="241" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFN-G7-k9k">
+                        <rect key="frame" x="0.0" y="52.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="zZE-vY-jHh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sag-ao-d9b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8mP-Gg-Psc"/>
+                    <constraint firstItem="xFN-G7-k9k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MoZ-AE-KmV"/>
+                    <constraint firstItem="pwh-23-xyd" firstAttribute="leading" secondItem="sag-ao-d9b" secondAttribute="trailing" constant="10" id="PJg-yA-Hqc"/>
+                    <constraint firstAttribute="trailing" secondItem="pwh-23-xyd" secondAttribute="trailing" constant="10" id="WxL-On-aRo"/>
+                    <constraint firstAttribute="trailing" secondItem="xFN-G7-k9k" secondAttribute="trailing" id="ZKu-lR-NJl"/>
+                    <constraint firstAttribute="bottom" secondItem="xFN-G7-k9k" secondAttribute="bottom" id="kHK-fd-feR"/>
+                    <constraint firstItem="sag-ao-d9b" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pdz-mS-G1I"/>
+                    <constraint firstItem="pwh-23-xyd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zAb-6Q-qls"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="sag-ao-d9b" id="l9e-Eu-pAx"/>
+                <outlet property="typeSwitch" destination="pwh-23-xyd" id="6ID-0n-qPr"/>
+            </connections>
+            <point key="canvasLocation" x="33" y="139"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,6 @@
+framework module Pods_TravelWithFavors {
+  umbrella header "Pods-TravelWithFavors-umbrella.h"
+
+  export *
+  module * { export * }
+}
