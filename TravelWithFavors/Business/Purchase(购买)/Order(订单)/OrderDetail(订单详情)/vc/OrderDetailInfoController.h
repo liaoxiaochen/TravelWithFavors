@@ -14,4 +14,7 @@
 @property (nonatomic, assign) BOOL isJourney;
 @property (nonatomic, strong) HRorderModel *orderModel;
 
+@property (nonatomic, copy) NSString *start_city_name;
+@property (nonatomic, copy) NSString *to_city_name;
+
 @end

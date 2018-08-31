@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MyCertificatesCodeCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *cardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIView *certificatesBgView;
+@property (weak, nonatomic) IBOutlet UILabel *sexAndBirthdayLabel;
 
 @end

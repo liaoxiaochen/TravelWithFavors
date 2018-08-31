@@ -37,8 +37,8 @@
         UILabel *rightLabel;
         
         CGFloat headerWidth = [UIScreen mainScreen].bounds.size.width;
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerWidth, 20)];
-        spaceView.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, headerWidth, 20)];
+        spaceView.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
         [self addSubview:spaceView];
         
         view = [[UIView alloc] initWithFrame:CGRectZero];
@@ -62,8 +62,8 @@
         self.yearLabel.textColor = [UIColor colorWithHexString:@"#333333"];
         
         CGFloat titleWidth = self.frame.size.width / 2;
-        _titleLabel.frame = CGRectMake(20.f, 40.0f, titleWidth - 20, 30.f);
-        _yearLabel.frame = CGRectMake(titleWidth, 40.0f, titleWidth - 20, 30.f);
+        _titleLabel.frame = CGRectMake(20.f, 50.0f, titleWidth - 20, 30.f);
+        _yearLabel.frame = CGRectMake(titleWidth, 50.0f, titleWidth - 20, 30.f);
         
         CGFloat yOffset = CGRectGetMaxY(rightLabel.frame) + 35;
         NSArray *textArray = @[@"日", @"一", @"二", @"三", @"四", @"五", @"六"];

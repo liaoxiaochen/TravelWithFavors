@@ -65,7 +65,7 @@
     UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.adjustsImageWhenHighlighted = NO;
     sureBtn.frame = CGRectMake(10, CGRectGetMaxY(centerView.frame) + 74, SCREEN_WIDTH - 20, 40);
-    sureBtn.layer.cornerRadius = 3;
+    sureBtn.layer.cornerRadius = 20;
     sureBtn.backgroundColor = [UIColor hdMainColor];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];

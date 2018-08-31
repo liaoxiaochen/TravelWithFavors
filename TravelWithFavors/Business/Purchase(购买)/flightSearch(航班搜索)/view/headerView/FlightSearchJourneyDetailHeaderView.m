@@ -7,6 +7,7 @@
 //
 
 #import "FlightSearchJourneyDetailHeaderView.h"
+#import "UIView+LSCore.h"
 
 @interface FlightSearchJourneyDetailHeaderView ()
 @property (weak, nonatomic) IBOutlet UILabel *goTitleLabel;
@@ -24,6 +25,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *backStartPlaceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *backEndPlaceLabel;
 
+
+@property (weak, nonatomic) IBOutlet UIView *startView;
+@property (weak, nonatomic) IBOutlet UIView *endView;
+
 @end
 @implementation FlightSearchJourneyDetailHeaderView
 
@@ -31,6 +36,10 @@
     [super awakeFromNib];
     self.bgView.layer.cornerRadius = 3;
     self.bgView.layer.masksToBounds = YES;
+    
+    [self.startView addRoundedCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight withRadii:CGSizeMake(5, 5)];
+    [self.endView addRoundedCorners:UIRectCornerTopLeft|UIRectCornerTopRight withRadii:CGSizeMake(5, 5)];
+
 }
 -(void)setTo:(FlightDetailInfo *)to{
     _to = to;

@@ -65,17 +65,22 @@
 }
 //判断手机号
 + (BOOL)checkoutPhoneNum:(NSString *)phoneNum {
-    if (phoneNum.length <= 0) {
-        return NO;
-    }
-    NSString *regexStr = @"^1[3,8]\\d{9}|14[5,7,9]\\d{8}|15[^4]\\d{8}|17[^2,4,9]\\d{8}$";
-    NSError *error;
-    NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&error];
-    if (error) return NO;
-    NSInteger count = [regular numberOfMatchesInString:phoneNum options:NSMatchingReportCompletion range:NSMakeRange(0, phoneNum.length)];
-    if (count > 0) {
+    //    if (phoneNum.length <= 0) {
+    //        return NO;
+    //    }
+    //    NSString *regexStr = @"^1[3,8]\\d{9}|14[5,7,9]\\d{8}|15[^4]\\d{8}|17[^2,4,9]\\d{8}$";
+    //    NSError *error;
+    //    NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&error];
+    //    if (error) return NO;
+    //    NSInteger count = [regular numberOfMatchesInString:phoneNum options:NSMatchingReportCompletion range:NSMakeRange(0, phoneNum.length)];
+    //    if (count > 0) {
+    //        return YES;
+    //    } else {
+    //        return NO;
+    //    }
+    if (phoneNum.length == 11) {
         return YES;
-    } else {
+    }else{
         return NO;
     }
 }
@@ -311,29 +316,105 @@
     }
     return NO;
 }
+
+#pragma mark - 根据身份证号识别
++(NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr {
+    
+    NSMutableString *result = [NSMutableString stringWithCapacity:0];
+    NSString *year = nil;
+    NSString *month = nil;
+    BOOL isAllNumber = YES;
+    NSString *day = nil;
+    if([numberStr length]<18)
+        return result;
+    
+    //**从第6位开始 截取8个数
+    NSString *fontNumer = [numberStr substringWithRange:NSMakeRange(6, 8)];
+    //**检测前12位否全都是数字;
+    const char *str = [fontNumer UTF8String];
+    const char *p = str;
+    while (*p!='\0') {
+        if(!(*p>='0'&&*p<='9'))
+            isAllNumber = NO;
+        p++;
+    }
+    
+    if(!isAllNumber)
+        return result;
+    year = [NSString stringWithFormat:@"19%@",[numberStr substringWithRange:NSMakeRange(8, 2)]];
+    month = [numberStr substringWithRange:NSMakeRange(10, 2)];
+    day = [numberStr substringWithRange:NSMakeRange(12,2)];
+    [result appendString:year];
+    [result appendString:@"-"];
+    [result appendString:month];
+    [result appendString:@"-"];
+    [result appendString:day];
+    
+    return result;
+}
+
++ (NSInteger)getIdentityCardSex:(NSString *)numberStr {
+    NSInteger sex = 0;
+    // 0男 1女
+    //获取18位 二代身份证  性别
+    if (numberStr.length==18){
+        int sexInt=[[numberStr substringWithRange:NSMakeRange(16,1)] intValue];
+        if(sexInt%2!=0){
+            sex = 0;
+            
+        }else{
+            sex = 1;
+        }
+    }
+    //  获取15位 一代身份证  性别
+    if (numberStr.length==15){
+        int sexInt=[[numberStr substringWithRange:NSMakeRange(14,1)] intValue];
+        if(sexInt%2!=0){
+            sex = 0;
+        }else{
+            sex = 1;
+        }
+    }
+    return sex;
+}
+
++ (NSInteger)getIdentityCardAge:(NSString *)numberStr {
+    NSDateFormatter *formatterTow = [[NSDateFormatter alloc]init];
+    [formatterTow setDateFormat:@"yyyy-MM-dd"];
+    NSDate *bsyDate = [formatterTow dateFromString:[NSString birthdayStrFromIdentityCard:numberStr]];
+    NSTimeInterval dateDiff = [bsyDate timeIntervalSinceNow];
+    int age = trunc(dateDiff/(60*60*24))/365;
+    return -age;
+}
+
+
+
 /** 最多保留2位小数 */
 +(NSString *)stringConversionWithNumber:(double)number{
-    NSString *doubleString = [NSString stringWithFormat:@"%lf",number];//处理精度丢失
-    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
-    CGFloat numberf = (floor([decimalNumber doubleValue]*100 + 0.5))/100;//四舍五入
-    if (fmod(numberf, 1) == 0) {
-        return [NSString stringWithFormat:@"%.0lf",numberf];
-    } else if (fmod(numberf*10, 1) == 0) {
-        return [NSString stringWithFormat:@"%.1lf",numberf];
-    } else {
-        return [NSString stringWithFormat:@"%.2lf",numberf];
-    }
+    //    NSString *doubleString = [NSString stringWithFormat:@"%lf",number];//处理精度丢失
+    //    NSDecimalNumber *decimalNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
+    //    CGFloat numberf = (floor([decimalNumber doubleValue]*100 + 0.5))/100;//四舍五入
+    //    if (fmod(numberf, 1) == 0) {
+    //        return [NSString stringWithFormat:@"%.0lf",numberf];
+    //    } else if (fmod(numberf*10, 1) == 0) {
+    //        return [NSString stringWithFormat:@"%.1lf",numberf];
+    //    } else {
+    //        return [NSString stringWithFormat:@"%.2lf",numberf];
+    //    }
+    return [self stringConversionWithNumber:number afterPoint:2];
 }
 +(NSString *)stringConversionWithNumber:(double)number afterPoint:(int)position{
+    HRLog(@"%lf",number)
     NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
-    NSDecimalNumber *ouncesDecimal = [[NSDecimalNumber alloc] initWithDouble:number];
+    NSString *doubleString = [NSString stringWithFormat:@"%lf",number];//处理精度丢失
+    NSDecimalNumber *ouncesDecimal = [[NSDecimalNumber alloc] initWithString:doubleString];
     NSDecimalNumber *roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
     return [NSString stringWithFormat:@"%@",roundedOunces];
 }
+
 + (NSMutableAttributedString *)changeLabelWithMaxString:(NSString *)maxString diffrenIndex:(NSInteger)diffrenIndex maxFont:(NSInteger)maxFont littleFont:(NSInteger)littleFont {
     
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:maxString];
-    
     UIFont *font = [UIFont systemFontOfSize:maxFont];
     [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, diffrenIndex)];
     
@@ -341,6 +422,31 @@
     [attrString addAttribute:NSFontAttributeName value:font1 range:NSMakeRange(diffrenIndex, maxString.length - diffrenIndex)];
     
     return attrString;
+}
++ (NSMutableAttributedString *)changeLabelColorWithMainStr:(NSString *)mainStr diffrenStr:(NSString *)diffrenStr diffrenColor:(UIColor *)diffrenColor {
+    NSMutableAttributedString *attrDescribeStr = [[NSMutableAttributedString alloc] initWithString:mainStr];
+    [attrDescribeStr addAttribute:NSForegroundColorAttributeName value:diffrenColor range:[mainStr rangeOfString:diffrenStr]];
+    return attrDescribeStr;
+}
+
++ (NSMutableAttributedString *)changeLabelColorAndFontWithMainStr:(NSString *)mainStr diffrenStr:(NSString *)diffrenStr diffrenColor:(UIColor *)diffrenColor  diffrenFont:(NSInteger)diffrenFont {
+    
+    NSMutableAttributedString *attrMainStr = [[NSMutableAttributedString alloc] initWithString:mainStr];
+    [attrMainStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:diffrenFont] range:[mainStr rangeOfString:diffrenStr]];
+    [attrMainStr addAttribute:NSForegroundColorAttributeName value:diffrenColor range:[mainStr rangeOfString:diffrenStr]];
+    
+    
+    return attrMainStr;
+    
+}
+
+
++ (NSMutableAttributedString *)baselineWithString:(NSString *)baselineString {
+    
+    NSMutableAttributedString*str = [[NSMutableAttributedString alloc] initWithString:baselineString];
+    [str addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid) range:NSMakeRange(0, str.length)];
+
+    return str;
 }
 
 @end

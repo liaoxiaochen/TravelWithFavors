@@ -18,12 +18,12 @@
     [super awakeFromNib];
     // Initialization code
     self.backBtn.layer.cornerRadius = 10;
-    self.backBtn.layer.borderColor = [UIColor colorWithHexString:@"#FF980D"].CGColor;
+    self.backBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
     self.backBtn.layer.borderWidth = 1;
     self.changeBtn.layer.cornerRadius = 10;
     
     self.repayBtn.layer.cornerRadius = 10;
-    self.repayBtn.layer.borderColor = [UIColor colorWithHexString:@"#FF980D"].CGColor;
+    self.repayBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
     self.repayBtn.layer.borderWidth = 1;
     self.repayBtn.hidden = YES;
 }

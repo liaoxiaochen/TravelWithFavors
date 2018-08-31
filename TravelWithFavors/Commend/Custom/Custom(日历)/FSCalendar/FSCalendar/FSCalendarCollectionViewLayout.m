@@ -110,7 +110,7 @@
             CGFloat headerHeight = self.calendar.preferredWeekdayHeight*1.5+self.calendar.preferredHeaderHeight;
             headerSize = CGSizeMake(self.collectionView.fs_width, headerHeight);
         }
-        headerSize = CGSizeMake(self.collectionView.fs_width, 140);
+        headerSize = CGSizeMake(self.collectionView.fs_width, 150);
         headerSize;
                 
     });

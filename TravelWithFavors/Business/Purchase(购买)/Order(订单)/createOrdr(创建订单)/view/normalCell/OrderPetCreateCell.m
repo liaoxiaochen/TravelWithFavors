@@ -22,7 +22,7 @@ static NSString *const cellID = @"OrderPersonAddCell";
     [super awakeFromNib];
     // Initialization code
     self.addBtn.layer.cornerRadius = 3;
-    self.addBtn.layer.borderColor = [UIColor colorWithHexString:@"#FF980D"].CGColor;
+    self.addBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
     self.addBtn.layer.borderWidth = 1;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

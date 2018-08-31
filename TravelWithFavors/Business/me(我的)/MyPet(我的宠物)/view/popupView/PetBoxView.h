@@ -14,4 +14,7 @@
 @property (weak, nonatomic) IBOutlet MyTextField *gaoTextField;
 @property (nonatomic, copy) void (^boxBlock)(NSString *chang,NSString *kuan, NSString *gao);
 - (void)showPetBoxView;
+
+@property (nonatomic, strong) UIView *superTableView;
+
 @end

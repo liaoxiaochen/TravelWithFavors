@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -27,7 +27,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="退票">
-                            <color key="titleColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="backTagitClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tGG-qu-NoO"/>
@@ -35,7 +35,7 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xid-2N-Hhm">
                         <rect key="frame" x="188.5" y="12" width="50" height="20"/>
-                        <color key="backgroundColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="uSV-F2-fPs"/>
                             <constraint firstAttribute="width" constant="50" id="ySb-gn-eLC"/>
@@ -61,7 +61,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="重新支付">
-                            <color key="titleColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="repayClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7hu-s7-43c"/>

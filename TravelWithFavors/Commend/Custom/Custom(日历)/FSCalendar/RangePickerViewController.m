@@ -11,6 +11,7 @@
 #import "RangePickerCell.h"
 #import "FSCalendarExtensions.h"
 #import "RMCalendarModel.h"
+#import <EventKit/EventKit.h>
 
 @interface RangePickerViewController () <FSCalendarDataSource,FSCalendarDelegate,FSCalendarDelegateAppearance>
 
@@ -24,6 +25,10 @@
 @property (strong, nonatomic) NSDate *date1;
 // The end date of the range
 @property (strong, nonatomic) NSDate *date2;
+
+@property (strong, nonatomic) NSArray<EKEvent *> *events;
+@property (strong, nonatomic) NSCache *cache;
+
 
 - (void)configureCell:(__kindof FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position;
 
@@ -46,7 +51,7 @@
     view.backgroundColor = [UIColor whiteColor];
     self.view = view;
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight], view.frame.size.width, view.frame.size.height - CGRectGetMaxY(self.navigationController.navigationBar.frame))];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight] - 10, view.frame.size.width, view.frame.size.height - [AppConfig getNavigationBarHeight] + 10)];
     calendar.dataSource = self;
     calendar.delegate = self;
     
@@ -96,6 +101,8 @@
         self.date2 = [self formModel:self.nowSelectBackDateModel];
     }
     
+    [self loadCalendarEvents];
+
     
 }
 
@@ -254,7 +261,7 @@
 - (NSArray<UIColor *> *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
 {
     if ([self.gregorian isDateInToday:date]) {
-        return @[[UIColor orangeColor]];
+        return @[[UIColor hdMainColor]];
     }
     return @[appearance.eventDefaultColor];
 }
@@ -299,6 +306,77 @@
     
 }
 
+
+#pragma mark - 节日
+- (void)loadCalendarEvents
+{
+    __weak typeof(self) weakSelf = self;
+    EKEventStore *store = [[EKEventStore alloc] init];
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        
+        if(granted) {
+            NSDate *startDate = [NSDate date];;
+            NSDate *endDate = [self.gregorian dateByAddingUnit:NSCalendarUnitMonth value:12 toDate:[NSDate date] options:0];
+            NSPredicate *fetchCalendarEvents = [store predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
+            NSArray<EKEvent *> *eventList = [store eventsMatchingPredicate:fetchCalendarEvents];
+            NSArray<EKEvent *> *events = [eventList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(EKEvent * _Nullable event, NSDictionary<NSString *,id> * _Nullable bindings) {
+                return event.calendar.subscribed;
+            }]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!weakSelf) return;
+                weakSelf.events = events;
+                HRLog(@"获取到的节日%@", weakSelf.events);
+                [weakSelf.calendar reloadData];
+            });
+            
+        } else {
+            
+            // Alert
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Permission Error" message:@"Permission of calendar is required for fetching events." preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }];
+    
+}
+- (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date
+{
+    EKEvent *event = [self eventsForDate:date].firstObject;
+    if (event) {
+        return event.title;
+    }else {
+        return nil;
+    }
+    
+}
+- (NSArray<EKEvent *> *)eventsForDate:(NSDate *)date
+{
+    NSArray<EKEvent *> *events = [self.cache objectForKey:date];
+    if ([events isKindOfClass:[NSNull class]]) {
+        return nil;
+    }
+    NSArray<EKEvent *> *filteredEvents = [self.events filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(EKEvent * _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        if (@available(iOS 9.0, *)) {
+            return [evaluatedObject.occurrenceDate isEqualToDate:date];
+        } else {
+            // Fallback on earlier versions
+            return nil;
+        }
+    }]];
+    if (filteredEvents.count) {
+        [self.cache setObject:filteredEvents forKey:date];
+    } else {
+        [self.cache setObject:[NSNull null] forKey:date];
+    }
+    return filteredEvents;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    [self.cache removeAllObjects];
+}
 
 
 @end

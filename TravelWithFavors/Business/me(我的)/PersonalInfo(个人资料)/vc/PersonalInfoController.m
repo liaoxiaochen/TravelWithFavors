@@ -44,7 +44,7 @@ static NSString *const cellID = @"PersonalInfoCell";
     UIButton *outBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     outBtn.frame = CGRectMake(10, 120, footer.bounds.size.width - 20, 40);
     outBtn.backgroundColor = [UIColor hdMainColor];
-    outBtn.layer.cornerRadius = 3;
+    outBtn.layer.cornerRadius = 20;
     [outBtn setTitle:@"退出登录" forState:UIControlStateNormal];
     outBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [outBtn addTarget:self action:@selector(outClick) forControlEvents:UIControlEventTouchUpInside];
@@ -97,7 +97,7 @@ static NSString *const cellID = @"PersonalInfoCell";
 - (void)uploadIcon:(UIImage *)image{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/asset/upload"];
-    [HttpNetRequestTool uploadHeaderImage:url paraments:nil imageName:@"image" image:image progress:nil success:^(id Json) {
+    [HttpNetRequestTool uploadHeaderImage:url paraments:@{@"type":@"member"} imageName:@"image" image:image progress:nil success:^(id Json) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
             BaseModel *model = [BaseModel yy_modelWithJSON:Json];
             if (model.code == 1) {
@@ -137,7 +137,7 @@ static NSString *const cellID = @"PersonalInfoCell";
     view.tag = 1000;
     view.selectedRow = -1;
     [view showSelectView:@[@"退出登录后将不能接收航班动态的消息推送和短息提示",@"退出登录",@"取消"]];
-    view.colorLists = @[[UIColor colorWithHexString:@"#333333"],[UIColor colorWithHexString:@"#FF980D"],[UIColor colorWithHexString:@"#2E8BE2"]];
+    view.colorLists = @[[UIColor colorWithHexString:@"#333333"],[UIColor hdMainColor],[UIColor hdMainColor]];
 }
 #pragma mark --选择
 - (void)selectView:(HDSelectView *)view didSelected:(NSInteger)index{
@@ -190,7 +190,7 @@ static NSString *const cellID = @"PersonalInfoCell";
         }
     }
     if (view.tag == 200) {
-        if (index == 1) {
+        if (index == 0) {
             //选择男
             [view hide];
 //           self.detailLists = @[@"",@"张某某",@"男",@"13000000000",@""];
@@ -198,17 +198,17 @@ static NSString *const cellID = @"PersonalInfoCell";
             [self changeSex:@"1"];
             return;
         }
-        if (index == 2) {
+        if (index == 1) {
 //            self.detailLists = @[@"",@"张某某",@"女",@"13000000000",@""];
 //            [self.tableView reloadData];
             [self changeSex:@"2"];
             [view hide];
             return;
         }
-        if (index == 3) {
-            [view hide];
-            return;
-        }
+//        if (index == 3) {
+//            [view hide];
+//            return;
+//        }
     }
 }
 #pragma mark --照相
@@ -379,17 +379,22 @@ static NSString *const cellID = @"PersonalInfoCell";
         case 2:{
             //性别
             HDSelectView *view = [[HDSelectView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT)];
+            view.isAutoDismiss = YES;
+
             view.delegate = self;
             view.tag = 200;
             if ([self.userInfo.sex isEqualToString:@"1"]) {
-                view.selectedRow = 1;
+                view.selectedRow = 0;
             }else if ([self.userInfo.sex isEqualToString:@"2"]){
-                view.selectedRow = 2;
-            }else{
-                view.selectedRow = -1;
+                view.selectedRow = 1;
             }
-            [view showSelectView:@[@"选择性别",@"男",@"女",@"取消"]];
-          view.colorLists = @[[UIColor colorWithHexString:@"#333333"],[UIColor colorWithHexString:@"#2E8BE2"],[UIColor colorWithHexString:@"#2E8BE2"],[UIColor colorWithHexString:@"#2E8BE2"]];
+//            else{
+//                view.selectedRow = -1;
+//            }
+//            [view showSelectView:@[@"选择性别",@"男",@"女",@"取消"]];
+            [view showSelectView:@[@"男",@"女"]];
+
+          view.colorLists = @[[UIColor colorWithHexString:@"#2E8BE2"],[UIColor colorWithHexString:@"#2E8BE2"],[UIColor colorWithHexString:@"#2E8BE2"]];
         }
             break;
         case 3:{

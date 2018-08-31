@@ -104,33 +104,34 @@
             }
             cell.orderNoLB.text = [NSString stringWithFormat:@"订单号：%@",self.orderChangeModel.orderno];
             return cell;
+            // pisenshfw8
         }
-//        if (self.isPet) {
-//            static NSString *const typePetCellID = @"OrderChangeTypePetCell";
-//            OrderChangeTypePetCell *cell = [tableView dequeueReusableCellWithIdentifier:typePetCellID];
-//            if (!cell) {
-//                cell = [[[NSBundle mainBundle] loadNibNamed:typePetCellID owner:self options:nil] objectAtIndex:0];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            }
-//            __block typeof(self) weakSelf = self;
-//            cell.ruleBlock = ^{
-//                [weakSelf ruleAction];
-//            };
-//            cell.changeStatusLB.text = [self.orderChangeModel getChangeStateFromCode];
-//            if ([self.orderChangeModel.changestate integerValue] >= 7) {
-//                cell.feeTitleLB.hidden = NO;
-//                cell.feeLB.hidden = NO;
-//                cell.feeLB.text = [NSString stringWithFormat:@"￥%@",self.orderChangeModel.poundagefee];
-//            }else{
-//                cell.feeTitleLB.hidden = YES;
-//                cell.feeLB.hidden = YES;
-//            }
-//            cell.orderNoLB.text = [NSString stringWithFormat:@"订单号：%@",self.orderChangeModel.orderno];
-//            cell.petNoLB.text = [NSString stringWithFormat:@"宠物编号：%@",self.orderChangeModel.orderno];
-//            return cell;
-//        }else{
-//
-//        }
+        //        if (self.isPet) {
+        //            static NSString *const typePetCellID = @"OrderChangeTypePetCell";
+        //            OrderChangeTypePetCell *cell = [tableView dequeueReusableCellWithIdentifier:typePetCellID];
+        //            if (!cell) {
+        //                cell = [[[NSBundle mainBundle] loadNibNamed:typePetCellID owner:self options:nil] objectAtIndex:0];
+        //                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //            }
+        //            __block typeof(self) weakSelf = self;
+        //            cell.ruleBlock = ^{
+        //                [weakSelf ruleAction];
+        //            };
+        //            cell.changeStatusLB.text = [self.orderChangeModel getChangeStateFromCode];
+        //            if ([self.orderChangeModel.changestate integerValue] >= 7) {
+        //                cell.feeTitleLB.hidden = NO;
+        //                cell.feeLB.hidden = NO;
+        //                cell.feeLB.text = [NSString stringWithFormat:@"￥%@",self.orderChangeModel.poundagefee];
+        //            }else{
+        //                cell.feeTitleLB.hidden = YES;
+        //                cell.feeLB.hidden = YES;
+        //            }
+        //            cell.orderNoLB.text = [NSString stringWithFormat:@"订单号：%@",self.orderChangeModel.orderno];
+        //            cell.petNoLB.text = [NSString stringWithFormat:@"宠物编号：%@",self.orderChangeModel.orderno];
+        //            return cell;
+        //        }else{
+        //
+        //        }
     }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
@@ -211,9 +212,9 @@
         if (indexPath.row == 1) {
             return 50;
         }
-//        if (self.isPet) {
-//            return 100;
-//        }
+        //        if (self.isPet) {
+        //            return 100;
+        //        }
         return 80;
     }
     if (indexPath.section == 1) {
@@ -263,6 +264,7 @@
         }else{
             OrderPayController *vc = [[OrderPayController alloc] init];
             vc.isOrderChangePay = YES;
+            vc.isPet = self.isPet;
             vc.totalPrice = [self.orderChangeModel.poundagefee doubleValue];
             vc.changeno = self.orderChangeModel.changeno;
             vc.start_city_name = self.orderChangeModel.cur.start_city_name;

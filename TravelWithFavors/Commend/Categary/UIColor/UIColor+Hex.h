@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (Hex)
+//绘制渐变色颜色的方法
++ (CAGradientLayer *)setGradualChangingColor:(UIView *)view;
 + (UIColor *)colorWithHexString:(NSString *)color;
-+ (UIColor *)hdOrganColor;
+
 + (UIColor *)hdBackColor;
++ (UIColor *)hdTextColor;
++ (UIColor *)hdTipTextColor;
++ (UIColor *)hdPlaceHolderColor;
 + (UIColor *)hdMainColor;
++ (UIColor *)hdRedColor;
++ (UIColor *)hdSepreViewColor;
 + (UIColor *)hdTableViewBackGoundColor;
-+ (UIColor *)hdYellowColor;
+
 @end

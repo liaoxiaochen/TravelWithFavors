@@ -35,6 +35,7 @@
 @property (nonatomic, copy) NSString *create_at;
 @property (nonatomic, copy) NSString *update_at;
 @property (nonatomic, copy) NSString *user_id;
+@property (nonatomic, strong) NSNumber *sex;
 @property (nonatomic, assign) BOOL isSelected;
 
 + (NSArray *)getMyPetInfoLists:(id)data;

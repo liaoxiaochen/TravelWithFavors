@@ -85,7 +85,9 @@
 @property (nonatomic, copy) NSString *over_pay_at;
 @property (nonatomic, copy) NSString *i_price;
 @property (nonatomic, copy) NSString *order_type;
+@property (nonatomic, copy) NSString *have_pet;
 
 + (HRorderModel *)getOrderInfo:(id)data;
 -(NSString *)getflightStatusFromCode;
+-(NSString *)getOrderStatusFromCode;
 @end

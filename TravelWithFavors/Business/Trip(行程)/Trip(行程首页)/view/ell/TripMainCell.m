@@ -28,21 +28,26 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderTypeLB;
 @property (weak, nonatomic) IBOutlet UIImageView *orderTypeImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *orderStatusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *petLabel;
+
+
 @end
 
 @implementation TripMainCell
 
-- (void)awakeFromNib {
+
+ - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    self.bgView.layer.cornerRadius = 5;
-    self.bgView.layer.masksToBounds = YES;
+     
+     self.bgView.size = CGSizeMake([UIScreen mainScreen].bounds.size.width - 20, 170);
+      [UIView addShadowToView:self.bgView withOpacity:0.8 shadowRadius:3 andCornerRadius:5];
 }
 
 -(void)setOrderModel:(HRorderModel *)orderModel{
     _orderModel = orderModel;
     _timeLabel.text = [NSDate getDateTime:orderModel.take_off_time formart:@"yyyy-MM-dd EEEE"];
-    _chineseLabel.text = orderModel.airline_company_name;
+    _chineseLabel.text = [NSString stringWithFormat:@"%@%@", orderModel.airline_company_name, orderModel.flight_number];
     _englishLabel.text = @"";
     
     _leftLabel.text = orderModel.airport1_code;
@@ -58,13 +63,26 @@
     _orderTypeImageView.hidden = YES;
     if ([@"2" isEqualToString:orderModel.order_type]) {
         _orderTypeLB.text = @"（返）";
-        _orderTypeLB.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _orderTypeLB.textColor = [UIColor hdMainColor];
         _orderTypeImageView.image = [UIImage imageNamed:@"fan.png"];
     }else{
         _orderTypeLB.text = @"（去）";
         _orderTypeLB.textColor = [UIColor colorWithHexString:@"#5E72AC"];
         _orderTypeImageView.image = [UIImage imageNamed:@"qu.png"];
     }
+    if ([orderModel.order_status integerValue] == 0 || [orderModel.order_status integerValue] == 1 || [orderModel.order_status integerValue] == 2) {
+        _orderStatusLabel.textColor = [UIColor hdMainColor];
+    }else {
+        _orderStatusLabel.textColor = [UIColor hdTextColor];
+    }
+    _orderStatusLabel.text = [NSString stringWithFormat:@"-%@-",[orderModel getOrderStatusFromCode]];
+    if ([orderModel.have_pet integerValue]) {
+        _petLabel.hidden = NO;
+    }else {
+        _petLabel.hidden = YES;
+    }
+    
+    
 }
 
 @end

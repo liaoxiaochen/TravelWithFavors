@@ -35,7 +35,7 @@ static NSString *const cellID = @"MyLevelCollectionCell";
     if (level >= 0 && level < self.levelLists.count) {
         NSDictionary *dict = self.levelLists[level];
         self.levelLabel.text = dict[@"title"];
-        self.levelLabel.textColor = [UIColor hdYellowColor];
+        self.levelLabel.textColor = [UIColor hdMainColor];
        
     }else{
         self.levelLabel.text = @"您还不是会员";

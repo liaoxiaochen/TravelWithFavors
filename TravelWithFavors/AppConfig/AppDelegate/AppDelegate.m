@@ -18,16 +18,23 @@
 #import <AVFoundation/AVFoundation.h>
 // 引入JPush功能所需头文件
 #import "JPUSHService.h"
+
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+
 // iOS10注册APNs所需头文件
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
 #import <UMShare/UMShare.h>
+#import <UMCommon/UMCommon.h>
+#import <UMAnalytics/MobClick.h>
+#import "HCWGuideView.h"
 
 #define UMKEY @"5b45aac5f43e48625400009e"
 
 #define WXAPP @"wx9d1256c03b9bf18d"
-static NSString *const jpushAppKey = @"8000c54bb03fb02d7c1c1e6c";
+static NSString *const jpushAppKey = @"442327c862aa3647f1ed037e";
 
 #ifdef DEBUG
 #define CHANNEL @"debug"
@@ -50,12 +57,18 @@ static NSString *const jpushAppKey = @"8000c54bb03fb02d7c1c1e6c";
     
     [self registerJPush:launchOptions];
     [WXApi registerApp:WXAPP];
+    
+    [AMapServices sharedServices].apiKey =@"38ef33ec873a81143c845670e0348820";
+    [UMConfigure initWithAppkey:@"5b45aac5f43e48625400009e" channel:@"App Store"];
+    [MobClick setCrashReportEnabled:YES];
     [self configUSharePlatforms];
     [self confitUShareSettings];
     
     [self mainVC];
     [self clearCookie];
     [self guideVC];
+ 
+ 
     return YES;
 }
 - (void)clearCookie{
@@ -66,9 +79,20 @@ static NSString *const jpushAppKey = @"8000c54bb03fb02d7c1c1e6c";
     }
 }
 - (void)guideVC{
-    GuideViewController *vc = [[GuideViewController alloc] init];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
+    
+    if (iPhone5SE) {
+        [HCWGuideView showGuideViewWithImages:@[@"guide1_640.jpg",@"guide2_640.jpg"]];
+     } else if (iPhone6_6s) {
+        [HCWGuideView showGuideViewWithImages:@[@"guide1_750.jpg",@"guide2_750.jpg"]];
+     }else if (iPhone6Plus_6sPlus) {
+        [HCWGuideView showGuideViewWithImages:@[@"guide1_1125.jpg",@"guide2_1125.jpg"]];
+     }else {
+        [HCWGuideView showGuideViewWithImages:@[@"guide1_1242.jpg",@"guide2_1242.jpg"]];
+     }
+ 
+//    GuideViewController *vc = [[GuideViewController alloc] init];
+//    self.window.rootViewController = vc;
+//    [self.window makeKeyAndVisible];
 }
 - (void)mainVC{
     HDTabBarController *tabbarVC = [[HDTabBarController alloc] init];
@@ -299,47 +323,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
--(void)speakWithStr:(NSString *)str{
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:str];
-    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-    [synth speakUtterance:utterance];
-}
 
 #pragma mark   ==============友盟分享==============
 
 - (void)confitUShareSettings
 {
     [[UMSocialManager defaultManager] setUmSocialAppkey:UMKEY];
-    /*
-     * 打开图片水印
-     */
-    //[UMSocialGlobal shareInstance].isUsingWaterMark = YES;
-    /*
-     * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
-     <key>NSAppTransportSecurity</key>
-     <dict>
-     <key>NSAllowsArbitraryLoads</key>
-     <true/>
-     </dict>
-     */
-    //[UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
 }
 
 - (void)configUSharePlatforms
 {
-    /* 设置微信的appKey和appSecret */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx6aff72c1bc1cdc93" appSecret:@"8773ae04094d8784740be0cd4f2375b3" redirectURL:@"http://mobile.umeng.com/social"];
-    /*
-     * 移除相应平台的分享，如微信收藏
-     */
-    //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
-    /* 设置分享到QQ互联的appID
-     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
-     */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1106756969"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-    /* 设置新浪的appKey和appSecret */
+    // 新 wx3b0c592e206bd49f 1d50481757c1c94a0be6568b2786caa7
+    // 老 wx6aff72c1bc1cdc93 8773ae04094d8784740be0cd4f2375b3
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx3b0c592e206bd49f" appSecret:@"1d50481757c1c94a0be6568b2786caa7" redirectURL:@"http://mobile.umeng.com/social"];
+    // 新key:1107519169
+    // 老key:1106756969
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1107519169"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
-
 }
 
 #pragma mark   ==============支付宝回调==============
@@ -441,8 +441,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         [[AppConfig currentViewController].navigationController pushViewController:vc animated:YES];
     }
 }
-
-//测试使用   将通知的值显示在主界面上
+-(void)speakWithStr:(NSString *)str{
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:str];
+    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+    [synth speakUtterance:utterance];
+}
+//测试使用将通知的值显示在主界面上
 - (void)showLabelWithUserInfo:(NSDictionary *)userInfo color:(UIColor *)color
 {
     UILabel *label = [UILabel new];

@@ -10,10 +10,10 @@
 
 @implementation NSDate (Time)
 + (NSString *)getDateTime:(NSString *)time formart:(NSString *)format{
-    // iOS 生成的时间戳是10位
+    
+     // iOS 生成的时间戳是10位
     NSTimeInterval interval    =[time doubleValue];
     NSDate *date               = [NSDate dateWithTimeIntervalSince1970:interval];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:format];
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];

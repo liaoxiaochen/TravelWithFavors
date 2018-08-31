@@ -36,7 +36,10 @@ static NSString *const cellID = @"FlightSearchJourneyDetailCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor hdMainColor];
+
+    UIView *sysView = [[UIView alloc] initWithFrame:self.view.frame];
+    [sysView.layer addSublayer:[UIColor setGradualChangingColor:self.view]];
+    [self.view insertSubview:sysView atIndex:0];
     [self setCustomNavigationTitleView];
     [self configView];
     [self getDetailData];
@@ -194,7 +197,7 @@ static NSString *const cellID = @"FlightSearchJourneyDetailCell";
 #pragma mark --UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 12;
+    return 5;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    OrderDetailInfoController *vc = [[OrderDetailInfoController alloc] init];
@@ -206,7 +209,7 @@ static NSString *const cellID = @"FlightSearchJourneyDetailCell";
 - (FlightSearchJourneyDetailHeaderView *)headerView{
     if (!_headerView) {
         _headerView = [[[NSBundle mainBundle] loadNibNamed:@"FlightSearchJourneyDetailHeaderView" owner:self options:nil] objectAtIndex:0];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 280);
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 285 );
         _headerView.backgroundColor = [UIColor clearColor];
     }
     return _headerView;

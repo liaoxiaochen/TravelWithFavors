@@ -965,7 +965,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
                 _preferredHeaderHeight = FSCalendarStandardHeaderHeight*MAX(1, FSCalendarDeviceIsIPad*1.5);
             }
         }
-        return _preferredHeaderHeight;
+        return _preferredHeaderHeight ;
     }
     return _headerHeight;
 }

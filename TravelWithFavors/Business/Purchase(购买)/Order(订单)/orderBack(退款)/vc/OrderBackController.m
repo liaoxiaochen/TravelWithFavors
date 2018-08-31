@@ -135,6 +135,8 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:flightCellID owner:self options:nil] objectAtIndex:0];
     }
     cell.orderModel = self.orderRefundModel.flight;
+    cell.start_city_name = self.start_city_name;
+    cell.to_city_name = self.to_city_name;
     return cell;
 }
 

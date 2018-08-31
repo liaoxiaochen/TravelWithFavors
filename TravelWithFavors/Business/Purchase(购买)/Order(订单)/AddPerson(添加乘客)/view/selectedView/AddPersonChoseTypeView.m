@@ -23,19 +23,18 @@ static CGFloat const headerH = 56;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+        CGFloat H = self.list.count *rowHight + headerH;
+        self.bgView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, H);
+        self.header.frame = CGRectMake(0, 0, self.bgView.bounds.size.width, headerH);
+        self.tableView.frame = CGRectMake(0, headerH, self.bgView.bounds.size.width, self.bgView.bounds.size.height - headerH);
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:self.bgView];
         [self.bgView addSubview:self.header];
         [self.bgView addSubview:self.tableView];
     }
     return self;
 }
-- (void)layoutSubviews{
-    [super layoutSubviews];
-    CGFloat H = self.list.count *rowHight + headerH;
-    self.bgView.frame = CGRectMake(36, (self.bounds.size.height - H)/2, self.bounds.size.width - 72, H);
-    self.header.frame = CGRectMake(0, 0, self.bgView.bounds.size.width, headerH);
-    self.tableView.frame = CGRectMake(0, headerH, self.bgView.bounds.size.width, self.bgView.bounds.size.height - headerH);
-}
+
 - (void)setTitleString:(NSString *)titleString{
     _titleString = titleString;
     self.header.text = titleString;
@@ -50,9 +49,22 @@ static CGFloat const headerH = 56;
 }
 - (void)showAddPersonChoseTypeView{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    CGFloat H = self.list.count *rowHight + headerH;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bgView.frame = CGRectMake(0, self.bounds.size.height - H, self.bounds.size.width, H);
+    }];
+    
 }
 - (void)dismiss{
-    [self removeFromSuperview];
+    CGFloat H = self.list.count *rowHight + headerH;
+
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bgView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, H);
+
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+    
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [[event allTouches] anyObject];
@@ -69,6 +81,7 @@ static CGFloat const headerH = 56;
     AddPersonChoseTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     cell.typeLabel.text = self.list[indexPath.row];
     cell.typeImageView.hidden = !(self.selectedIndex == indexPath.row);
+    
     return cell;
 }
 #pragma mark --UITableViewDelegate
@@ -116,7 +129,7 @@ static CGFloat const headerH = 56;
 }
 - (NSArray *)list{
     if (!_dataLists) {
-        _list = @[@"身份证",@"护照",@"港澳台通行证",@"台胞证"];
+        _list = @[@"身份证",@"护照",@"港澳通行证",@"台胞证"];
     }
     return _list;
 }

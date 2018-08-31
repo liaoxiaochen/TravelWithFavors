@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tableView.backgroundColor = [UIColor hdMainColor];
+    self.tableView.backgroundColor = [UIColor hdTableViewBackGoundColor];
 //    self.tableView.rowHeight = 400;
 }
 #pragma mark - UITableViewDelegate,UITableViewDataSource
@@ -29,6 +29,10 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         static NSString *const cellID = @"TripPetInfoCell";

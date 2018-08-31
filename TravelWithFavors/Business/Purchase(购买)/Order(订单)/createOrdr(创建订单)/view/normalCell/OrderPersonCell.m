@@ -21,7 +21,7 @@ static NSString *const cellID = @"OrderPersonAddCell";
     [super awakeFromNib];
     // Initialization code
     self.addBtn.layer.cornerRadius = 3;
-    self.addBtn.layer.borderColor = [UIColor colorWithHexString:@"#FF980D"].CGColor;
+    self.addBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
     self.addBtn.layer.borderWidth = 1;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -68,9 +68,6 @@ static NSString *const cellID = @"OrderPersonAddCell";
     return cell;
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
-//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    return UIEdgeInsetsMake(0, 10, 0, 10);
-//}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //    NSMutableArray *lists = [NSMutableArray arrayWithArray:self.seletedLists];
     passengerModel *model = self.dataLists[indexPath.row];

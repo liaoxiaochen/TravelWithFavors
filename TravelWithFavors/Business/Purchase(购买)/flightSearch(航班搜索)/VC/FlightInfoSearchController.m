@@ -15,6 +15,8 @@
 #import "CityInfo.h"
 #import "HRfunctionButton.h"
 #import "NSDate+RMCalendarLogic.h"
+#import "RangePickerViewController.h"
+
 static NSString *const cellID = @"FlightSearchCell";
 @interface FlightInfoSearchController ()
 @property (nonatomic, strong) FlightSearchHeaderView *headerView;
@@ -44,7 +46,11 @@ static NSString *const cellID = @"FlightSearchCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor hdMainColor];
+    
+    UIView *sysView = [[UIView alloc] initWithFrame:self.view.frame];
+    [sysView.layer addSublayer:[UIColor setGradualChangingColor:self.view]];
+    [self.view insertSubview:sysView atIndex:0];
+    
     [self setCustomNavigationTitleView];
     [self configView];
     [self setUpBottomToolBar];
@@ -67,26 +73,59 @@ static NSString *const cellID = @"FlightSearchCell";
     };
     self.headerView.calendarBlock = ^{
         debugLog(@"点击了日历");
-        RMCalendarController *c = [RMCalendarController calendarWithDays:365 showType:CalendarShowTypeMultiple];
-        c.isEnable = YES;
-        c.hidesBottomBarWhenPushed = YES;
-        c.title = @"日历";
-        c.calendarBlock = ^(RMCalendarModel *model) {
+//        RMCalendarController *c = [RMCalendarController calendarWithDays:365 showType:CalendarShowTypeMultiple];
+//        c.isEnable = YES;
+//        c.hidesBottomBarWhenPushed = YES;
+//        c.title = @"日历";
+//        c.calendarBlock = ^(RMCalendarModel *model) {
+////            NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)model.year,(unsigned long)model.month,(unsigned long)model.day,[model getWeek]];
+//            if ([@"3" isEqualToString:weakSelf.ride_type]) {
+//                weakSelf.endTime = model;
+//                weakSelf.headerView.dateTime = model;
+//            }else{
+//                weakSelf.startTime = model;
+//                weakSelf.headerView.dateTime = model;
+//            }
+//            [weakSelf.navigationController popViewControllerAnimated:YES];
+//            [weakSelf.tableView.mj_header beginRefreshing];
+//        };
+//        [weakSelf.navigationController pushViewController:c animated:YES];
+//
+        
+        RangePickerViewController *vc = [[RangePickerViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        
+        vc.isBackTracking = NO;
+        vc.nowSelectComeDateModel = weakSelf.startTime;
+
+        vc.calendarRangeBlock = ^(NSMutableDictionary *dic) {
             
-//            NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)model.year,(unsigned long)model.month,(unsigned long)model.day,[model getWeek]];
             if ([@"3" isEqualToString:weakSelf.ride_type]) {
-                weakSelf.endTime = model;
-                weakSelf.headerView.dateTime = model;
-            }else{
-                weakSelf.startTime = model;
-                weakSelf.headerView.dateTime = model;
+                RMCalendarModel *backModel = dic[@"comeDate"];
+                if (backModel) {
+                    weakSelf.endTime = backModel;
+                    weakSelf.headerView.dateTime = backModel;
+                }
+            }else {
+                RMCalendarModel *comModel = dic[@"comeDate"];
+                if (comModel) {
+                    weakSelf.startTime = comModel;
+                    weakSelf.headerView.dateTime = comModel;
+                }
             }
+            
             [weakSelf.navigationController popViewControllerAnimated:YES];
             [weakSelf.tableView.mj_header beginRefreshing];
+
         };
-        [weakSelf.navigationController pushViewController:c animated:YES];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     };
+    
+    
+    
+    
 }
+
 - (void)setCustomNavigationTitleView{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, [AppConfig getNavigationBarHeight])];
     view.backgroundColor = [UIColor hdMainColor];
@@ -136,9 +175,13 @@ static NSString *const cellID = @"FlightSearchCell";
 }
 -(void)setUpBottomToolBar{
     CGFloat toolBarH = 50;
-    self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - [AppConfig getButtomHeight] - toolBarH);
+    self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - toolBarH);
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tableView.frame), SCREEN_WIDTH, toolBarH)];
-    view.backgroundColor = [UIColor colorWithHexString:@"#272D45"];
+    view.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
+    view.layer.shadowColor = [UIColor hdPlaceHolderColor].CGColor;
+    view.layer.shadowOpacity = 0.8f;
+    view.layer.shadowOffset = CGSizeMake(1, 1);
     [self.view addSubview:view];
     
     HRfunctionButton *timeBtn = [[HRfunctionButton alloc] init];
@@ -147,10 +190,10 @@ static NSString *const cellID = @"FlightSearchCell";
     timeBtn.bounds = CGRectMake(0, 0, SCREEN_WIDTH/2, toolBarH);
     timeBtn.selected = YES;
     [timeBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [timeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [timeBtn setTitleColor:[UIColor colorWithHexString:@"#5A6FA6"] forState:UIControlStateSelected];
-    [timeBtn setImage:[UIImage imageNamed:@"ic_sx_time"] forState:UIControlStateNormal];
-    [timeBtn setImage:[UIImage imageNamed:@"ic_sx_xtime"] forState:UIControlStateSelected];
+    [timeBtn setTitleColor:[UIColor colorWithHexString:@"cdcdcd"] forState:UIControlStateNormal];
+    [timeBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateSelected];
+    [timeBtn setImage:[UIImage imageNamed:@"buytickets_time"] forState:UIControlStateNormal];
+    [timeBtn setImage:[UIImage imageNamed:@"buytickets_timecolor"] forState:UIControlStateSelected];
     [timeBtn setTitle:@"时间" forState:UIControlStateNormal];
     [timeBtn setTitle:@"出发早⇀晚" forState:UIControlStateSelected];
     [timeBtn addTarget:self action:@selector(sorting:) forControlEvents:UIControlEventTouchUpInside];
@@ -162,10 +205,10 @@ static NSString *const cellID = @"FlightSearchCell";
     feeBtn.center = CGPointMake(SCREEN_WIDTH*0.75, toolBarH/2);
     feeBtn.bounds = CGRectMake(0, 0, SCREEN_WIDTH/2, toolBarH);
     [feeBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [feeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [feeBtn setTitleColor:[UIColor colorWithHexString:@"#5A6FA6"] forState:UIControlStateSelected];
-    [feeBtn setImage:[UIImage imageNamed:@"ic_sx_jg"] forState:UIControlStateNormal];
-    [feeBtn setImage:[UIImage imageNamed:@"ic_s_xjg"] forState:UIControlStateSelected];
+    [feeBtn setTitleColor:[UIColor colorWithHexString:@"cdcdcd"] forState:UIControlStateNormal];
+    [feeBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateSelected];
+    [feeBtn setImage:[UIImage imageNamed:@"buytickets_money"] forState:UIControlStateNormal];
+    [feeBtn setImage:[UIImage imageNamed:@"buytickets_moneycolor"] forState:UIControlStateSelected];
     [feeBtn setTitle:@"价格" forState:UIControlStateNormal];
     [feeBtn setTitle:@"价格低⇀高" forState:UIControlStateSelected];
     [feeBtn addTarget:self action:@selector(sorting:) forControlEvents:UIControlEventTouchUpInside];
@@ -178,7 +221,19 @@ static NSString *const cellID = @"FlightSearchCell";
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = self.headerView;
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
+//    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
+    
+     MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
+     [header setImages:@[[UIImage imageNamed:@"mao"]] forState:MJRefreshStateIdle];
+//     [header setImages:pullingImages forState:MJRefreshStatePulling];
+//     [header setImages:refreshingImages forState:MJRefreshStateRefreshing];
+    
+    self.tableView.mj_header = header;
+    header.stateLabel.textColor = [UIColor whiteColor];
+    header.lastUpdatedTimeLabel.textColor = [UIColor whiteColor];
+     header.lastUpdatedTimeLabel.hidden = YES;
+//
+//     header.stateLabel.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)getData{
@@ -208,7 +263,7 @@ static NSString *const cellID = @"FlightSearchCell";
                  @"choose_time":back_time,@"end_time":self.journeyEndTime?:@"",
                 @"order_type":order_type,@"order_value":order_value};
     }
-    HRLog(@"dict = %@",dict)
+//    HRLog(@"dict = %@",dict)
     [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url paraments:dict success:^(id Json) {
         [self.tableView.mj_header endRefreshing];
         self.headerView.userInteractionEnabled = true;
@@ -290,7 +345,7 @@ static NSString *const cellID = @"FlightSearchCell";
 #pragma mark --UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 12;
+    return 5;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -326,9 +381,7 @@ static NSString *const cellID = @"FlightSearchCell";
             vc.ride_type = @"3";
             vc.price = info.par_price;
             vc.to_flightInfo = self.dataLists[indexPath.section];
-//            dispatch_async(dispatch_get_main_queue(), ^{
                [self.navigationController pushViewController:vc animated:YES];
-//            });
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         }];

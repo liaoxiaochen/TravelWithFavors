@@ -30,12 +30,19 @@
 //金额数字判断
 + (BOOL)isRightInPutOfString:(NSString *) string withInputString:(NSString *) inputString range:(NSRange)range;
 - (BOOL)isNull;
+#pragma mark - 根据身份证号识别
 //身份证号
 + (BOOL)CheckIsIdentityCard: (NSString *)identityCard;
++(NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr;
++ (NSInteger)getIdentityCardSex:(NSString *)numberStr;
++ (NSInteger)getIdentityCardAge:(NSString *)numberStr;
+
 /** 最多保留2位小数 */
 +(NSString *)stringConversionWithNumber:(double)number;
 +(NSString *)stringConversionWithNumber:(double)number afterPoint:(int)position;
 
 + (NSMutableAttributedString *)changeLabelWithMaxString:(NSString *)maxString diffrenIndex:(NSInteger)diffrenIndex maxFont:(NSInteger)maxFont littleFont:(NSInteger)littleFont;
-
++ (NSMutableAttributedString *)changeLabelColorWithMainStr:(NSString *)mainStr diffrenStr:(NSString *)diffrenStr diffrenColor:(UIColor *)diffrenColor;
++ (NSMutableAttributedString *)baselineWithString:(NSString *)baselineString ;
++ (NSMutableAttributedString *)changeLabelColorAndFontWithMainStr:(NSString *)mainStr diffrenStr:(NSString *)diffrenStr diffrenColor:(UIColor *)diffrenColor  diffrenFont:(NSInteger)diffrenFont;
 @end

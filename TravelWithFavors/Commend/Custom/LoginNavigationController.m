@@ -41,6 +41,7 @@
         [self popViewControllerAnimated:YES];
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"notLogin" object:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

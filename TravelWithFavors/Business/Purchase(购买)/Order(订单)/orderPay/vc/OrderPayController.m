@@ -60,7 +60,10 @@
                 }else{
                     cell.routeLB.text = [NSString stringWithFormat:@"单程：%@-%@",self.orderModel.start_city_name,self.orderModel.to_city_name];
                 }
-                cell.firstLineLB.text = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",[NSDate getDateTime:self.orderModel.over_pay_at formart:@"HH:mm"]];
+
+                NSString *totalStr = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",[NSDate getDateTime:self.orderModel.over_pay_at formart:@"HH:mm"]];
+                cell.firstLineLB.attributedText = [NSString changeLabelColorWithMainStr:totalStr diffrenStr:[NSDate getDateTime:self.orderModel.over_pay_at formart:@"HH:mm"] diffrenColor:[UIColor hdMainColor]];
+
                 NSString *time = [NSDate getDateTime:self.orderModel.take_off_time formart:@"yyyy年MM月dd日 HH:mm"];
                 cell.dateTimeLB.text = time;
             }else if(self.isOrderChangePay){//改签支付
@@ -68,7 +71,11 @@
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"HH:mm"];
                 NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
-                cell.firstLineLB.text = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",dateStr];
+//                cell.firstLineLB.text = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",dateStr];
+                
+                NSString *totalStr = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",dateStr];
+                cell.firstLineLB.attributedText = [NSString changeLabelColorWithMainStr:totalStr diffrenStr:dateStr diffrenColor:[UIColor hdMainColor]];
+                
                 NSString *time = [NSDate getDateTime:self.take_off_time formart:@"yyyy年MM月dd日 HH:mm"];
                 cell.dateTimeLB.text = time;
             }else{//下单支付 上个页面获取数据
@@ -77,7 +84,10 @@
                 }else{
                     cell.routeLB.text = [NSString stringWithFormat:@"单程：%@-%@",self.startCity.city_name,self.endCity.city_name];
                 }
-                cell.firstLineLB.text = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",[NSDate getDateTime:self.over_pay_at formart:@"HH:mm"]];
+//                cell.firstLineLB.text = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",[NSDate getDateTime:self.over_pay_at formart:@"HH:mm"]];
+                NSString *totalStr = [NSString stringWithFormat:@"为确保出票，请在%@前完成支付，逾期将自动取消订单。",[NSDate getDateTime:self.over_pay_at formart:@"HH:mm"]];
+                cell.firstLineLB.attributedText = [NSString changeLabelColorWithMainStr:totalStr diffrenStr:[NSDate getDateTime:self.over_pay_at formart:@"HH:mm"] diffrenColor:[UIColor hdMainColor]];
+                
                 NSString *time = [NSDate getDateTime:self.dateTime formart:@"yyyy年MM月dd日 HH:mm"];
                 cell.dateTimeLB.text = time;
             }
@@ -123,6 +133,8 @@
                     cell.petPriceLB.text = [NSString stringWithFormat:@"￥%@",[NSString stringConversionWithNumber:50]];//宠物舱单价50这里接口没有返回，固定50元
                     cell.petCountLB.text = [NSString stringWithFormat:@"%ld只",petCount];
                     
+                    cell.petViewHeight.constant = (self.isPet > 0 ? 26 : 0);
+                    
                 }else{
                     cell.phoneLB.text = self.phoneNumber;
                     cell.passengerLB.text = self.passengerNames;
@@ -136,6 +148,8 @@
                     cell.fuelCountLB.text = [NSString stringWithFormat:@"%ld人",self.fuelCount];
                     cell.insuranceCountLB.text = [NSString stringWithFormat:@"%ld人",self.insuranceCount];
                     cell.petCountLB.text = [NSString stringWithFormat:@"%ld只",self.petCount];
+                    
+                    cell.petViewHeight.constant = (self.isPet > 0 ? 26 : 0);
                 }
                 return cell;
             }
@@ -203,7 +217,11 @@
             return 120;
         }
         if (indexPath.row == 1) {
-            return self.isOpen ? 253 : 64;
+            if (self.isPet) {
+                return self.isOpen ? 253 : 64;
+            }else{
+                return self.isOpen ? (253-26) : 64;
+            }
         }
         return 64;
     }
@@ -245,8 +263,8 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/notify/order/pay"];
     if (self.orderModel) {//重新支付 orderno
-        self.order_number = self.orderModel.orderno;
-        url = [HttpNetRequestTool requestUrlString:@"/notify/order/pay2"];
+        self.order_number = self.orderModel.order_number;
+        url = [HttpNetRequestTool requestUrlString:@"/notify/order/pay"];
     }
     NSDictionary *dict = @{@"order_number":self.order_number,@"pay_type":type};
     [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url outTime:20 paraments:dict isHeader:YES success:^(id Json) {

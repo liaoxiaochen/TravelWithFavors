@@ -17,14 +17,14 @@
     if (self) {
  
         CALayer *selectionLayer = [[CALayer alloc] init];
-        selectionLayer.backgroundColor = [UIColor orangeColor].CGColor;
+        selectionLayer.backgroundColor = [UIColor hdMainColor].CGColor;
         selectionLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
         [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
         self.selectionLayer = selectionLayer;
 
 
         CALayer *middleLayer = [[CALayer alloc] init];
-        middleLayer.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3].CGColor;
+        middleLayer.backgroundColor = [[UIColor hdMainColor] colorWithAlphaComponent:0.3].CGColor;
         middleLayer.actions = @{@"hidden":[NSNull null]}; // Remove hiding animation
         [self.contentView.layer insertSublayer:middleLayer below:self.titleLabel.layer];
         self.middleLayer = middleLayer;
@@ -47,7 +47,7 @@
 {
     [super layoutSublayersOfLayer:layer];
     
-    CGFloat width = self.contentView.frame.size.width / 3 * 2;
+    CGFloat width = self.contentView.frame.size.width / 3 * 1.8;
     CGFloat widthSpace = (self.contentView.frame.size.width - width) / 2;
     CGFloat heightSpace = (self.contentView.frame.size.height - width) / 2;
     
@@ -55,10 +55,11 @@
     self.selectionLayer.cornerRadius = width / 2;
     self.selectionLayer.masksToBounds = YES;
     
-    
     self.middleLayer.frame = CGRectMake(widthSpace, heightSpace, width, width);
     self.middleLayer.cornerRadius = width / 2;
     self.middleLayer.masksToBounds = YES;
+    
+    
 }
 
  

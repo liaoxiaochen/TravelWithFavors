@@ -21,7 +21,7 @@ static NSString *const cellID = @"OrderChangePopupCell";
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
-        self.bgView.frame = CGRectMake(40, (frame.size.height - 280 - 48)/2, frame.size.width - 80, 280);
+        self.bgView.frame = CGRectMake(40, (frame.size.height - 400 - 48)/2, frame.size.width - 80, 400);
         self.header.frame = CGRectMake(0, 0, self.bgView.bounds.size.width, 50);
         self.tableView.frame = CGRectMake(0, 50, self.bgView.bounds.size.width, self.bgView.bounds.size.height - 50);
         self.closeBtn.frame = CGRectMake((frame.size.width - 60)/2, CGRectGetMaxY(self.bgView.frame) + 8, 60, 40);
@@ -50,6 +50,11 @@ static NSString *const cellID = @"OrderChangePopupCell";
     OrderChangePopupCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     cell.titleLabel.text = self.dataLists[indexPath.row];
     return cell;
+}
+
+- (void)setHeaderText:(NSString *)headerText {
+    _headerText = headerText;
+    _header.text = _headerText;
 }
 #pragma mark --load--
 - (UIView *)bgView{

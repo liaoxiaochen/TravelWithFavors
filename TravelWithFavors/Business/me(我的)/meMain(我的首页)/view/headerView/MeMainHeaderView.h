@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *jifenLabel;
-@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+
 @property (nonatomic, strong) PersonalInfo *info;
 @property (nonatomic, copy) void (^jifenBlock)(void);
 @property (nonatomic, copy) void (^levelBlock)(void);

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class CityInfo;
 
 @interface AppConfig : NSObject
 + (void)setLoginState:(BOOL)state;
@@ -29,4 +30,10 @@
 + (CGFloat)getButtomHeight;
 //获取Window当前显示的ViewController
 + (UIViewController*)currentViewController;
+
++(void)recordCityWithKey:(BOOL)isStartCity cityDic:(CityInfo *)cityInfo;
++(CityInfo *)returnCityInfo:(BOOL)isStartCity;
+
+
+
 @end

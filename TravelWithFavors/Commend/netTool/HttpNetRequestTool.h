@@ -13,11 +13,22 @@ typedef NS_ENUM(NSUInteger,HttpNetRequestType){
     HttpNetRequestGet = 0,
     HttpNetRequestPost
 };
+typedef NS_ENUM(NSInteger, PayWay)
+{
+    AliPayWay = 0,
+    WeChatPayWay,
+};
+typedef NS_ENUM(NSInteger, LogisticWay)
+{
+    ShunFengWay = 0,
+    EMSWay,
+};
 typedef void(^HttpRequestSuccessBlock)(id Json);
 typedef void(^HttpRequestFailureBlock)(NSString *error);
 typedef void(^downloadProgress)(float progress);
 @interface HttpNetRequestTool : NSObject
 + (NSString *)requestUrlString:(NSString *)url;
+ 
 /**
  *  带超时、进度请求
  *

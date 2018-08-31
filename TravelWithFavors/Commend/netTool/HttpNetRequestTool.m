@@ -12,7 +12,13 @@
 #import "LoginController.h"
 #import "LoginNavigationController.h"
 
-NSString *const base_url = @"http://xiechong.hlhjapp.com";
+//NSString *const base_url = @"http://xiechong.hlhjapp.com";
+NSString *const base_url = @"http://192.168.1.102:8080/api";
+//NSString *const base_url = @"http://192.168.1.187:8080/api";
+//NSString *const base_url = @"http://petravel.cn/api";
+
+NSString *const base_url_new = @"http://192.168.1.102:8080";
+
 NSInteger const outTime = 120;
 @implementation HttpNetRequestTool
 + (void)netRequest:(HttpNetRequestType)type urlString:(NSString *)url paraments:(id)paraments progress:(downloadProgress)progress success:(HttpRequestSuccessBlock)success failure:(HttpRequestFailureBlock)failure{
@@ -23,6 +29,7 @@ NSInteger const outTime = 120;
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.requestSerializer.timeoutInterval = time;
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
+
         if (header) {
             [manager.requestSerializer setValue:[AppConfig getloginID] forHTTPHeaderField:@"uid"];
             [manager.requestSerializer setValue:[AppConfig getLoginToken] forHTTPHeaderField:@"logintoken"];
@@ -76,6 +83,8 @@ NSInteger const outTime = 120;
                 break;
                 
             default:{
+                HRLog(@"paraments %@", paraments);
+                HRLog(@"url %@", url);
                 [manager POST:url parameters:paraments progress:^(NSProgress * _Nonnull uploadProgress) {
                     if (uploadProgress) {
                         if (progress) {
@@ -304,5 +313,7 @@ NSInteger const outTime = 120;
 + (NSString *)requestUrlString:(NSString *)url{
     return [NSString stringWithFormat:@"%@%@",base_url,url];
 }
+
+
 
 @end

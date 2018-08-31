@@ -15,7 +15,12 @@
 @property (nonatomic, strong) FlightDetailInfoForOrderModel *to;
 @property (nonatomic, strong) FlightDetailInfoForOrderModel *back;
 @property (nonatomic, copy) NSString *pet_price;
-@property (nonatomic, copy) NSString *pay_odds;
+//@property (nonatomic, copy) NSString *pay_odds;
+
+@property (nonatomic, copy) NSString *pay_oddsW;
+@property (nonatomic, copy) NSString *pay_oddsA;
+
+
 @property (nonatomic, strong) NSArray<passengerModel *> *passenger;
 @property (nonatomic, strong) NSArray<MyPetInfo *> *pet;
 @property (nonatomic, strong) NSArray *insurance;

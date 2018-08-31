@@ -28,15 +28,15 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 10)];
     self.tableView.tableHeaderView = view;
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 150)];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 200)];
     
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addBtn.frame = CGRectMake((footer.bounds.size.width - 150)/2, footer.bounds.size.height - 50, 150, 40);
+    addBtn.frame = CGRectMake((footer.bounds.size.width - 150)/2, footer.bounds.size.height - 100, 150, 40);
     addBtn.adjustsImageWhenHighlighted = NO;
-    addBtn.backgroundColor = [UIColor colorWithHexString:@"#FF980D"];
+    addBtn.backgroundColor = [UIColor hdMainColor];
     [addBtn setTitle:@"新增常用旅客" forState:UIControlStateNormal];
     [addBtn setImage:[UIImage imageNamed:@"zjck"] forState:UIControlStateNormal];
-    addBtn.layer.cornerRadius = 3;
+    addBtn.layer.cornerRadius = 20;
     // 还可增设间距
     CGFloat spacing = 5.0;
     // 图片右移
@@ -113,13 +113,13 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CertificatesInfo *info = self.dataLists[indexPath.section];
-//    if ([info.card_type isEqualToString:@"1"]) {
-        //身份证
-        static NSString *const codeCellID = @"MyCertificatesCodeCell";
-        MyCertificatesCodeCell *cell = [tableView dequeueReusableCellWithIdentifier:codeCellID];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:codeCellID owner:self options:nil] objectAtIndex:0];
-        }
+    //    if ([info.card_type isEqualToString:@"1"]) {
+    //身份证
+    static NSString *const codeCellID = @"MyCertificatesCodeCell";
+    MyCertificatesCodeCell *cell = [tableView dequeueReusableCellWithIdentifier:codeCellID];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:codeCellID owner:self options:nil] objectAtIndex:0];
+    }
     
     if ([info.card_type isEqualToString:@"1"]) {
         cell.cardLabel.text = [NSString stringWithFormat:@"身份证：%@",info.card_no];
@@ -137,30 +137,16 @@
         cell.cardLabel.text = [NSString stringWithFormat:@"台胞证：%@",info.card_no];
         cell.nameLabel.text = [NSString stringWithFormat:@"%@%@",info.surname,info.given_name];
     }
-        return cell;
-//    }
-//    if (indexPath.section == 0) {
-//        //正常的
-//        static NSString *const cellID = @"MyCertificatesCell";
-//        MyCertificatesCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//        if (!cell) {
-//            cell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:self options:nil] objectAtIndex:0];
-//        }
-//        return cell;
-//    }
-//    if (indexPath.section == 1) {
-        //护照
-//    static NSString *const cardCellID = @"MyCertificatesCardCell";
-//    MyCertificatesCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cardCellID];
-//    if (!cell) {
-//            cell = [[[NSBundle mainBundle] loadNibNamed:cardCellID owner:self options:nil] objectAtIndex:0];
-//    }
-//    cell.nameLabel.text = [NSString stringWithFormat:@"%@%@",info.surname,info.given_name];
-//    if ([info.card_type isEqualToString:@"2"]) {
-//        cell.cardLabel
-//    }
-//    return cell;
-//   }
+    NSString *sex;
+    if (info.sex == 0) {
+        sex = @"男";
+    }else {
+        sex = @"女";
+    }
+    cell.sexAndBirthdayLabel.text = [NSString stringWithFormat:@"性别：%@      生日：%@", sex, info.birthday];
+
+    return cell;
+
     
 }
 #pragma mark --UITableViewDelegate
@@ -171,7 +157,7 @@
 //    if (indexPath.section == 1) {
 //        return 108;
 //    }
-    return 84;
+    return 105;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 5;

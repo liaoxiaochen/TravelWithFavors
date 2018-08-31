@@ -57,11 +57,13 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"订单填写";
     [self configView];
+//    [AppConfig getUserName]
+    self.phoneNumberStr = [NSString nullString:@"" dispathString:[AppConfig getUserName]];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     label.font = [UIFont systemFontOfSize:12];
     label.textColor = [UIColor colorWithHexString:@"#999999"];
-    label.text = [NSString stringWithFormat:@"  温馨提示：微信/支付宝平台支付的用户需要支付%@%%的手续费",self.flightOrderInfoModel.pay_odds];
+    label.text = [NSString stringWithFormat:@"  温馨提示：微信/支付宝平台支付的用户需要支付%@%%的手续费",self.flightOrderInfoModel.pay_oddsW];
     self.tableView.tableFooterView = label;
 }
 - (void)configView{
@@ -118,14 +120,14 @@
             [passengerName appendString:@","];
         }
     }
-//    NSMutableString *pet = [[NSMutableString alloc] init];
-//    for (int i = 0; i<self.petSeletedArray.count; i++) {
-//        MyPetInfo *model = self.petSeletedArray[i];
-//        [pet appendString:model.id];
-//        if (i < self.petSeletedArray.count - 1) {
-//            [pet appendString:@","];
-//        }
-//    }
+    //    NSMutableString *pet = [[NSMutableString alloc] init];
+    //    for (int i = 0; i<self.petSeletedArray.count; i++) {
+    //        MyPetInfo *model = self.petSeletedArray[i];
+    //        [pet appendString:model.id];
+    //        if (i < self.petSeletedArray.count - 1) {
+    //            [pet appendString:@","];
+    //        }
+    //    }
     NSMutableString *insurance = [[NSMutableString alloc] init];
     for (int i = 0; i<self.insuranceArray.count; i++) {
         InsuranceModel *model = self.insuranceArray[i];
@@ -155,6 +157,7 @@
             HRLog(@"%@",Json)
             if (model.data[@"order_number"]) {
                 OrderPayController *vc = [[OrderPayController alloc] init];
+                vc.isPet = self.isPet;
                 vc.order_number = model.data[@"order_number"];
                 vc.over_pay_at = model.data[@"over_pay_at"];
                 vc.totalPrice = self.totalPrice;
@@ -196,32 +199,32 @@
 }
 #pragma mark --UITableViewDdatasouce
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (self.isPet) {
-//        return 5;
-//    }else{
-//        return 4;
-//    }
+    //    if (self.isPet) {
+    //        return 5;
+    //    }else{
+    //        return 4;
+    //    }
     return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (self.isPet) {
-//        if (section == 4) {
-//            return self.insuranceArray.count;
-//        }
-//        if (section == 1) {
-//            return self.seletedArray.count + 1;
-//        }
-//        if (section == 2) {
-//            return 1;
-//        }
-//    }else{
-//        if (section == 3) {
-//            return self.insuranceArray.count;
-//        }
-//        if (section == 1) {
-//            return self.seletedArray.count + 1;
-//        }
-//    }
+    //    if (self.isPet) {
+    //        if (section == 4) {
+    //            return self.insuranceArray.count;
+    //        }
+    //        if (section == 1) {
+    //            return self.seletedArray.count + 1;
+    //        }
+    //        if (section == 2) {
+    //            return 1;
+    //        }
+    //    }else{
+    //        if (section == 3) {
+    //            return self.insuranceArray.count;
+    //        }
+    //        if (section == 1) {
+    //            return self.seletedArray.count + 1;
+    //        }
+    //    }
     if (section == 3) {
         return self.insuranceArray.count;
     }
@@ -250,6 +253,7 @@
         __weak typeof(self) weakSelf = self;
         cell.ruleBlock = ^{
             OrderChangePopupView *view = [[OrderChangePopupView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT)];
+            view.headerText = @"退票改签规则";
             if (indexPath.row == 0) {
                 weakSelf.flightOrderInfoModel.isJourney = false;
                 view.dataLists = @[weakSelf.flightOrderInfoModel.to.position.change_text,
@@ -285,7 +289,7 @@
             __weak typeof(self) weakSelf = self;
             cell.addBlock = ^{
                 debugLog(@"新增人员");
-//                [weakSelf addPerson];
+                //                [weakSelf addPerson];
                 AddPersonController *vc = [[AddPersonController alloc] init];
                 vc.cerDataBlock = ^(passengerModel *info) {
                     [weakSelf.passengerArray addObject:info];
@@ -319,9 +323,9 @@
                 seletedModel.pet = nil;
                 
                 [weakSelf updatePrice];
-//                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:3 inSection:0];
-//                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
-
+                //                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:3 inSection:0];
+                //                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
+                
                 [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
             };
             return cell;
@@ -338,52 +342,52 @@
             return cell;
         }
     }
-//    if (self.isPet) {
-//        if (indexPath.section == 2) {
-//            //宠物
-//            static NSString *const petCellID = @"OrderPetCreateCell";
-//            OrderPetCreateCell *cell = [tableView dequeueReusableCellWithIdentifier:petCellID];
-//            if (!cell) {
-//                cell = [[[NSBundle mainBundle] loadNibNamed:petCellID owner:self options:nil] objectAtIndex:0];
-//            }
-//            cell.seletedLists = self.petSeletedArray;
-//            cell.dataLists = self.petArray;
-//            cell.petTitleLB.text = [NSString stringWithFormat:@"携带宠物（最多选择%@只宠物）",self.flightOrderInfoModel.max_pet_num];
-//            __weak typeof(self) weakSelf = self;
-//            cell.addPetBlock = ^{
-//                //添加宠物
-////                OrderPetAddPopupView *vc = [[[NSBundle mainBundle] loadNibNamed:@"OrderPetAddPopupView" owner:weakSelf options:nil] objectAtIndex:0];
-////                vc.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT);
-////                [vc showOrderPetAddPopupView];
-//                MyPetController *vc = [[MyPetController alloc] init];
-//                vc.petDataBlock = ^(MyPetInfo *info) {
-//                    [weakSelf.petArray addObject:info];
-//                    [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
-//                };
-//                [self.navigationController pushViewController:vc animated:YES];
-//            };
-//            cell.selectedBlock = ^(MyPetInfo *seletedModel) {
-//                if (!seletedModel.isSelected) {
-//                    if (weakSelf.petSeletedArray.count >= [self.flightOrderInfoModel.max_pet_num integerValue]){
-//                        [HSToast hsShowBottomWithText:[NSString stringWithFormat:@"最多选择%@只宠物",self.flightOrderInfoModel.max_pet_num]];
-//                    }else{
-//                        seletedModel.isSelected = true;
-//                        [weakSelf.petSeletedArray addObject:seletedModel];
-//                    }
-//                }else{
-//                    if (weakSelf.petSeletedArray.count <= 1) {
-//                        [HSToast hsShowBottomWithText:@"至少选择1只宠物"];
-//                    }else{
-//                        seletedModel.isSelected = false;
-//                        [weakSelf.petSeletedArray removeObject:seletedModel];
-//                    }
-//                }
-//
-//                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
-//            };
-//            return cell;
-//        }
-//    }
+    //    if (self.isPet) {
+    //        if (indexPath.section == 2) {
+    //            //宠物
+    //            static NSString *const petCellID = @"OrderPetCreateCell";
+    //            OrderPetCreateCell *cell = [tableView dequeueReusableCellWithIdentifier:petCellID];
+    //            if (!cell) {
+    //                cell = [[[NSBundle mainBundle] loadNibNamed:petCellID owner:self options:nil] objectAtIndex:0];
+    //            }
+    //            cell.seletedLists = self.petSeletedArray;
+    //            cell.dataLists = self.petArray;
+    //            cell.petTitleLB.text = [NSString stringWithFormat:@"携带宠物（最多选择%@只宠物）",self.flightOrderInfoModel.max_pet_num];
+    //            __weak typeof(self) weakSelf = self;
+    //            cell.addPetBlock = ^{
+    //                //添加宠物
+    ////                OrderPetAddPopupView *vc = [[[NSBundle mainBundle] loadNibNamed:@"OrderPetAddPopupView" owner:weakSelf options:nil] objectAtIndex:0];
+    ////                vc.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT);
+    ////                [vc showOrderPetAddPopupView];
+    //                MyPetController *vc = [[MyPetController alloc] init];
+    //                vc.petDataBlock = ^(MyPetInfo *info) {
+    //                    [weakSelf.petArray addObject:info];
+    //                    [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+    //                };
+    //                [self.navigationController pushViewController:vc animated:YES];
+    //            };
+    //            cell.selectedBlock = ^(MyPetInfo *seletedModel) {
+    //                if (!seletedModel.isSelected) {
+    //                    if (weakSelf.petSeletedArray.count >= [self.flightOrderInfoModel.max_pet_num integerValue]){
+    //                        [HSToast hsShowBottomWithText:[NSString stringWithFormat:@"最多选择%@只宠物",self.flightOrderInfoModel.max_pet_num]];
+    //                    }else{
+    //                        seletedModel.isSelected = true;
+    //                        [weakSelf.petSeletedArray addObject:seletedModel];
+    //                    }
+    //                }else{
+    //                    if (weakSelf.petSeletedArray.count <= 1) {
+    //                        [HSToast hsShowBottomWithText:@"至少选择1只宠物"];
+    //                    }else{
+    //                        seletedModel.isSelected = false;
+    //                        [weakSelf.petSeletedArray removeObject:seletedModel];
+    //                    }
+    //                }
+    //
+    //                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+    //            };
+    //            return cell;
+    //        }
+    //    }
     if (indexPath.section == 2) {//indexPath.section == (self.isPet ? 3:2)
         static NSString *const phoneCellID = @"OrderPhoneCell";
         OrderPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:phoneCellID];
@@ -416,8 +420,8 @@
         weakSelf.insurancePrice = totalPrice;
         [weakSelf updatePrice];
         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationFade];
-//        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:(self.isPet ? 4:3)] withRowAnimation:UITableViewRowAnimationFade];
-
+        //        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:(self.isPet ? 4:3)] withRowAnimation:UITableViewRowAnimationFade];
+        
     };
     return cell;
 }
@@ -435,7 +439,7 @@
             }
         }
         if (indexPath.row >= 1) {
-//            passengerModel *pModel = self.seletedArray[indexPath.row - 1];
+            //            passengerModel *pModel = self.seletedArray[indexPath.row - 1];
             if (self.isPet) {
                 return 90;
             }
@@ -443,18 +447,18 @@
         }
         return 50;
     }
-//    if (self.isPet) {
-//        if (indexPath.section == 2) {
-//            return 90;
-//        }
-//        if (indexPath.section == 3) {
-//            return 50;
-//        }
-//    }else{
-//        if (indexPath.section == 2) {
-//            return 50;
-//        }
-//    }
+    //    if (self.isPet) {
+    //        if (indexPath.section == 2) {
+    //            return 90;
+    //        }
+    //        if (indexPath.section == 3) {
+    //            return 50;
+    //        }
+    //    }else{
+    //        if (indexPath.section == 2) {
+    //            return 50;
+    //        }
+    //    }
     if (indexPath.section == 2) {
         return 50;
     }
@@ -512,7 +516,7 @@
                     [weakself.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                 };
             }
-
+            
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -522,7 +526,7 @@
     if (!_commitBtn) {
         _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _commitBtn.adjustsImageWhenHighlighted = YES;
-        _commitBtn.backgroundColor = [UIColor colorWithHexString:@"#FF980D"];
+        _commitBtn.backgroundColor = [UIColor hdMainColor];
         [_commitBtn setTitle:@"提交订单" forState:UIControlStateNormal];
         _commitBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -532,7 +536,7 @@
 - (UILabel *)priceLabel{
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] init];
-        _priceLabel.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _priceLabel.textColor = [UIColor hdMainColor];
         _priceLabel.text = @"￥0";
         _priceLabel.font = [UIFont systemFontOfSize:16.0f];
     }
@@ -596,10 +600,10 @@
     for (int i=0; i<petCount; i++) {
         MyPetInfo *model = [MyPetInfo yy_modelWithJSON:[flightOrderInfoModel.pet objectAtIndex:i]];
         [self.petArray addObject:model];
-//        if (i==0) {
-//            model.isSelected = true;
-//            [self.petSeletedArray addObject:model];
-//        }
+        //        if (i==0) {
+        //            model.isSelected = true;
+        //            [self.petSeletedArray addObject:model];
+        //        }
     }
     
     self.insuranceArray = [NSArray yy_modelArrayWithClass:[InsuranceModel class] json:flightOrderInfoModel.insurance];
@@ -618,7 +622,7 @@
         
         self.petTotalPrice = [self.flightOrderInfoModel.pet_price doubleValue] *self.petSeletedArray.count*2;
         
-        self.totalPrice = (self.passengerTotalPrice + self.insurancePrice*self.seletedArray.count*2 + self.otherPrice*self.seletedArray.count + self.petTotalPrice)*(1+[self.flightOrderInfoModel.pay_odds doubleValue]/100);
+        self.totalPrice = (self.passengerTotalPrice + self.insurancePrice*self.seletedArray.count*2 + self.otherPrice*self.seletedArray.count + self.petTotalPrice)*(1+[self.flightOrderInfoModel.pay_oddsW doubleValue]/100);
     }else{
         self.passengerTotalPrice = [self.flightOrderInfoModel.to.position.par_price doubleValue] * self.seletedArray.count;
         
@@ -630,12 +634,12 @@
         
         self.petTotalPrice = [self.flightOrderInfoModel.pet_price doubleValue] *self.petSeletedArray.count;
         
-        self.totalPrice = (self.passengerTotalPrice + self.insurancePrice*self.seletedArray.count + self.otherPrice*self.seletedArray.count + self.petTotalPrice)*(1+[self.flightOrderInfoModel.pay_odds doubleValue]/100);
+        self.totalPrice = (self.passengerTotalPrice + self.insurancePrice*self.seletedArray.count + self.otherPrice*self.seletedArray.count + self.petTotalPrice)*(1+[self.flightOrderInfoModel.pay_oddsW doubleValue]/100);
     }
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",[NSString stringConversionWithNumber:self.totalPrice afterPoint:2]];
-//    NSString *doubleString = [NSString stringWithFormat:@"%lf",self.totalPrice];
-//    NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:doubleString];
-//    self.priceLabel.text = [NSString stringWithFormat:@"￥%0.2lf",(floorf([totalPrice doubleValue]*100 + 0.5))/100];
+    //    NSString *doubleString = [NSString stringWithFormat:@"%lf",self.totalPrice];
+    //    NSDecimalNumber *totalPrice = [NSDecimalNumber decimalNumberWithString:doubleString];
+    //    self.priceLabel.text = [NSString stringWithFormat:@"￥%0.2lf",(floorf([totalPrice doubleValue]*100 + 0.5))/100];
 }
 
 #pragma mark - OrderCardCellDelegate
@@ -678,13 +682,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -10,11 +10,19 @@
 #import "CityChoseCell.h"
 #import "CityInfo.h"
 #import "MJNIndexView.h"
+//#import "ButtonGroupView.h"
+#import "CityHistoryView.h"
+#import "CityButton.h"
+//#import <MapKit/MapKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+
+#define kCurrentCityInfoDefaults [NSUserDefaults standardUserDefaults]
+
 static NSString *const yycacheKey = @"CityChinese";
 static NSString *const yycacheName = @"CityChineseCache";
 static NSString *const yycacheKey2 = @"CityInternationl";
 static NSString *const yycacheName2 = @"CityInternationlCache";
-@interface CityChoseViewController ()<MJNIndexViewDataSource>
+@interface CityChoseViewController ()<MJNIndexViewDataSource, CityHistoryViewDelegate, AMapLocationManagerDelegate>
 @property (nonatomic, strong) UITextField *searchTextField;
 @property (nonatomic, strong) UIButton *chinesBtn;
 @property (nonatomic, strong) UIButton *internationalBtn;
@@ -29,11 +37,15 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
 @property (nonatomic, strong) NSMutableArray *allDataLists;
 @property (nonatomic, strong) MJNIndexView *selectedView;
 
+//@property (strong, nonatomic) ButtonGroupView *historicalCityGroupView;
+@property (nonatomic, strong) CityHistoryView *cityHistoryView; //历史使用城市/常用城市
 /** 是否支持国际/港澳台搜索 */
 @property (nonatomic, assign) BOOL isSupport;
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+
+@property (nonatomic, strong) NSMutableArray *historyCityArr;
 
 @end
-
 @implementation CityChoseViewController
 
 - (void)viewDidLoad {
@@ -47,8 +59,31 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     [self firstAttributesForMJNIndexView];
     [self getChinsesData];
     [self getInternatonlData];
+    [self startLocation];
+    
+    
+    NSString *path = [self filePath];
+    self.historyCityArr = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (self.historyCityArr == nil) {
+        self.historyCityArr = [NSMutableArray array];
+        [self.historyCityArr addObject:@"定位中"];
+    }
+    
+    long rowHistorical = self.historyCityArr.count/3;
+    if (self.historyCityArr.count % 3 > 0) {
+        rowHistorical += 1;
+    }
+    CGFloat hisViewHight = 45 * rowHistorical + 50;
+    _cityHistoryView = [[CityHistoryView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width - 20, hisViewHight)];
+    _cityHistoryView.dataSource = self.historyCityArr;
+    _cityHistoryView.delegate = self;
+    _cityHistoryView.userInteractionEnabled = YES;
+    self.tableView.tableHeaderView = _cityHistoryView;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchTextFieldTextDidChanged) name:UITextFieldTextDidChangeNotification object:nil];
+
 }
+
 - (void)firstAttributesForMJNIndexView
 {
     self.selectedView.frame = self.tableView.frame;
@@ -79,9 +114,11 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     self.searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, [AppConfig getStatusBarHeight] + ([AppConfig getNavigationBarHeight] - [AppConfig getStatusBarHeight] - 30)/2, SCREEN_WIDTH, 30)];
     self.searchTextField.backgroundColor = [UIColor whiteColor];
     
-    NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]};//NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#333333"]
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:@"字母/中文/三字码" attributes:dict];
-    self.searchTextField.attributedPlaceholder = att;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.minimumLineHeight = self.searchTextField.font.lineHeight - (self.searchTextField.font.lineHeight - [UIFont systemFontOfSize:16].lineHeight) * 0.5;
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"字母/中文/三字码" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14], NSParagraphStyleAttributeName:style}];
+
+    self.searchTextField.attributedPlaceholder = attri;
     self.searchTextField.layer.cornerRadius = 3;
     self.searchTextField.layer.masksToBounds = YES;
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, self.searchTextField.bounds.size.height)];
@@ -92,11 +129,13 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
     self.searchTextField.returnKeyType = UIReturnKeySearch;
     self.searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.searchTextField.tintColor = [UIColor hdPlaceHolderColor];
     self.navigationItem.titleView = self.searchTextField;
 }
 
 - (void)setUpHeaderView{
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, 40)];
+    header.backgroundColor = [UIColor hdMainColor];
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(16, 5, header.bounds.size.width - 32, header.bounds.size.height - 10)];
     bgView.layer.cornerRadius = 3;
     bgView.layer.masksToBounds = YES;
@@ -111,11 +150,11 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     [self.view addSubview:header];
 }
 - (void)configView{
-    self.view.backgroundColor = [UIColor hdMainColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight] + 40, SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - 40 - [AppConfig getButtomHeight]);
     self.otherTableView.frame = self.tableView.frame;
     [self.view addSubview:self.otherTableView];
+    
     self.otherTableView.hidden = YES;
     self.searchTableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - [AppConfig getButtomHeight]);
     self.searchTableView.tableHeaderView = self.searchLabel;
@@ -140,7 +179,7 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     YYCache *yyCache=[YYCache cacheWithName:name];
     //根据key读取数据
     [yyCache objectForKey:key withBlock:^(NSString * _Nonnull key, id<NSCoding>  _Nonnull object) {
-        HRLog(@"%@",object)
+//        HRLog(@"%@",object)
         if (object) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self refreshData:object type:type];
@@ -159,7 +198,7 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url paraments:dict success:^(id Json) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         BaseModel *model = [BaseModel yy_modelWithJSON:Json];
-        HRLog(@"%@",Json)
+//        HRLog(@"%@",Json)
         if (model.code == 1) {
             [self saveCacheData:model.data type:type];
             
@@ -189,12 +228,8 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     for (CityInfo *info in lists) {
         NSArray *keys = [dict allKeys];
-        NSString *chinese = [info.city_name substringWithRange:NSMakeRange(0, 1)];
-        NSMutableString *pinyin = [chinese mutableCopy];
-        //将汉字转换为拼音(带音标)
-        CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
-        //去掉拼音的音标
-        CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+        NSMutableString *pinyin = [info.city_name mutableCopy];
+        pinyin = [self transformMandarinToLatin:pinyin];
         NSMutableString *daxie = [[NSMutableString alloc] initWithString:pinyin];
         NSString *c = [daxie.uppercaseString substringWithRange:NSMakeRange(0, 1)];
         if ([keys containsObject:c]) {
@@ -228,8 +263,42 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
         self.otherLists = arr;
         [self.otherTableView reloadData];
     }
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+ }
+
+//*string是要转换的字符串*/
+- (NSMutableString *)transformMandarinToLatin:(NSString *)string
+{
+    /*复制出一个可变的对象*/
+    NSMutableString *preString = [string mutableCopy];
+    /*转换成成带音 调的拼音*/
+    CFStringTransform((CFMutableStringRef)preString, NULL, kCFStringTransformMandarinLatin, NO);
+    /*去掉音调*/
+    CFStringTransform((CFMutableStringRef)preString, NULL, kCFStringTransformStripDiacritics, NO);
+    
+    /*多音字处理*/
+    if ([[(NSString *)string substringToIndex:1] compare:@"长"] == NSOrderedSame)
+    {
+        [preString replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chang"];
+    }
+    if ([[(NSString *)string substringToIndex:1] compare:@"沈"] == NSOrderedSame)
+    {
+        [preString replaceCharactersInRange:NSMakeRange(0, 4) withString:@"shen"];
+    }
+    if ([[(NSString *)string substringToIndex:1] compare:@"厦"] == NSOrderedSame)
+    {
+        [preString replaceCharactersInRange:NSMakeRange(0, 3) withString:@"xia"];
+    }
+    if ([[(NSString *)string substringToIndex:1] compare:@"地"] == NSOrderedSame)
+    {
+        [preString replaceCharactersInRange:NSMakeRange(0, 3) withString:@"di"];
+    }
+    if ([[(NSString *)string substringToIndex:1] compare:@"重"] == NSOrderedSame)
+    {
+        [preString replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chong"];
+    }
+    return preString;
 }
+
 #pragma mark --action
 - (void)chinesBtnClick{
     if (self.isInternationl) {
@@ -333,9 +402,9 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     NSArray *lists = self.isInternationl ? self.otherLists[section] : self.dataLists[section];
     if (lists.count > 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-        view.backgroundColor = [UIColor lightGrayColor];
+        view.backgroundColor = [UIColor colorWithHexString:@"#f4f4f4"];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, view.bounds.size.width - 32, view.bounds.size.height)];
-        label.textColor = [UIColor whiteColor];
+        label.textColor = [UIColor colorWithHexString:@"#999999"];
         label.text = self.allKeysLists[section];
         [view addSubview:label];
         return view;
@@ -349,25 +418,9 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     NSArray *lists = self.isInternationl ? self.otherLists[section] : self.dataLists[section];
     return lists.count > 0? 30 : 0;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.searchTableView == tableView) {
-        CityInfo *info = self.searchDataLists[indexPath.row];
-        if (self.cityChose) {
-            self.cityChose(info);
-        }
-    }else{
-        NSArray *lists = self.isInternationl ? self.otherLists[indexPath.section] : self.dataLists[indexPath.section];
-        CityInfo *info = lists[indexPath.row];
-        if (self.cityChose) {
-            self.cityChose(info);
-        }
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
 #pragma mark --MJNIndexViewDataSource
 - (NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
 {
-   
     return self.allKeysLists;
 }
 
@@ -391,6 +444,105 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     }
     
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.searchTableView == tableView) {
+        CityInfo *info = self.searchDataLists[indexPath.row];
+        if (self.cityChose) {
+            self.cityChose(info);
+        }
+    }else{
+        NSArray *lists = self.isInternationl ? self.otherLists[indexPath.section] : self.dataLists[indexPath.section];
+        CityInfo *info = lists[indexPath.row];
+        if (self.cityChose) {
+            self.cityChose(info);
+        }
+        
+        [self historyCity:info isLocationCity:NO];
+
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - 选中热门城市或者历史城市
+- (void)cityHistoryViewdidClickedItem:(CityButton *)item {
+    
+    for (CityInfo *info in self.allDataLists) {
+        if ([item.cityItem.titleName isEqualToString:info.city_name]) {
+            if (self.cityChose) {
+                self.cityChose(info);
+            }
+            [self historyCity:info isLocationCity:NO];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+}
+
+#pragma mark - 定位
+- (void)startLocation {
+    self.locationManager = [[AMapLocationManager alloc] init];
+    self.locationManager.delegate = self;
+ 
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为2s
+    self.locationManager.locationTimeout =2;
+    //   逆地理请求超时时间，最低2s，此处设置为2s
+    self.locationManager.reGeocodeTimeout = 2;
+    // 带逆地理（返回坐标和地址信息）。将下面代码中的 YES 改成 NO ，则不会返回地址信息。
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error) {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            if (error.code == AMapLocationErrorLocateFailed) {
+                return;
+            }
+        }
+        [self handleData:regeocode.city isLocationCity:YES];
+    }];
+    
+}
+#pragma mark - 历史城市记录
+- (void)handleData:(NSString *)locationCityName isLocationCity:(BOOL)locationCity{
+     for (CityInfo *info in self.allDataLists) {
+        if ([locationCityName containsString:info.city_name]) {
+            [self historyCity:info isLocationCity:YES];
+        }
+    }
+    
+}
+// 添加历史访问城市
+- (void)historyCity:(CityInfo *)city isLocationCity:(BOOL)locationCity{
+    //避免重复添加，先删除再添加
+    [_historyCityArr removeObject:city.city_name];
+    if (locationCity) {
+        [_historyCityArr removeObject:@"定位中"];
+        [_historyCityArr insertObject:city.city_name atIndex:0];
+    }else {
+        if (_historyCityArr.count > 0) {
+            // 如果只有定位的城市
+            [_historyCityArr insertObject:city.city_name atIndex:1];
+        }else {
+            [_historyCityArr insertObject:city.city_name atIndex:0];
+        }
+    }
+    if (_historyCityArr.count > 6) {
+        [_historyCityArr removeLastObject];
+    }
+    
+    NSString *path = [self filePath];
+    [NSKeyedArchiver archiveRootObject:_historyCityArr toFile:path];
+ 
+    self.cityHistoryView.dataSource = _historyCityArr;
+ 
+}
+
+- (NSString *)filePath
+{
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"historyCity.plist"];
+}
+
 #pragma mark --load--
 - (UIButton *)chinesBtn{
     if (!_chinesBtn) {
@@ -486,6 +638,7 @@ static NSString *const yycacheName2 = @"CityInternationlCache";
     }
     return _allDataLists;
 }
+
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

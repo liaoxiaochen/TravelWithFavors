@@ -49,12 +49,12 @@
     [[IQKeyboardManager sharedManager] resignFirstResponder];
     if (self.phoneTextField.text.length <= 0) {
         [HSToast hsShowBottomWithText:@"请输入手机号"];
-//        [self.phoneTextField becomeFirstResponder];
+        //        [self.phoneTextField becomeFirstResponder];
         return NO;;
     }
     if (![NSString checkoutPhoneNum:self.phoneTextField.text]) {
         [HSToast hsShowBottomWithText:@"请输入正确的手机号"];
-//        [self.phoneTextField becomeFirstResponder];
+        //        [self.phoneTextField becomeFirstResponder];
         return NO;
     }
     return YES;
@@ -67,8 +67,8 @@
         [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url paraments:dict success:^(id Json) {
             BaseModel *model = [BaseModel yy_modelWithJSON:Json];
             if (model.code == 1) {
-//                CaptchaInfo *codeInfo = [CaptchaInfo yy_modelWithJSON:model.data];
-//                self.codeTextField.text = codeInfo.code;
+                //                CaptchaInfo *codeInfo = [CaptchaInfo yy_modelWithJSON:model.data];
+                //                self.codeTextField.text = codeInfo.code;
             }else{
                 dispatch_source_cancel(_timer);
                 [self.codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -88,17 +88,17 @@
     [[IQKeyboardManager sharedManager] resignFirstResponder];
     if (self.phoneTextField.text.length <= 0) {
         [HSToast hsShowBottomWithText:@"请输入手机号"];
-//        [self.phoneTextField becomeFirstResponder];
+        //        [self.phoneTextField becomeFirstResponder];
         return NO;;
     }
     if (![NSString checkoutPhoneNum:self.phoneTextField.text]) {
         [HSToast hsShowBottomWithText:@"请输入正确的手机号"];
-//        [self.phoneTextField becomeFirstResponder];
+        //        [self.phoneTextField becomeFirstResponder];
         return NO;
     }
     if (self.codeTextField.text.length <= 0) {
         [HSToast hsShowBottomWithText:@"请输入验证码"];
-//        [self.codeTextField becomeFirstResponder];
+        //        [self.codeTextField becomeFirstResponder];
         return NO;;
     }
     return YES;
@@ -134,9 +134,9 @@
     dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //定时器模式  事件源
     if (!_timer) {
-         _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, quene);
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, quene);
     }
-   
+    
     //NSEC_PER_SEC是秒，＊1是每秒
     dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), NSEC_PER_SEC * 1, 0);
     //设置响应dispatch源事件的block，在dispatch源指定的队列上运行
@@ -179,7 +179,7 @@
         _phoneTextField.borderStyle = UITextBorderStyleNone;
         _phoneTextField.placeholder = @"请输入新手机号码";
         _phoneTextField.placeholderFont = [UIFont systemFontOfSize:14.0f];
-        _phoneTextField.placeholderColor = [UIColor colorWithHexString:@"#999999"];
+        _phoneTextField.placeholderColor = [UIColor hdPlaceHolderColor];
         _phoneTextField.font = [UIFont systemFontOfSize:17.0f];
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.backgroundColor = [UIColor whiteColor];
@@ -200,7 +200,7 @@
         _codeTextField.borderStyle = UITextBorderStyleNone;
         _codeTextField.placeholder = @"请输入验证码";
         _codeTextField.placeholderFont = [UIFont systemFontOfSize:14.0f];
-        _codeTextField.placeholderColor = [UIColor colorWithHexString:@"#999999"];
+        _codeTextField.placeholderColor = [UIColor hdPlaceHolderColor];
         _codeTextField.font = [UIFont systemFontOfSize:17.0f];
         _codeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _codeTextField.backgroundColor = [UIColor whiteColor];
@@ -212,7 +212,7 @@
 - (UIButton *)codeBtn{
     if (!_codeBtn) {
         _codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _codeBtn.layer.cornerRadius = 2;
+        _codeBtn.layer.cornerRadius = 5;
         _codeBtn.backgroundColor = [UIColor hdMainColor];
         [_codeBtn setTitle:@"发送到手机" forState:UIControlStateNormal];
         _codeBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -223,7 +223,7 @@
 - (UIButton *)commitBtn{
     if (!_commitBtn) {
         _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _commitBtn.layer.cornerRadius = 3;
+        _commitBtn.layer.cornerRadius = 20;
         _commitBtn.backgroundColor = [UIColor hdMainColor];
         [_commitBtn setTitle:@"确定" forState:UIControlStateNormal];
         _commitBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -248,13 +248,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -68,12 +68,21 @@
     }];
 }
 #pragma mark --支付 改签 退票
+//- (void)orderBackApply{
+//    if ([@[@"-7",@"31",@"32",@"33"] containsObject:self.orderModel.flight_status]) {
+//        [self ticketRefundDetail];//退票详情
+//    }else if ([self.orderModel.flight_status integerValue] == -1) {
+//        [self repay];//重新支付
+//    }else if ([@[@"-3",@"-4",@"-5"] containsObject:self.orderModel.flight_status]){
+//        [self orderChangeDetail];//改签详情
+//    }
+//}
 - (void)orderBackApply{
-    if ([@[@"-7",@"31",@"32",@"33"] containsObject:self.orderModel.flight_status]) {
+    if ([@[@"8",@"9",@"10"] containsObject:self.orderModel.order_status]) {
         [self ticketRefundDetail];//退票详情
-    }else if ([self.orderModel.flight_status integerValue] == -1) {
+    }else if ([self.orderModel.order_status integerValue] == 0) {
         [self repay];//重新支付
-    }else if ([@[@"-3",@"-4",@"-5"] containsObject:self.orderModel.flight_status]){
+    }else if ([@[@"3",@"4",@"5"] containsObject:self.orderModel.order_status]){
         [self orderChangeDetail];//改签详情
     }
 }
@@ -92,6 +101,7 @@
             OrderPayController *vc = [[OrderPayController alloc] init];
             vc.orderModel = orderModel;
             vc.isJourney = self.isJourney;
+            vc.isPet = self.isPet;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             [HSToast hsShowBottomWithText:model.msg];
@@ -116,6 +126,8 @@
                 HRorderRefundModel *orderRefundModel = [HRorderRefundModel getOrderRefundInfo:model.data];
                 OrderBackController *vc = [[OrderBackController alloc] init];
                 vc.orderRefundModel = orderRefundModel;
+                vc.start_city_name = self.start_city_name;
+                vc.to_city_name = self.to_city_name;
                 [self.navigationController pushViewController:vc animated:YES];
                 [self updateData];
             }else{
@@ -159,8 +171,13 @@
             HRorderRefundModel *orderRefundModel = [HRorderRefundModel getOrderRefundInfo:model.data];
             OrderBackController *vc = [[OrderBackController alloc] init];
             vc.orderRefundModel = orderRefundModel;
+            vc.start_city_name = self.start_city_name;
+            vc.to_city_name = self.to_city_name;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
+            
+            
+            
             [HSToast hsShowBottomWithText:model.msg];
         }
     } failure:^(NSString *error) {
@@ -219,9 +236,25 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    if (section == 0) {
+//        if ([self.orderModel.flight_status integerValue] == -6 ||[self.orderModel.flight_status integerValue] == 10 ||[self.orderModel.flight_status integerValue] == 2 ||[self.orderModel.flight_status integerValue] == -2) {
+//            return 1;
+//        }else{
+//            return 2;
+//        }
+//    }else if (section == 1){
+//        if (self.orderModel.passengers.count <= 0) {
+//            return 0;
+//        }else{
+//            return self.orderModel.passengers.count + 1;
+//        }
+//    }
+//    return 1;
+//}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        if ([self.orderModel.flight_status integerValue] == -6 ||[self.orderModel.flight_status integerValue] == 10 ||[self.orderModel.flight_status integerValue] == 2 ||[self.orderModel.flight_status integerValue] == -2) {
+        if ([self.orderModel.order_status integerValue] == 6 ||[self.orderModel.order_status integerValue] == 7 ||[self.orderModel.order_status integerValue] == 2 ||[self.orderModel.order_status integerValue] == 1) {
             return 1;
         }else{
             return 2;
@@ -247,22 +280,32 @@
             return cell;
         }
         //订单过期 订单关闭 不显示操作按钮
-        if ([self.orderModel.flight_status integerValue] != -6 && [self.orderModel.flight_status integerValue] != 10 && [self.orderModel.flight_status integerValue] != -2 && [self.orderModel.flight_status integerValue] != 2) {
-            if (indexPath.row == 1){
+//        if ([self.orderModel.flight_status integerValue] != -6 && [self.orderModel.flight_status integerValue] != 10 && [self.orderModel.flight_status integerValue] != -2 && [self.orderModel.flight_status integerValue] != 2) {
+       if ([self.orderModel.order_status integerValue] != 6 && [self.orderModel.order_status integerValue] != 10 && [self.orderModel.order_status integerValue] != 1 && [self.orderModel.order_status integerValue] != 2) {
+        if (indexPath.row == 1){
                 static NSString *const backCellID = @"OrderDetailChangeCell";
                 OrderDetailChangeCell *cell = [tableView dequeueReusableCellWithIdentifier:backCellID];
                 if (!cell) {
                     cell = [[[NSBundle mainBundle] loadNibNamed:backCellID owner:self options:nil] objectAtIndex:0];
                 }
-                cell.isCompletePayment = [self.orderModel.flight_status integerValue] == -1 ? NO : YES;
-                if ([@[@"-7",@"31",@"32",@"33"] containsObject:self.orderModel.flight_status]) {//退票详情
-                    cell.isCompletePayment = NO;
-                    [cell.repayBtn setTitle:@"退票详情" forState:UIControlStateNormal];
-                }else if ([@[@"-3",@"-4",@"-5"] containsObject:self.orderModel.flight_status]) {//改签详情
-                    cell.isCompletePayment = NO;
-                    [cell.repayBtn setTitle:@"改签详情" forState:UIControlStateNormal];
-                }
-                __weak typeof(self) weakSelf = self;
+//                cell.isCompletePayment = [self.orderModel.flight_status integerValue] == -1 ? NO : YES;
+//                if ([@[@"-7",@"31",@"32",@"33"] containsObject:self.orderModel.flight_status]) {//退票详情
+//                    cell.isCompletePayment = NO;
+//                    [cell.repayBtn setTitle:@"退票详情" forState:UIControlStateNormal];
+//                }else if ([@[@"-3",@"-4",@"-5"] containsObject:self.orderModel.flight_status]) {//改签详情
+//                    cell.isCompletePayment = NO;
+//                    [cell.repayBtn setTitle:@"改签详情" forState:UIControlStateNormal];
+//                }
+            cell.isCompletePayment = [self.orderModel.order_status integerValue] == 0 ? NO : YES;
+
+            if ([@[@"8",@"9",@"10"] containsObject:self.orderModel.order_status]) {//退票详情
+                cell.isCompletePayment = NO;
+                [cell.repayBtn setTitle:@"退票详情" forState:UIControlStateNormal];
+            }else if ([@[@"3",@"4",@"5"] containsObject:self.orderModel.order_status]) {//改签详情
+                cell.isCompletePayment = NO;
+                [cell.repayBtn setTitle:@"改签详情" forState:UIControlStateNormal];
+            }
+            __weak typeof(self) weakSelf = self;
                 //退票
                 cell.backBlock = ^{
                     [weakSelf ticketRefund];

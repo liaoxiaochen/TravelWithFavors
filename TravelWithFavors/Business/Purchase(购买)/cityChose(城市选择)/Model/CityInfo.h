@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CityInfo : NSObject
+@interface CityInfo : NSObject<NSCoding>
+
 //"id": 635,
 //"city_name": "蚌埠",//城市名字
 //"country_name": "中国",//城市所在国家名字

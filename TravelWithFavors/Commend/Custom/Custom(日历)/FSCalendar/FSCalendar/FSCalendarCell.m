@@ -114,9 +114,10 @@
                                        self.contentView.fs_width,
                                        titleHeight
                                        );
+        
         _subtitleLabel.frame = CGRectMake(
                                           self.preferredSubtitleOffset.x,
-                                          (_titleLabel.fs_bottom-self.preferredTitleOffset.y) - (_titleLabel.fs_height-_titleLabel.font.pointSize)+self.preferredSubtitleOffset.y,
+                                          self.contentView.fs_height - subtitleHeight - 3,
                                           self.contentView.fs_width,
                                           subtitleHeight
                                           );
@@ -200,7 +201,7 @@
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
-    }
+     }
     UIFont *titleFont = self.calendar.appearance.titleFont;
     if (![titleFont isEqual:_titleLabel.font]) {
         _titleLabel.font = titleFont;
@@ -208,7 +209,10 @@
     if (_subtitle) {
         textColor = self.colorForSubtitleLabel;
         if (![textColor isEqual:_subtitleLabel.textColor]) {
-            _subtitleLabel.textColor = textColor;
+//            _subtitleLabel.textColor = textColor;
+            // 设置字体不变色
+            _subtitleLabel.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+
         }
         titleFont = self.calendar.appearance.subtitleFont;
         if (![titleFont isEqual:_subtitleLabel.font]) {

@@ -28,5 +28,11 @@
 - (void)addRoundedCorners:(UIRectCorner)corners
                 withRadii:(CGSize)radii
                  viewRect:(CGRect)rect;
- 
+
+// 同时添加阴影和圆角
++ (void)addShadowToView:(UIView *)view
+            withOpacity:(float)shadowOpacity
+           shadowRadius:(CGFloat)shadowRadius
+        andCornerRadius:(CGFloat)cornerRadius;
+
 @end

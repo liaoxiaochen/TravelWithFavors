@@ -20,7 +20,8 @@ static NSString *const cellID = @"ShareCustomCell";
     if (self) {
 //        self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
-        self.bgView.frame = CGRectMake(24, frame.size.height - 200 - 70, frame.size.width - 48, 200);
+        
+        self.bgView.frame = CGRectMake(0, frame.size.height, frame.size.width, 200);
         [self addSubview:self.bgView];
         
         UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 21, self.bgView.bounds.size.width - 20, 30)];
@@ -42,9 +43,22 @@ static NSString *const cellID = @"ShareCustomCell";
 }
 - (void)showShareCustomView{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bgView.frame = CGRectMake(0, self.frame.size.height - 200, self.frame.size.width, 200);
+
+    }];
 }
 - (void)dismiss{
-    [self removeFromSuperview];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+    
+        self.bgView.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width, 200);
+
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+    }];
+    
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     CGPoint point=[[touches anyObject] locationInView:self];

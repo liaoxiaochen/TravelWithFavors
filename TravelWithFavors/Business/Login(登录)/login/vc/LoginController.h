@@ -10,4 +10,7 @@
 
 @interface LoginController : RootViewController
 
+@property (nonatomic, copy) void(^LoginSuccess)(void);
+
+
 @end

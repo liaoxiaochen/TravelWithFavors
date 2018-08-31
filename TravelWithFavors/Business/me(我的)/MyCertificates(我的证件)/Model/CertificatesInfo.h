@@ -25,7 +25,14 @@
 @property (nonatomic, copy) NSString *given_name;
 @property (nonatomic, copy) NSString *create_at;
 @property (nonatomic, copy) NSString *update_at;
+
+@property (nonatomic, assign) NSInteger sex; // 0男 1女
+@property (nonatomic, copy) NSString *mantype;
+@property (nonatomic, copy) NSString *birthday;
+
+
 @property (nonatomic, copy) NSString *user_id;
+
 + (NSArray *)getCertificatesInfoLists:(id)data;
 
 @end

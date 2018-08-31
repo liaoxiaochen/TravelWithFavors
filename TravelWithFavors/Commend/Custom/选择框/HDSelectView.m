@@ -21,6 +21,7 @@ static NSString *const cellID = @"HDSelectCell";
         self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
         [self addSubview:self.tableView];
+        self.tableView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 0);
     }
     return self;
 }
@@ -29,13 +30,25 @@ static NSString *const cellID = @"HDSelectCell";
     self.colors = colorLists;
     [self.tableView reloadData];
 }
+
 - (void)showSelectView:(NSArray *)dataLists{
     self.lists = dataLists;
-    self.tableView.frame = CGRectMake(40, self.bounds.size.height - dataLists.count * HDSelecteTableRowHeight - 96, self.bounds.size.width - 80, dataLists.count * HDSelecteTableRowHeight);
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.tableView.frame = CGRectMake(0, self.bounds.size.height - dataLists.count * HDSelecteTableRowHeight, self.bounds.size.width, dataLists.count * HDSelecteTableRowHeight);
+    }];
+    
 }
 - (void)hide{
-    [self removeFromSuperview];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        self.tableView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.lists.count * HDSelecteTableRowHeight);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+    
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     if (self.isAutoDismiss) {
@@ -68,6 +81,7 @@ static NSString *const cellID = @"HDSelectCell";
     }
     return cell;
 }
+
 #pragma mark --UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectView:didSelected:)]) {

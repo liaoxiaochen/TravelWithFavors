@@ -47,11 +47,13 @@
     _endDateTimeLB.text = [NSString stringWithFormat:@"%@ %@%@ -- %@",endHM,orderModel.airport2_name,orderModel.station2,endYMD];
     
     _priceLB.text = [NSString stringWithFormat:@"￥%@",[NSString stringConversionWithNumber:[orderModel.total_price doubleValue]]];//??????
-    _statusLB.text = [NSString stringWithFormat:@"  %@  ",[orderModel getflightStatusFromCode]];
+//    _statusLB.text = [NSString stringWithFormat:@"  %@  ",[orderModel getflightStatusFromCode]];
     
+    _statusLB.text = [NSString stringWithFormat:@"  %@  ",[orderModel getOrderStatusFromCode]];
+
     if ([@"2" isEqualToString:orderModel.order_type]) {
         _orderTypeLB.text = @"（返）";
-        _orderTypeLB.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _orderTypeLB.textColor = [UIColor hdMainColor];
     }else{
         _orderTypeLB.text = @"（去）";
         _orderTypeLB.textColor = [UIColor colorWithHexString:@"#5E72AC"];

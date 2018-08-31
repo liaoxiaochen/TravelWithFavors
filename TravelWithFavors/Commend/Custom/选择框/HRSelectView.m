@@ -10,7 +10,6 @@
 #import "HDSelectCell.h"
 static NSString *const cellID = @"HDSelectCell";
 @interface HRSelectView()<UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -19,6 +18,8 @@ static NSString *const cellID = @"HDSelectCell";
 +(instancetype)initFromNib:(CGRect)frame{
     HRSelectView *view = [[[NSBundle mainBundle] loadNibNamed:@"HRSelectView" owner:self options:nil] lastObject];
     view.frame = frame;
+    view.centerView.frame = CGRectMake(0, frame.size.height - 300, SCREEN_WIDTH, 300);
+    
     view.centerView.layer.cornerRadius = 5;
     view.centerView.layer.masksToBounds = YES;
     view.tableView.delegate = view;
@@ -64,7 +65,16 @@ static NSString *const cellID = @"HDSelectCell";
     if (self.userInteractionEnabled) {
         CGPoint point=[[touches anyObject] locationInView:self];
         if (![self.tableView.layer containsPoint:point]) {
-            self.hidden = YES;
+            
+//            [UIView animateWithDuration:0.2 animations:^{
+//
+//                self.centerView.frame = CGRectMake(0, self.frame.size.height, SCREEN_WIDTH, 300);
+//
+//            } completion:^(BOOL finished) {
+//
+                self.hidden = YES;
+//            }];
+            
         }
     }
 }

@@ -119,7 +119,7 @@ static NSString *const cellID = @"HRmyOrderListTableViewCell";
     return _dict;
 }
 -(void)initTableView{
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - [AppConfig getButtomHeight]) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight]) style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = [UIColor hdTableViewBackGoundColor];
     self.tableView.dataSource = self;
@@ -172,6 +172,8 @@ static NSString *const cellID = @"HRmyOrderListTableViewCell";
             OrderDetailInfoController *vc = [[OrderDetailInfoController alloc] init];
             vc.isPet = [@"2" isEqualToString: orderModel.user_type] ? YES : NO;
             vc.orderModel = orderModel;
+            vc.start_city_name = orderModel.start_city_name;
+            vc.to_city_name = orderModel.to_city_name;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             [HSToast hsShowBottomWithText:model.msg];
@@ -195,6 +197,7 @@ static NSString *const cellID = @"HRmyOrderListTableViewCell";
     if (@available(iOS 11.0, *)) {
         return 0;
     }
+    
     return 0.01;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

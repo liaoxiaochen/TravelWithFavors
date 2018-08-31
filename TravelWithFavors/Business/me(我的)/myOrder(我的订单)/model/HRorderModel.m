@@ -91,4 +91,51 @@
             break;
     }
 }
+-(NSString *)getOrderStatusFromCode{
+    switch ([self.order_status integerValue]) {
+        case 0:
+            return @"等待支付";
+            break;
+        case 1:
+        case 2:
+            return @"等待出票";
+            break;
+        case 3:
+            return @"改签中";
+            break;
+        case 4:
+            return @"改签成功";
+            break;
+        case 5:
+            return @"改签失败";
+            break;
+        case 6:
+            return @"订单过期";
+            break;
+        case 7:
+            return @"订单已取消";
+            break;
+        case 8:
+            return @"退票审核";
+            break;
+        case 9:
+            return @"退款成功";
+            break;
+        case 10:
+            return @"退款失败";
+            break;
+        case 11:
+            return @"出票完成";
+            break;
+        case 12:
+            return @"暂不能出票";
+            break;
+        case 13:
+            return @"已拒单";
+            break;
+        default:
+            return @"---";
+            break;
+    }
+}
 @end

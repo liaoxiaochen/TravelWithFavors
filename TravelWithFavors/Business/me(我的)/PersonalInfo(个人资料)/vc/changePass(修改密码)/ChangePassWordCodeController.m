@@ -33,36 +33,36 @@
     phoneView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:phoneView];
     
-    UILabel *phoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-    phoneTitleLabel.text = @"手机号码";
-    phoneTitleLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    phoneTitleLabel.font = [UIFont systemFontOfSize:14.0f];
-    [phoneView addSubview:phoneTitleLabel];
+//    UILabel *phoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+//    phoneTitleLabel.text = @"手机号码";
+//    phoneTitleLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    phoneTitleLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [phoneView addSubview:phoneTitleLabel];
     
-    UITextField *phoneTF = [[UITextField alloc] initWithFrame:CGRectMake(80, 6, SCREEN_WIDTH - 80, 30)];
+    UITextField *phoneTF = [[UITextField alloc] initWithFrame:CGRectMake(20, 6, SCREEN_WIDTH - 40, 30)];
     phoneTF.text = self.userInfo.mobile;
-    phoneTF.textColor = [UIColor colorWithHexString:@"#999999"];
+    phoneTF.textColor = [UIColor hdPlaceHolderColor];
     phoneTF.userInteractionEnabled = false;
     [phoneView addSubview:phoneTF];
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight] + 60, SCREEN_WIDTH, 40)];
     topView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-    topLabel.text = @"验证码";
-    topLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    topLabel.font = [UIFont systemFontOfSize:14.0f];
-    [topView addSubview:topLabel];
+//    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+//    topLabel.text = @"验证码";
+//    topLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    topLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [topView addSubview:topLabel];
     
     self.codeBtn.frame = CGRectMake(topView.bounds.size.width - 100 - 10, (topView.bounds.size.height - 25)/2, 100, 25);
    
     [topView addSubview:self.codeBtn];
     
-    self.codeTF = [[UITextField alloc] initWithFrame:CGRectMake(80, 5, CGRectGetMinX(self.codeBtn.frame) - 110, 30)];
+    self.codeTF = [[UITextField alloc] initWithFrame:CGRectMake(20, 5, CGRectGetMinX(self.codeBtn.frame) - 60, 30)];
 
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentLeft;
-    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont systemFontOfSize:12.0f], NSParagraphStyleAttributeName:style}];
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{NSForegroundColorAttributeName:[UIColor hdPlaceHolderColor],NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSParagraphStyleAttributeName:style}];
     self.codeTF.attributedPlaceholder = attri;
     [topView addSubview:self.codeTF];
     [self.view addSubview:topView];
@@ -70,7 +70,7 @@
     UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.adjustsImageWhenHighlighted = NO;
     sureBtn.frame = CGRectMake(10, CGRectGetMaxY(topView.frame) + 84, SCREEN_WIDTH - 20, 40);
-    sureBtn.layer.cornerRadius = 3;
+    sureBtn.layer.cornerRadius = 20;
     sureBtn.backgroundColor = [UIColor hdMainColor];
     [sureBtn setTitle:@"下一步" forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -176,7 +176,7 @@
         _codeBtn.backgroundColor = [UIColor hdMainColor];
         [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         _codeBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _codeBtn.layer.cornerRadius = 2;
+        _codeBtn.layer.cornerRadius = 5;
         [_codeBtn addTarget:self
         action:@selector(codeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, weak) id <HRSelectViewDelegate> delegate;
 @property (nonatomic, assign) NSInteger selectedRow;
+@property (weak, nonatomic) IBOutlet UIView *centerView;
 +(instancetype)initFromNib:(CGRect)frame;
 @end

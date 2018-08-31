@@ -51,7 +51,7 @@ static NSString *const cellID = @"PictureViewCell";
     UIButton *commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     commitBtn.frame = CGRectMake(10, CGRectGetMaxY(bgView.frame) + 10, footerView.bounds.size.width - 20, 40);
     commitBtn.backgroundColor = [UIColor hdMainColor];
-    commitBtn.layer.cornerRadius = 3;
+    commitBtn.layer.cornerRadius = 20;
     [commitBtn setTitle:@"提交" forState:UIControlStateNormal];
     commitBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -79,13 +79,12 @@ static NSString *const cellID = @"PictureViewCell";
                dispatch_group_enter(group); dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
                     
                     UIImage *imagePic = self.imageLists[i];
-                    [HttpNetRequestTool uploadHeaderImage:imageUrl paraments:nil imageName:@"image" image:imagePic progress:nil success:^(id Json) {
+                   [HttpNetRequestTool uploadHeaderImage:imageUrl paraments:@{@"type":@"memberMessage"} imageName:@"image" image:imagePic progress:nil success:^(id Json) {
                         BaseModel *model = [BaseModel yy_modelWithJSON:Json];
                         if (model.code == 1) {
                             IconImageInfo *info = [IconImageInfo yy_modelWithJSON:model.data];
                             [imgLists addObject:info];
-                        }
-                        dispatch_group_leave(group);
+                        }                        dispatch_group_leave(group);
                     } failure:^(NSString *error) {
                         dispatch_group_leave(group);
                     }];

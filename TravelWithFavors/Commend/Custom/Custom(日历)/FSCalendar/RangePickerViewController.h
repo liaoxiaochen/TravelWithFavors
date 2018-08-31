@@ -18,6 +18,7 @@ typedef void (^CalendarRangePickBlock)(NSMutableDictionary *dic);
 
 @property (nonatomic, assign) BOOL isBackTracking;
 
+
 @property (nonatomic, strong) RMCalendarModel *nowSelectComeDateModel;
 @property (nonatomic, strong) RMCalendarModel *nowSelectBackDateModel;
 

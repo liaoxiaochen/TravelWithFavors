@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xn6-Fy-wNT">
-                    <rect key="frame" x="10" y="203.5" width="355" height="260"/>
+                    <rect key="frame" x="10" y="198.5" width="355" height="270"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mwz-6C-lrd">
                             <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
@@ -34,7 +34,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="南方航空CZ6136 1月29日 周日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWg-fM-naX">
                                             <rect key="frame" x="23" y="0.0" width="197" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xq_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="VVu-16-yH9">
@@ -45,7 +45,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="BWg-fM-naX" firstAttribute="leading" secondItem="VVu-16-yH9" secondAttribute="trailing" constant="8" id="52d-Ip-D0P"/>
                                         <constraint firstItem="BWg-fM-naX" firstAttribute="top" secondItem="Vir-hi-VRy" secondAttribute="top" id="8m6-oT-UVC"/>
@@ -56,7 +56,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.36470588235294116" green="0.44313725490196076" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="xLs-vD-MzC" firstAttribute="centerY" secondItem="Mwz-6C-lrd" secondAttribute="centerY" id="5Bv-5V-5ro"/>
                                 <constraint firstItem="xLs-vD-MzC" firstAttribute="leading" secondItem="Mwz-6C-lrd" secondAttribute="leading" constant="10" id="FgN-VO-Qhz"/>
@@ -133,7 +133,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="erU-9V-vKg">
-                            <rect key="frame" x="0.0" y="130" width="355" height="40"/>
+                            <rect key="frame" x="0.0" y="140" width="355" height="40"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fan.png" translatesAutoresizingMaskIntoConstraints="NO" id="Exm-m1-nDP">
                                     <rect key="frame" x="10" y="12" width="16" height="16"/>
@@ -147,8 +147,9 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="南方航空CZ6136 2月2日 周五" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Es-Q4-gfX">
                                             <rect key="frame" x="23" y="0.0" width="190" height="40"/>
+                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xq_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="mbI-ju-CJ0">
@@ -170,7 +171,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.36470588240000001" green="0.4431372549" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="Exm-m1-nDP" firstAttribute="centerY" secondItem="erU-9V-vKg" secondAttribute="centerY" id="S7S-Hx-3mC"/>
                                 <constraint firstItem="1kc-CE-Fyd" firstAttribute="top" secondItem="erU-9V-vKg" secondAttribute="top" id="gn1-QV-TCq"/>
@@ -181,7 +182,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egB-B8-p4b">
-                            <rect key="frame" x="0.0" y="170" width="355" height="90"/>
+                            <rect key="frame" x="0.0" y="180" width="355" height="90"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cy6-lA-dZm">
                                     <rect key="frame" x="15" y="10" width="64" height="32.5"/>
@@ -247,7 +248,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Mwz-6C-lrd" secondAttribute="trailing" id="7IJ-D3-H4B"/>
                         <constraint firstAttribute="trailing" secondItem="33s-9A-v8v" secondAttribute="trailing" id="E9D-Yx-aqS"/>
@@ -256,9 +257,9 @@
                         <constraint firstItem="erU-9V-vKg" firstAttribute="leading" secondItem="Xn6-Fy-wNT" secondAttribute="leading" id="OYW-Zt-73J"/>
                         <constraint firstItem="Mwz-6C-lrd" firstAttribute="top" secondItem="Xn6-Fy-wNT" secondAttribute="top" id="QJb-Zo-PCa"/>
                         <constraint firstItem="33s-9A-v8v" firstAttribute="leading" secondItem="Xn6-Fy-wNT" secondAttribute="leading" id="UhB-0d-EOt"/>
-                        <constraint firstAttribute="height" constant="260" id="YjC-qI-hZm"/>
+                        <constraint firstAttribute="height" constant="270" id="YjC-qI-hZm"/>
                         <constraint firstItem="33s-9A-v8v" firstAttribute="top" secondItem="Mwz-6C-lrd" secondAttribute="bottom" id="ZVy-Qh-4nZ"/>
-                        <constraint firstItem="erU-9V-vKg" firstAttribute="top" secondItem="33s-9A-v8v" secondAttribute="bottom" id="dkx-qL-l9d"/>
+                        <constraint firstItem="erU-9V-vKg" firstAttribute="top" secondItem="33s-9A-v8v" secondAttribute="bottom" constant="10" id="dkx-qL-l9d"/>
                         <constraint firstAttribute="trailing" secondItem="erU-9V-vKg" secondAttribute="trailing" id="luM-LV-AfZ"/>
                         <constraint firstItem="Mwz-6C-lrd" firstAttribute="leading" secondItem="Xn6-Fy-wNT" secondAttribute="leading" id="qRU-sd-AQN"/>
                         <constraint firstAttribute="trailing" secondItem="egB-B8-p4b" secondAttribute="trailing" id="srM-c4-GSz"/>
@@ -280,6 +281,7 @@
                 <outlet property="backTitleLabel" destination="7Es-Q4-gfX" id="8qk-Dm-mwB"/>
                 <outlet property="backTotalTimeLabel" destination="7kg-oW-l0Y" id="PM0-Mb-08q"/>
                 <outlet property="bgView" destination="Xn6-Fy-wNT" id="ici-Qg-Z54"/>
+                <outlet property="endView" destination="erU-9V-vKg" id="BuQ-2J-6A0"/>
                 <outlet property="goDetailLabel" destination="u1l-cM-G5y" id="Som-tm-odG"/>
                 <outlet property="goEndPlaceLabel" destination="2XN-0S-VwP" id="dZt-sv-MDd"/>
                 <outlet property="goEndTimeLabel" destination="2N3-xQ-cQe" id="8s3-tB-zTe"/>
@@ -287,6 +289,7 @@
                 <outlet property="goStartPlaceLabel" destination="hjI-TB-SSa" id="b4v-H7-oPQ"/>
                 <outlet property="goTitleLabel" destination="BWg-fM-naX" id="imK-Sh-j1y"/>
                 <outlet property="goTotalLabel" destination="y3a-20-Uvc" id="Rrk-Wv-XyP"/>
+                <outlet property="startView" destination="33s-9A-v8v" id="UQU-FU-PKw"/>
             </connections>
             <point key="canvasLocation" x="32.5" y="94.5"/>
         </view>

@@ -25,7 +25,7 @@
         shopBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -shopBtn.imageView.frame.size.width, -shopBtn.imageView.frame.size.height-offset/2, 0);
         shopBtn.imageEdgeInsets = UIEdgeInsetsMake(-shopBtn.titleLabel.intrinsicContentSize.height-offset/2, 0, 0, -shopBtn.titleLabel.intrinsicContentSize.width);
         [shopBtn addTarget:self action:@selector(shopBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:shopBtn];
+//        [self addSubview:shopBtn];
     }
     return self;
 }

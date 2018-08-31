@@ -19,6 +19,8 @@
 @property (nonatomic, copy) NSString *passengerNames;
 @property (nonatomic, copy) NSString *over_pay_at;//"over_pay_at"=>132132132
 
+@property (nonatomic, assign) BOOL isPet;//是否携带宠物
+
 //@property (nonatomic, assign) CGFloat payRate;
 /** =========================下单支付所需参数============================ */
 @property (nonatomic, assign) CGFloat parPrice;

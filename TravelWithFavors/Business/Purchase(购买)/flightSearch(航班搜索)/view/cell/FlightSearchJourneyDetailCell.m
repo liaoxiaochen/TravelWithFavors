@@ -19,6 +19,12 @@
     self.rightBgView.layer.masksToBounds = YES;
     self.rightBgView.layer.borderWidth = 1;
     self.rightBgView.layer.borderColor = [UIColor colorWithHexString:@"#5D71AE"].CGColor;
+    
+    self.numberLabel.layer.cornerRadius = 3;
+    self.numberLabel.layer.masksToBounds = YES;
+    self.numberLabel.layer.borderWidth = 1;
+    self.numberLabel.layer.borderColor = [UIColor colorWithHexString:@"#ff0012"].CGColor;
+    
     self.numberLabel.adjustsFontSizeToFitWidth = YES;
 }
 - (void)setAirInfo:(FlightDetailAirInfo *)airInfo{

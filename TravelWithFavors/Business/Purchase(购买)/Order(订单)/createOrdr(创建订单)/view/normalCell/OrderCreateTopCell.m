@@ -36,7 +36,7 @@
         
         _priceLabel.text = [NSString stringWithFormat:@"票价￥%@",_flightOrderInfoModel.back.position.par_price];
         CGFloat totalPrice = [_flightOrderInfoModel.back.machine_build doubleValue] + [_flightOrderInfoModel.back.fuel doubleValue];
-        _priceRightLabel.text = [NSString stringWithFormat:@"基建+燃油￥%@",[NSString stringConversionWithNumber:totalPrice]];
+        _priceRightLabel.text = [NSString stringWithFormat:@"机建+燃油￥%@",[NSString stringConversionWithNumber:totalPrice]];
     }else{
         _leftLabel.text = [NSString stringWithFormat:@"%@-%@",_flightOrderInfoModel.to.airport1_name,_flightOrderInfoModel.to.airport2_name];
         
@@ -50,7 +50,7 @@
         
         _priceLabel.text = [NSString stringWithFormat:@"票价￥%@",_flightOrderInfoModel.to.position.par_price];
         CGFloat totalPrice = [_flightOrderInfoModel.to.machine_build doubleValue] + [_flightOrderInfoModel.to.fuel doubleValue];
-        _priceRightLabel.text = [NSString stringWithFormat:@"基建+燃油￥%@",[NSString stringConversionWithNumber:totalPrice]];
+        _priceRightLabel.text = [NSString stringWithFormat:@"机建+燃油￥%@",[NSString stringConversionWithNumber:totalPrice]];
     }
 
 }

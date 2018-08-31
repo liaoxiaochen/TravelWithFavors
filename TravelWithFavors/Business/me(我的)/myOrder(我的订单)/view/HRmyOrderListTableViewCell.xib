@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,7 +43,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已出票" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Omm-by-cWy">
-                        <rect key="frame" x="267" y="7.5" width="43" height="22"/>
+                        <rect key="frame" x="267" y="10" width="43" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="HQz-jk-H64"/>
                         </constraints>
@@ -54,7 +54,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oue-ii-ebb">
                         <rect key="frame" x="280.5" y="81.5" width="29.5" height="21.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="0.38431372549999998" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="（去）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="bJy-Ze-OmG">
@@ -81,7 +81,7 @@
                     <constraint firstItem="bJy-Ze-OmG" firstAttribute="leading" secondItem="3ig-gr-HrI" secondAttribute="trailing" constant="2" id="k0H-yd-j0C"/>
                     <constraint firstItem="riJ-j1-1Zr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lQq-by-X1v"/>
                     <constraint firstItem="iVN-o3-psT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="mjz-YW-fwo"/>
-                    <constraint firstItem="Omm-by-cWy" firstAttribute="centerY" secondItem="riJ-j1-1Zr" secondAttribute="centerY" id="ot5-QL-3LF"/>
+                    <constraint firstItem="Omm-by-cWy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ry7-Yk-X50"/>
                     <constraint firstItem="bJy-Ze-OmG" firstAttribute="centerY" secondItem="3ig-gr-HrI" secondAttribute="centerY" id="uvp-LN-m4j"/>
                     <constraint firstItem="upZ-7s-9yl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="yXi-ko-Do7"/>
                 </constraints>

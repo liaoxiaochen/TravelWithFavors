@@ -27,8 +27,7 @@
     //    self.navigationItem.title = @"登录";
     [self configView];
     [self setupUI];
-    
-    // 添加监听
+     // 添加监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewEditChanged:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
@@ -81,7 +80,9 @@
                 [JPUSHService setTags:[NSSet setWithObject:@"loginSeccess"] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
                     HRLog(@"iResCode==%ld:标签：%@ 会话序列号：%ld",iResCode,iTags,seq);
                 } seq:0];
-                
+                if (self.LoginSuccess) {
+                    self.LoginSuccess();
+                }
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
                     //登录成功
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"loginSeccess" object:nil];
@@ -172,8 +173,11 @@
     ForgetLoginPassWordController *vc = [[ForgetLoginPassWordController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-- (void)back{
+
+- (void)backToLast{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+ 
+    
 }
 
 #pragma mark - 三方登录
@@ -298,7 +302,7 @@
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.adjustsImageWhenHighlighted = NO;
     loginBtn.frame = CGRectMake(0, CGRectGetMaxY(self.passTextField.frame) + 20, backWidth, 40);
-    loginBtn.backgroundColor = [UIColor colorWithHexString:@"#FF980D"];
+    loginBtn.backgroundColor = [UIColor hdMainColor];
     loginBtn.layer.cornerRadius = 10;
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -328,14 +332,9 @@
     [forgetBtn addTarget:self action:@selector(forgetBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:forgetBtn];
     
-    
-    
-    
 }
-- (void)setLeftItem{
-    self.navigationController.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"daohan_fanhui"] style:0 target:self action:@selector(back)];
-    self.navigationController.navigationItem.leftBarButtonItem.imageInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-}
+
+
 - (MyTextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [[MyTextField alloc] init];
@@ -371,12 +370,6 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-
-
-
-// 7u78i
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

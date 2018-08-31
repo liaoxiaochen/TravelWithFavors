@@ -35,20 +35,20 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="新增乘客">
-                                    <color key="titleColor" red="1" green="0.59607843137254901" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CaK-37-d9V"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DkZ-WG-GHJ">
-                                <rect key="frame" x="10" y="40" width="111" height="27"/>
+                                <rect key="frame" x="10" y="40" width="128" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="WiF-Fh-hYI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="如何添加宠物信息？">
-                                    <color key="titleColor" red="1" green="0.59607843140000005" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title=" 如何添加宠物信息？" image="buytickets_tuigai">
+                                    <color key="titleColor" red="0.80392156862745101" green="0.80392156862745101" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="helpBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HeV-Z1-IOx"/>
@@ -98,4 +98,7 @@
             <point key="canvasLocation" x="33" y="134.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="buytickets_tuigai" width="14" height="14"/>
+    </resources>
 </document>

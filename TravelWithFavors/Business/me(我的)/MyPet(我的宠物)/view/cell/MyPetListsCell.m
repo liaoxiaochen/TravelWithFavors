@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *petAvatarImg;
+
 @end
 @implementation MyPetListsCell
 
@@ -31,6 +33,7 @@
     if (info) {
         self.nameLabel.text = info.pet_name;
         self.typeLabel.text = [info.pet_type isEqualToString:@"1"] ? @"猫" : @"狗";
+        [self.petAvatarImg sd_setImageWithURL:[NSURL URLWithString:info.avatar]];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

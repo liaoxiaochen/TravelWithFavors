@@ -36,4 +36,14 @@
     _startAirportNameLB.text = [NSString stringWithFormat:@"%@%@",orderModel.airport1_name,orderModel.station1];
     _endAirportNameLB.text = [NSString stringWithFormat:@"%@%@",orderModel.airport2_name,orderModel.station2];
 }
+
+- (void)setStart_city_name:(NSString *)start_city_name {
+    _start_city_name = start_city_name;
+}
+- (void)setTo_city_name:(NSString *)to_city_name {
+    _to_city_name = to_city_name;
+    _stationLB.text = [NSString stringWithFormat:@"%@——%@",_start_city_name,_to_city_name];
+
+}
+
 @end

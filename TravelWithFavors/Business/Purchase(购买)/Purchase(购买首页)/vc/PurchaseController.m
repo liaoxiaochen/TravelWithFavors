@@ -14,14 +14,12 @@
 #import "CityInfo.h"
 #import "CityChoseViewController.h"
 #import "NSDate+RMCalendarLogic.h"
-#import <MapKit/MapKit.h>
-#import <SDCycleScrollView/SDCycleScrollView.h>
 #import "UIView+LSCore.h"
 #import "NSString+Extension.h"
 #import "PurchaseFooterView.h"
 #import "RangePickerViewController.h"
 
-@interface PurchaseController ()<CLLocationManagerDelegate, SDCycleScrollViewDelegate, UINavigationControllerDelegate>
+@interface PurchaseController ()< SDCycleScrollViewDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) UIButton *normalBtn;
 @property (nonatomic, strong) UIButton *petBtn;
 @property (nonatomic, assign) BOOL isPetType;
@@ -50,11 +48,7 @@
 @property (nonatomic, strong) UILabel *babyLabel;
 @property (nonatomic, strong) UILabel *childLabel;
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
-
-
 @property (nonatomic,strong) SDCycleScrollView *scrollView;
-
 
 @end
 
@@ -63,8 +57,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor hdBackColor];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     self.navigationController.delegate = self;
+    
+    // 添加默认值
+    self.startCity = [AppConfig returnCityInfo:YES];
+    self.endCity =  [AppConfig returnCityInfo:NO];
+    if (self.startCity) {
+        [self.leftLabel setTitle:self.startCity.city_name forState:UIControlStateNormal];
+    }
+    if (self.endCity) {
+        [self.rightLabel setTitle:self.endCity.city_name forState:UIControlStateNormal];
+    }
+
     self.isJourney = NO;
     self.isPetType = NO;
     //默认普通用户
@@ -74,9 +79,9 @@
     [self configView];
     [self setCenterUI];
     
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideSelectBaby)];
     [self.view addGestureRecognizer:tap];
+    
 }
 
 - (void)configView{
@@ -155,7 +160,7 @@
     
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     searchBtn.adjustsImageWhenHighlighted = NO;
-    searchBtn.backgroundColor = [UIColor colorWithHexString:@"#FF980D"];
+    searchBtn.backgroundColor = [UIColor hdMainColor];
     searchBtn.frame = CGRectMake(leftSpace, CGRectGetHeight(self.centerView.frame) - 60, self.centerView.bounds.size.width - leftSpace * 2, 40);
     searchBtn.layer.cornerRadius = 20;
     [searchBtn setTitle:@"查询" forState:UIControlStateNormal];
@@ -206,7 +211,7 @@
         self.petBtn.backgroundColor = [UIColor colorWithHexString:@"#404A68"];
         [self.petBtn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         self.normalBtn.backgroundColor = [UIColor whiteColor];
-        [self.normalBtn setTitleColor:[UIColor colorWithHexString:@"#FF980D"] forState:UIControlStateNormal];
+        [self.normalBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
     }
 }
 - (void)petBtnClick{
@@ -215,7 +220,7 @@
         self.normalBtn.backgroundColor = [UIColor colorWithHexString:@"#404A68"];
         [self.normalBtn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         self.petBtn.backgroundColor = [UIColor whiteColor];
-        [self.petBtn setTitleColor:[UIColor colorWithHexString:@"#FF980D"] forState:UIControlStateNormal];
+        [self.petBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
     }
 }
 - (void)oneWayBtnClick{
@@ -285,6 +290,7 @@
             return NO;
         }
     }
+
     return YES;
 }
 #pragma mark 查询机票
@@ -320,6 +326,7 @@
         }
     }
 }
+#pragma mark - 选择城市
 - (void)leftClick{
     
     CityChoseViewController *vc = [[CityChoseViewController alloc] init];
@@ -327,9 +334,11 @@
     vc.cityChose = ^(CityInfo *info) {
         weakSelf.startCity = info;
         [weakSelf.leftLabel setTitle:info.city_name forState:UIControlStateNormal];
+        [AppConfig recordCityWithKey:YES cityDic:self.startCity];
     };
     vc.hidesBottomBarWhenPushed = YES;
     vc.selectedCity = self.startCity;
+ 
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -340,12 +349,17 @@
     vc.cityChose = ^(CityInfo *info) {
         weakSelf.endCity = info;
         [weakSelf.rightLabel setTitle:info.city_name forState:UIControlStateNormal];
+        
+        [AppConfig recordCityWithKey:NO cityDic:self.endCity];
+
     };
     vc.hidesBottomBarWhenPushed = YES;
     vc.selectedCity = self.endCity;
+
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+#pragma mark - 选择时间
 - (void)timeLeftClick{
     
     RangePickerViewController *vc = [[RangePickerViewController alloc] init];
@@ -449,8 +463,8 @@
         // 选中
         
         //        sender.backgroundColor = [UIColor lightGrayColor];
-        sender.layer.borderColor = [UIColor hdOrganColor].CGColor;
-        [sender setTitleColor:[UIColor hdOrganColor] forState:(UIControlStateNormal)];
+        sender.layer.borderColor = [UIColor hdMainColor].CGColor;
+        [sender setTitleColor:[UIColor hdMainColor] forState:(UIControlStateNormal)];
     }else {
         //        sender.backgroundColor = [UIColor whiteColor];
         sender.layer.borderColor = [UIColor colorWithHexString:@"#CDCDCD"].CGColor;
@@ -565,8 +579,8 @@
         [_addBabyBtn setImage:[UIImage imageNamed:@"purchase_arrow_downyellow"] forState:UIControlStateNormal];
         
     }else {
-        [_addBabyBtn setTitleColor:[UIColor hdOrganColor] forState:UIControlStateNormal];
-        _addBabyBtn.layer.borderColor = [UIColor hdOrganColor].CGColor;
+        [_addBabyBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
+        _addBabyBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
         [_addBabyBtn setImage:[UIImage imageNamed:@"purchase_arrow_down"] forState:UIControlStateNormal];
         
     }
@@ -658,7 +672,7 @@
         _normalBtn.adjustsImageWhenHighlighted = NO;
         _normalBtn.backgroundColor = [UIColor whiteColor];
         [_normalBtn setTitle:@"普通用户" forState:UIControlStateNormal];
-        [_normalBtn setTitleColor:[UIColor colorWithHexString:@"#FF980D"] forState:UIControlStateNormal];
+        [_normalBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
         _normalBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [_normalBtn addTarget:self action:@selector(normalBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -819,53 +833,7 @@
     
     return button;
 }
-#pragma mark === 定位 ===
--(void)startLocation{
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 100.0f;
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >8.0){
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        if (@available(iOS 9.0, *)) {
-            //_locationManager.allowsBackgroundLocationUpdates = YES;
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-    [self.locationManager startUpdatingLocation];
-}
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-            if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                [self.locationManager requestWhenInUseAuthorization];
-            }
-            break;
-        default:
-            break;
-    }
-}
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *newLocation = locations[0];
-    CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
-    NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
-    [manager stopUpdatingLocation];
-    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
-        for (CLPlacemark *place in placemarks) {
-            NSLog(@"name,%@",place.name);                      // 位置名
-            NSLog(@"thoroughfare,%@",place.thoroughfare);      // 街道
-            NSLog(@"subThoroughfare,%@",place.subThoroughfare);// 子街道
-            NSLog(@"locality,%@",place.locality);              // 市
-            NSLog(@"subLocality,%@",place.subLocality);        // 区
-            NSLog(@"country,%@",place.country);                // 国家
-        }
-    }];
-}
 
 - (void)setButtonCorner:(UIView *)button {
     
@@ -882,7 +850,7 @@
     if (isSelect) {
         
         [button setBackgroundColor:[UIColor whiteColor]];
-        [button setTitleColor:[UIColor colorWithHexString:@"#FF980D"] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
     }else {
         
         [button setBackgroundColor:[UIColor clearColor]];

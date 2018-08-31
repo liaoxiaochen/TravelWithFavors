@@ -7,6 +7,7 @@
 //
 
 #import "AppConfig.h"
+#import "CityInfo.h"
 static NSString *const loginState = @"loginState";
 static NSString *const userName = @"userName";
 static NSString *const passWord = @"passWord";
@@ -118,4 +119,37 @@ static NSString *const vibrateState = @"vibrateState";
     }
     return vc;
 }
+
++(void)recordCityWithKey:(BOOL)isStartCity cityDic:(CityInfo *)cityInfo
+{
+    NSString *cityKey = @"startCity";
+    if (!isStartCity) {
+        cityKey = @"endCity";
+    }
+    NSMutableData * data = [[NSMutableData alloc] init];
+    NSKeyedArchiver * archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:cityInfo forKey:cityKey];
+    [archiver finishEncoding];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:cityKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+}
+
++(CityInfo *)returnCityInfo:(BOOL)isStartCity
+{
+    NSString *cityKey = @"startCity";
+    if (!isStartCity) {
+        cityKey = @"endCity";
+    }
+    NSData * data = [[NSUserDefaults standardUserDefaults] objectForKey:cityKey];
+    NSKeyedUnarchiver * unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    CityInfo *cityInfo = [unarchiver decodeObjectForKey:cityKey];
+    [unarchiver finishDecoding];
+    
+    return cityInfo;
+}
+
+
+
 @end

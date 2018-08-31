@@ -26,16 +26,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
-        self.bgView.frame = CGRectMake(0, 0, 300, 200);
+        self.bgView.frame = CGRectMake(0, frame.size.height , SCREEN_WIDTH, 200);
         [self addSubview:self.bgView];
         
-        self.timeLabel.frame = CGRectMake(0, 0, self.bgView.bounds.size.width, 100);
-        [self.bgView addSubview:self.timeLabel];
+//        self.timeLabel.frame = CGRectMake(0, 0, self.bgView.bounds.size.width, 100);
+//        [self.bgView addSubview:self.timeLabel];
         
         self.markLabel.frame = CGRectMake(0, CGRectGetMaxY(self.timeLabel.frame), self.bgView.bounds.size.width, 50);
         [self.bgView addSubview:self.markLabel];
         
-        self.pickerView.frame = CGRectMake(0, CGRectGetMaxY(self.markLabel.frame), self.bgView.bounds.size.width, 100);
+        self.pickerView.frame = CGRectMake(0, CGRectGetMaxY(self.markLabel.frame) + 20, self.bgView.bounds.size.width, 100);
         if (self.birth) {
             NSDateFormatter *format=[[NSDateFormatter alloc] init];
             [format setDateFormat:@"yyyy-MM-dd"];
@@ -60,16 +60,32 @@
         self.pickerView.maxLimitedDate = [NSDate date];
         [self.bgView addSubview:self.pickerView];
         
-        self.sureBtn.frame = CGRectMake(self.bgView.bounds.size.width - 60 - 8, CGRectGetMaxY(self.pickerView.frame) + 8, 60, 30);
+//        self.sureBtn.frame = CGRectMake(self.bgView.bounds.size.width - 60 - 8, CGRectGetMaxY(self.pickerView.frame) + 8, 60, 30);
+//        [self.bgView addSubview:self.sureBtn];
+//
+//        self.cancelBtn.frame = CGRectMake(CGRectGetMinX(self.sureBtn.frame) - 60 - 24, self.sureBtn.frame.origin.y, self.sureBtn.bounds.size.width, self.sureBtn.bounds.size.height);
+//        [self.bgView addSubview:self.cancelBtn];
+        self.sureBtn.frame = CGRectMake(self.bgView.bounds.size.width - 60 - 8, 10, 60, 30);
         [self.bgView addSubview:self.sureBtn];
-        
-        self.cancelBtn.frame = CGRectMake(CGRectGetMinX(self.sureBtn.frame) - 60 - 24, self.sureBtn.frame.origin.y, self.sureBtn.bounds.size.width, self.sureBtn.bounds.size.height);
+
+        self.cancelBtn.frame = CGRectMake(8, 10, self.sureBtn.bounds.size.width, self.sureBtn.bounds.size.height);
         [self.bgView addSubview:self.cancelBtn];
-        CGFloat bgH = CGRectGetMaxY(self.sureBtn.frame) + 8;
-        self.bgView.frame = CGRectMake((frame.size.width - 300)/2, (frame.size.height - bgH)/2, 300, bgH);
+        
+//        CGFloat bgH = CGRectGetMaxY(self.pickerView.frame) + 46;
+//        self.bgView.frame = CGRectMake(0, frame.size.height - bgH, SCREEN_WIDTH, bgH);
     }
     return self;
 }
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint point = [touch locationInView:self.bgView];
+    if (![self.bgView.layer containsPoint:point]) {
+        [self dismiss];
+    }
+}
+
 - (void)setBirth:(NSString *)birth{
     _birth = birth;
     if (birth.length > 0) {
@@ -83,9 +99,21 @@
 }
 - (void)showHDDateSelctedView{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bgView.frame = CGRectMake(0, self.frame.size.height - 200, SCREEN_WIDTH, 200);
+
+    }];
+    
 }
 - (void)dismiss{
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bgView.frame = CGRectMake(0, self.frame.size.height, SCREEN_WIDTH, 200);
+
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+    }];
 }
 #pragma mark --action
 - (void)sureBtnClick{
@@ -112,16 +140,16 @@
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
-        _timeLabel.backgroundColor = [UIColor colorWithHexString:@"#FF980D"];
+        _timeLabel.backgroundColor = [UIColor hdMainColor];
     }
     return _timeLabel;
 }
 - (UILabel *)markLabel{
     if (!_markLabel) {
         _markLabel = [[UILabel alloc] init];
-        _markLabel.textColor = [UIColor colorWithHexString:@"#999999"];
+        _markLabel.textColor = [UIColor hdTextColor];
         _markLabel.text = @"选择出生年月日";
-        _markLabel.font = [UIFont systemFontOfSize:11.0f];
+        _markLabel.font = [UIFont systemFontOfSize:13.0f];
         _markLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _markLabel;
@@ -136,7 +164,7 @@
     if (!_sureBtn) {
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_sureBtn setTitleColor:[UIColor colorWithHexString:@"#FF980D"] forState:UIControlStateNormal];
+        [_sureBtn setTitleColor:[UIColor hdMainColor] forState:UIControlStateNormal];
         _sureBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [_sureBtn addTarget:self action:@selector(sureBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }

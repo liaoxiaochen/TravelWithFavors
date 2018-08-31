@@ -10,9 +10,7 @@
 #import "ShareCustomView.h"
 #import <UMShare/UMShare.h>
 @interface AboutUsController ()<ShareCustomViewDelegate>
-@property (nonatomic, strong) UIButton *shareBtn;
-@property (nonatomic, strong) UILabel *phoneLabel;
-@end
+  @end
 
 @implementation AboutUsController
 
@@ -20,36 +18,65 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"关于我们";
-    self.view.backgroundColor = [UIColor hdMainColor];
+    self.view.backgroundColor = [UIColor hdTableViewBackGoundColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"xc_fenx"] style:(UIBarButtonItemStylePlain) target:self action:@selector(shareBtnClick)];
+    
     [self configView];
 }
 - (void)configView{
-    self.shareBtn.frame = CGRectMake(10, SCREENH_HEIGHT/2 - 40, SCREEN_WIDTH - 20, 40);
-    [self.view addSubview:self.shareBtn];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMinY(self.shareBtn.frame) - 11, SCREEN_WIDTH - 20, 1)];
-    lineView.backgroundColor = [UIColor colorWithHexString:@"#4E587A"];
-    [self.view addSubview:lineView];
-    
-    self.phoneLabel.frame = CGRectMake(0, 0, 10, 34);
-    [self.phoneLabel sizeToFit];
-    self.phoneLabel.frame = CGRectMake(SCREEN_WIDTH - self.phoneLabel.frame.size.width - 10, CGRectGetMinY(lineView.frame) - 34, self.phoneLabel.frame.size.width, 34);
-    [self.view addSubview:self.phoneLabel];
-    
-    UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.phoneLabel.frame.origin.y, SCREEN_WIDTH/2 - 10, self.phoneLabel.frame.size.height)];
-    leftLabel.text = @"联系我们";
-    leftLabel.textColor = [UIColor whiteColor];
-    leftLabel.font = [UIFont systemFontOfSize:14.0f];
-    leftLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:leftLabel];
-    
-    CGFloat h = CGRectGetMinY(self.shareBtn.frame);
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 75)/2, (h - 75)/2, 75, 75)];
-    logoView.layer.cornerRadius = 13.0f;
-    logoView.layer.masksToBounds = YES;
-    logoView.backgroundColor = [UIColor colorWithHexString:@"#6477B8"];
-    logoView.image = [UIImage imageNamed:@"ic_logo"];
+
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 75 * 301 / 132)/2, 50 + [AppConfig getNavigationBarHeight], 75 * 301 / 132, 75)];
+    logoView.image = [UIImage imageNamed:@"xc_xiecongbiao"];
     [self.view addSubview:logoView];
+    
+    UIButton *adviceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [adviceBtn setTitle:@"建议我们：nobadin@126.com" forState:(UIControlStateNormal)];
+    adviceBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+    adviceBtn.centerY = self.view.centerY;
+    adviceBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [adviceBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    adviceBtn.backgroundColor = [UIColor whiteColor];
+//    [adviceBtn addTarget:self action:@selector(phoneClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:adviceBtn];
+    
+    UIButton *telePhoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [telePhoneBtn setTitle:@"客服电话：0411-88255708" forState:(UIControlStateNormal)];
+    telePhoneBtn.frame = CGRectMake(0, CGRectGetMinY(adviceBtn.frame) - 51, SCREEN_WIDTH, 50);
+    telePhoneBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [telePhoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    telePhoneBtn.backgroundColor = [UIColor whiteColor];
+    [telePhoneBtn addTarget:self action:@selector(phoneClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:telePhoneBtn];
+    
+    UIButton *aboutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [aboutBtn setTitle:@"关于携宠" forState:(UIControlStateNormal)];
+    aboutBtn.frame = CGRectMake(0, CGRectGetMaxY(adviceBtn.frame) + 1, SCREEN_WIDTH, 50);
+    aboutBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [aboutBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    aboutBtn.backgroundColor = [UIColor whiteColor];
+//    [aboutBtn addTarget:self action:@selector(phoneClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:aboutBtn];
+    
+    
+    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 60, SCREEN_WIDTH, 20)];
+    companyLabel.text = @"大连牛八鼎科技有限公司";
+    companyLabel.textAlignment = NSTextAlignmentCenter;
+    companyLabel.font = [UIFont systemFontOfSize:14];
+    companyLabel.textColor = [UIColor hdPlaceHolderColor];
+    [self.view addSubview:companyLabel];
+    
+    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 40) / 2, self.view.frame.size.height - 35, 40, 15)];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    versionLabel.text = [NSString stringWithFormat:@"v%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    versionLabel.textAlignment = NSTextAlignmentCenter;
+    versionLabel.font = [UIFont systemFontOfSize:14];
+    versionLabel.textColor = [UIColor hdMainColor];
+    versionLabel.layer.borderColor = [UIColor hdMainColor].CGColor;
+    versionLabel.layer.borderWidth = 1;
+    versionLabel.layer.cornerRadius = 5;
+    [self.view addSubview:versionLabel];
+    
     
 }
 #pragma mark --action
@@ -59,7 +86,7 @@
     [view showShareCustomView];
 }
 - (void)phoneClick{
-    NSString * phoneNumber = self.phoneLabel.text;
+    NSString * phoneNumber = @"0411-88255708";
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",phoneNumber];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
@@ -95,7 +122,7 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     //设置文本
     if (type == UMSocialPlatformType_Sina) {//图文
-        messageObject.text = @"携宠旅行 你和世界只隔着一张机票 https://itunes.apple.com/cn/app/id1407665400";
+        messageObject.text = @"携宠旅行 你和世界只隔着一张机票 https://itunes.apple.com/cn/app/id1422568361";
         //创建图片内容对象
         UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
         //如果有缩略图，则设置缩略图
@@ -108,7 +135,7 @@
         //创建网页内容对象
         UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"携宠旅行 你和世界只隔着一张机票" descr:@"" thumImage:[UIImage imageNamed:@"ic_logo"]];
         //设置网页地址
-        shareObject.webpageUrl =@"https://itunes.apple.com/cn/app/id1407665400";
+        shareObject.webpageUrl =@"https://itunes.apple.com/cn/app/id1422568361";
         //分享消息对象设置分享内容对象
         messageObject.shareObject = shareObject;
     }
@@ -170,31 +197,7 @@
 //        }];
     }
 }
-#pragma mark --load--
-- (UIButton *)shareBtn{
-    if (!_shareBtn) {
-        _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _shareBtn.backgroundColor = [UIColor colorWithHexString:@"#4E587A"];
-        _shareBtn.layer.cornerRadius = 3;
-        [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-        _shareBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        [_shareBtn addTarget:self action:@selector(shareBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _shareBtn;
-}
-- (UILabel *)phoneLabel{
-    if (!_phoneLabel) {
-        _phoneLabel = [[UILabel alloc] init];
-        _phoneLabel.text = @"028-028-028";
-        _phoneLabel.textColor = [UIColor whiteColor];
-        _phoneLabel.font = [UIFont systemFontOfSize:14.0f];
-        _phoneLabel.textAlignment = NSTextAlignmentRight;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneClick)];
-        _phoneLabel.userInteractionEnabled = YES;
-        [_phoneLabel addGestureRecognizer:tap];
-    }
-    return _phoneLabel;
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

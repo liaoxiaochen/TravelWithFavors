@@ -30,17 +30,17 @@
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, [AppConfig getNavigationBarHeight] + 10, SCREEN_WIDTH, 40)];
     topView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-    topLabel.text = @"旧密码";
-    topLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    topLabel.font = [UIFont systemFontOfSize:14.0f];
-    [topView addSubview:topLabel];
+//    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+//    topLabel.text = @"旧密码";
+//    topLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    topLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [topView addSubview:topLabel];
     
-    self.passTF = [[MyTextField alloc] initWithFrame:CGRectMake(80, 5, topView.bounds.size.width - 90, 30)];
+    self.passTF = [[MyTextField alloc] initWithFrame:CGRectMake(20, 5, topView.bounds.size.width - 40, 30)];
 //    self.passTF.placeholder = @"请输入旧密码";
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentLeft;
-    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入旧密码" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont systemFontOfSize:12.0f], NSParagraphStyleAttributeName:style}];
+    NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入旧密码" attributes:@{NSForegroundColorAttributeName:[UIColor hdPlaceHolderColor],NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSParagraphStyleAttributeName:style}];
     self.passTF.attributedPlaceholder = attri;
     self.passTF.secureTextEntry = YES;
     [topView addSubview:self.passTF];
@@ -49,17 +49,17 @@
     UIView *centerView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topView.frame) + 1, SCREEN_WIDTH, 40)];
     centerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *centerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-    centerLabel.text = @"新密码";
-    centerLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    centerLabel.font = [UIFont systemFontOfSize:14.0f];
-    [centerView addSubview:centerLabel];
+//    UILabel *centerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+//    centerLabel.text = @"新密码";
+//    centerLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    centerLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [centerView addSubview:centerLabel];
     
-    self.nwPassTF = [[MyTextField alloc] initWithFrame:CGRectMake(80, 5, topView.bounds.size.width - 90, 30)];
+    self.nwPassTF = [[MyTextField alloc] initWithFrame:CGRectMake(20, 5, topView.bounds.size.width - 40, 30)];
     self.nwPassTF.secureTextEntry = YES;
     NSMutableParagraphStyle *newStyle = [[NSMutableParagraphStyle alloc] init];
     newStyle.alignment = NSTextAlignmentLeft;
-    NSAttributedString *newAttri = [[NSAttributedString alloc] initWithString:@"请输入新密码" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont systemFontOfSize:12.0f], NSParagraphStyleAttributeName:newStyle}];
+    NSAttributedString *newAttri = [[NSAttributedString alloc] initWithString:@"请输入新密码" attributes:@{NSForegroundColorAttributeName:[UIColor hdPlaceHolderColor],NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSParagraphStyleAttributeName:newStyle}];
     self.nwPassTF.attributedPlaceholder = newAttri;
     [centerView addSubview:self.nwPassTF];
     [self.view addSubview:centerView];
@@ -67,17 +67,17 @@
     UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(centerView.frame) + 1, SCREEN_WIDTH, 40)];
     buttomView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *buttomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-    buttomLabel.text = @"确认密码";
-    buttomLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    buttomLabel.font = [UIFont systemFontOfSize:14.0f];
-    [buttomView addSubview:buttomLabel];
-    
-    self.nwRePassTF = [[MyTextField alloc] initWithFrame:CGRectMake(80, 5, topView.bounds.size.width - 90, 30)];
+//    UILabel *buttomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+//    buttomLabel.text = @"确认密码";
+//    buttomLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+//    buttomLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [buttomView addSubview:buttomLabel];
+//
+    self.nwRePassTF = [[MyTextField alloc] initWithFrame:CGRectMake(20, 5, topView.bounds.size.width - 40, 30)];
     self.nwRePassTF.secureTextEntry = YES;
     NSMutableParagraphStyle *reStyle = [[NSMutableParagraphStyle alloc] init];
     reStyle.alignment = NSTextAlignmentLeft;
-    NSAttributedString *reAttri = [[NSAttributedString alloc] initWithString:@"请输入新密码" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#999999"],NSFontAttributeName:[UIFont systemFontOfSize:12.0f], NSParagraphStyleAttributeName:reStyle}];
+    NSAttributedString *reAttri = [[NSAttributedString alloc] initWithString:@"请输入新密码" attributes:@{NSForegroundColorAttributeName:[UIColor hdPlaceHolderColor],NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSParagraphStyleAttributeName:reStyle}];
     self.nwRePassTF.attributedPlaceholder = reAttri;
     [buttomView addSubview:self.nwRePassTF];
     [self.view addSubview:buttomView];
@@ -94,7 +94,7 @@
     UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.adjustsImageWhenHighlighted = NO;
     sureBtn.frame = CGRectMake(10, CGRectGetMaxY(buttomView.frame) + 84, SCREEN_WIDTH - 20, 40);
-    sureBtn.layer.cornerRadius = 3;
+    sureBtn.layer.cornerRadius = 20;
     sureBtn.backgroundColor = [UIColor hdMainColor];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];

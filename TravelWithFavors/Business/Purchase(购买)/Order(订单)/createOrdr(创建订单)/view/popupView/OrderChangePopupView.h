@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderChangePopupView : UIView
+
+@property (nonatomic, strong) NSString *headerText;
 @property (nonatomic, strong) NSArray *dataLists;
 
 - (void)showPopupView;

@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *petPriceLB;
 @property (weak, nonatomic) IBOutlet UILabel *petCountLB;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *petViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *petView;
 
 @end

@@ -31,7 +31,11 @@ static NSString *const cellID = @"FlightSearchJourneyCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor hdMainColor];
+
+    UIView *sysView = [[UIView alloc] initWithFrame:self.view.frame];
+    [sysView.layer addSublayer:[UIColor setGradualChangingColor:self.view]];
+    [self.view insertSubview:sysView atIndex:0];
+    
     [self setCustomNavigationTitleView];
     [self configView];
 }
@@ -123,7 +127,7 @@ static NSString *const cellID = @"FlightSearchJourneyCell";
 #pragma mark --UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 12;
+    return 5;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FlightSearchJourneyDetailController *vc = [[FlightSearchJourneyDetailController alloc] init];

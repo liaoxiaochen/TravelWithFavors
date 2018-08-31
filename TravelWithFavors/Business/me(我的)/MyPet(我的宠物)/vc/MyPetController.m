@@ -20,11 +20,17 @@
 #import "MyPetChoseCell.h"
 #import "MyPetInfo.h"
 #import "IconImageInfo.h"
+#import "MyPetSexTableViewCell.h"
+#import "PetSexView.h"
+
+
 static NSString *const swithCellID = @"NotifiSetCell";
 static NSString *const cellID = @"MyPetNormalCell";
 static NSString *const choseCellID = @"MyPetChoseCell";
 static NSString *const petTipsCellID = @"HRPetTipsCell";
-@interface MyPetController ()<HDSelectViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+static NSString *const HRPetSexCell = @"MyPetSexTableViewCell";
+
+@interface MyPetController ()<HDSelectViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, PetSexViewDelegate>
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) NSArray *titleLists;
@@ -39,6 +45,8 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
 @property (nonatomic, copy) NSString *isShort;//是否是长鼻
 @property (nonatomic, copy) NSString *weight;
 @property (nonatomic, strong) UIImage *iconImage;
+@property (nonatomic, strong) NSNumber *petSex;
+
 @end
 
 @implementation MyPetController
@@ -51,12 +59,15 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
     if (!self.petInfo) {
         self.isShort = @"2";
         self.type = @"1";
+        self.petSex = @1;
     }
+    
     [self setTableViewHeader];
     [self setRightItem];
     if (self.petInfo) {
         [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.petInfo.avatar]] placeholderImage:self.iconImage];
     }
+    
 }
 - (void)setTableViewHeader{
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
@@ -126,7 +137,7 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
 - (void)uploadIocn{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/asset/upload"];
-    [HttpNetRequestTool uploadHeaderImage:url paraments:nil imageName:@"image" image:self.iconImage progress:^(float progress) {
+    [HttpNetRequestTool uploadHeaderImage:url paraments:@{@"type":@"memberPet"} imageName:@"image" image:self.iconImage progress:^(float progress) {
         
     } success:^(id Json) {
         BaseModel *model = [BaseModel yy_modelWithJSON:Json];
@@ -145,7 +156,7 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
 //添加
 - (void)addAction:(NSString *)savePath{
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/pet/add"];
-    NSDictionary *dict = @{@"pet_name":self.name,@"avatar":savePath,@"birthday":[NSDate getDate:self.date formart:@"yyyy-MM-dd"],@"weight":self.weight,@"box_length":self.box_long,@"box_height":self.box_hight,@"box_width":self.box_width,@"pet_type":self.type,@"is_short":self.isShort};
+     NSDictionary *dict = @{@"pet_name":self.name,@"avatar":savePath,@"birthday":[NSDate getDate:self.date formart:@"yyyy-MM-dd"],@"weight":self.weight,@"box_length":self.box_long,@"box_height":self.box_hight,@"box_width":self.box_width,@"pet_type":self.type,@"is_short":self.isShort, @"sex":self.petSex};
     [HttpNetRequestTool netRequestWithHeader:HttpNetRequestPost urlString:url paraments:dict success:^(id Json) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         BaseModel *model = [BaseModel yy_modelWithJSON:Json];
@@ -170,7 +181,7 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
 - (void)changeIocn{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/asset/upload"];
-    [HttpNetRequestTool uploadHeaderImage:url paraments:nil imageName:@"image" image:self.iconImage progress:^(float progress) {
+    [HttpNetRequestTool uploadHeaderImage:url paraments:@{@"type":@"memberPet"} imageName:@"image" image:self.iconImage progress:^(float progress) {
         
     } success:^(id Json) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -360,6 +371,7 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
     self.type = petInfo.pet_type;
     //是否为短鼻猫狗 1-是 2-不是
     self.isShort = petInfo.is_short;
+    self.petSex = petInfo.sex;
 }
 #pragma mark --UITableViewDataSouce
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -441,6 +453,16 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
                 cell.rightImageView.hidden = NO;
             }
         }
+        if (indexPath.row == 4) {
+            MyPetSexTableViewCell *sexCell = [tableView dequeueReusableCellWithIdentifier:HRPetSexCell];
+            if (!sexCell) {
+                sexCell = [[[NSBundle mainBundle] loadNibNamed:HRPetSexCell owner:self options:nil] objectAtIndex:0];
+            }
+            sexCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            sexCell.sexIndex = self.petSex;
+
+            return sexCell;
+        }
     }else{
         if (self.box_long && self.box_width && self.box_hight) {
             cell.detailLabel.text = [NSString stringWithFormat:@"%@cm,%@cm,%@cm",self.box_long,self.box_width,self.box_hight];
@@ -515,10 +537,16 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
             vc.weight = weakSelf.weight;
             [self.navigationController pushViewController:vc animated:YES];
         }
+        if (indexPath.row == 4) {
+            PetSexView *view = [[PetSexView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT)];
+            view.delegate = self;
+            [view showView];
+        }
     }
     if (indexPath.section == 1) {
         //箱子
         PetBoxView *view = [[[NSBundle mainBundle] loadNibNamed:@"PetBoxView" owner:self options:nil] objectAtIndex:0];
+        view.superTableView = self.tableView;
         view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT);
         view.changTextField.text = self.box_long;
         view.kuanTextField.text = self.box_width;
@@ -542,6 +570,19 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
     }
 
 }
+
+#pragma mark - 宠物性别选择方法
+- (void)PetSexdidSelected:(NSInteger)index {
+    
+    self.petSex = [NSNumber numberWithInteger:index];
+    if (self.petInfo) {
+        [self changeInfo:@"sex" value:[NSString stringWithFormat:@"%ld", (long)index]];
+    }else{
+        [self.tableView reloadData];
+    }
+
+ }
+
 #pragma mark --laod--
 - (UIImagePickerController *)imagePicker{
     if (!_imagePicker) {
@@ -552,13 +593,13 @@ static NSString *const petTipsCellID = @"HRPetTipsCell";
 }
 - (NSArray *)titleLists{
     if (!_titleLists) {
-        _titleLists = @[@[@"宠物名字",@"宠物生日",@"宠物体重",@"宠物品种"],@[@"航空箱大小"],@[@"非短鼻猫短鼻狗"]];
+        _titleLists = @[@[@"宠物名字",@"宠物生日",@"宠物体重",@"宠物品种",@"宠物性别"],@[@"航空箱大小"],@[@"非短鼻猫短鼻狗"]];
     }
     return _titleLists;
 }
 - (NSArray *)detailLists{
     if (!_detailLists) {
-        _detailLists = @[@[@"",@"",@"",@""],@[@""],@[@""]];
+        _detailLists = @[@[@"",@"",@"",@"",@""],@[@""],@[@""]];
     }
     return _detailLists;
 }

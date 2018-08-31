@@ -24,17 +24,17 @@ static NSString *const cellID = @"MyPetListsCell";
     self.tableView.backgroundColor = [UIColor hdTableViewBackGoundColor];
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     self.tableView.tableHeaderView = header;
-    self.tableView.rowHeight = 76;
+    self.tableView.rowHeight = 60;
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 220)];
     
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addBtn.frame = CGRectMake((footer.bounds.size.width - 150)/2, footer.bounds.size.height - 42, 150, 40);
+    addBtn.frame = CGRectMake((footer.bounds.size.width - 120)/2, footer.bounds.size.height - 42, 120, 40);
     addBtn.adjustsImageWhenHighlighted = NO;
-    addBtn.backgroundColor = [UIColor hdYellowColor];
-    addBtn.layer.cornerRadius = 3;
+    addBtn.backgroundColor = [UIColor hdMainColor];
+    addBtn.layer.cornerRadius = 20;
     [addBtn setImage:[UIImage imageNamed:@"zjck"] forState:UIControlStateNormal];
-    [addBtn setTitle:@"新增宠物信息" forState:UIControlStateNormal];
+    [addBtn setTitle:@"新增宠物" forState:UIControlStateNormal];
     addBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     //左文右图
 //    // 还可增设间距
@@ -109,7 +109,7 @@ static NSString *const cellID = @"MyPetListsCell";
 }
 #pragma mark --UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 5;
+    return 0.01;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MyPetController *vc = [[MyPetController alloc] init];

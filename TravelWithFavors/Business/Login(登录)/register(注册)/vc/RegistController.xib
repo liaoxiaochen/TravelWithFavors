@@ -27,7 +27,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNt-dg-iTu">
                     <rect key="frame" x="36" y="313.5" width="303" height="40"/>
-                    <color key="backgroundColor" red="0.99215686274509807" green="0.59215686274509804" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.49411764705882355" green="0.76078431372549016" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="eAo-fL-lAQ"/>
                     </constraints>
@@ -82,7 +82,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apq-JH-npK">
                     <rect key="frame" x="259" y="252.5" width="80" height="26"/>
-                    <color key="backgroundColor" red="0.99215686270000003" green="0.59215686270000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="8ts-ks-MUX"/>
                         <constraint firstAttribute="height" constant="26" id="eei-be-20L"/>

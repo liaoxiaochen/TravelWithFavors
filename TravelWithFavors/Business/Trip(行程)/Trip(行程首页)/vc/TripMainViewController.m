@@ -11,7 +11,7 @@
 #import "TripMainCell.h"
 #import "TripInfoController.h"
 #import "HRorderModel.h"
-
+#import "OrderDetailInfoController.h"
 static NSString *const cellID = @"TripMainCell";
 @interface TripMainViewController ()
 
@@ -21,21 +21,14 @@ static NSString *const cellID = @"TripMainCell";
 @end
 
 @implementation TripMainViewController
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor clearColor]];
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor hdMainColor]];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"携宠旅行";
+    self.navigationItem.title = @"我的行程";
     [self confiView];
     
-    self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight] - [AppConfig getTabBarHeight]);
+    self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getNavigationBarHeight]);
     
     WeakObj(self)
     BlockObj(_pageNumber)
@@ -59,12 +52,12 @@ static NSString *const cellID = @"TripMainCell";
     
 }
 - (void)confiView{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT)];
-    bgImageView.image = [UIImage imageNamed:@"bj"];
-    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
-    bgImageView.userInteractionEnabled = NO;
-    [self.view addSubview:bgImageView];
-    self.tableView.backgroundColor = [UIColor clearColor];
+//    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT)];
+//    bgImageView.image = [UIImage imageNamed:@"bj"];
+//    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    bgImageView.userInteractionEnabled = NO;
+//    [self.view addSubview:bgImageView];
+    self.tableView.backgroundColor = [UIColor hdTableViewBackGoundColor];
     [self.view bringSubviewToFront:self.tableView];
     self.tableView.enablePlaceHolderView = YES;
     TripTableViewBgview *bgView = [[TripTableViewBgview alloc] initWithFrame:self.tableView.bounds];
@@ -72,8 +65,9 @@ static NSString *const cellID = @"TripMainCell";
     bgView.shopBlock = ^{
         weakSelf.tabBarController.selectedIndex = 0;
     };
-    self.tableView.rowHeight = 210;
+    self.tableView.rowHeight = 250;
     self.tableView.yh_PlaceHolderView = bgView;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripMainCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
 }
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -84,9 +78,7 @@ static NSString *const cellID = @"TripMainCell";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TripMainCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:self options:nil] objectAtIndex:0];
-    }
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.dataSource.count > 0) {
         cell.orderModel = [self.dataSource objectAtIndex:indexPath.section];
@@ -94,21 +86,48 @@ static NSString *const cellID = @"TripMainCell";
     return cell;
 }
 #pragma mark --UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    NSString *url = [HttpNetRequestTool requestUrlString:@"/user/order/detail"];
+//    HRorderModel *model = self.dataSource[indexPath.section];
+//    NSDictionary *dict = @{@"order_id":model.pid};
+//    [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url outTime:20 paraments:dict isHeader:YES success:^(id Json) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        BaseModel *model = [BaseModel yy_modelWithJSON:Json];
+//        if (model.code == 1) {
+//            HRorderModel *orderModel = [HRorderModel yy_modelWithJSON:model.data];
+//            TripInfoController *vc = [[TripInfoController alloc] init];
+//            vc.isPet = [@"2" isEqualToString: orderModel.user_type] ? YES : NO;
+//            vc.orderModel = orderModel;
+//            vc.title = orderModel.flight_number;
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }else{
+//            [HSToast hsShowBottomWithText:model.msg];
+//        }
+//    } failure:^(NSString *error) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [HSToast hsShowBottomWithText:error];
+//    }];
+//}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/order/detail"];
     HRorderModel *model = self.dataSource[indexPath.section];
     NSDictionary *dict = @{@"order_id":model.pid};
     [HttpNetRequestTool netRequest:HttpNetRequestPost urlString:url outTime:20 paraments:dict isHeader:YES success:^(id Json) {
+        HRLog(@"%@",Json)
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         BaseModel *model = [BaseModel yy_modelWithJSON:Json];
         if (model.code == 1) {
-            HRorderModel *orderModel = [HRorderModel yy_modelWithJSON:model.data];
-            TripInfoController *vc = [[TripInfoController alloc] init];
+            HRorderModel *orderModel = [HRorderModel getOrderInfo:model.data];
+            OrderDetailInfoController *vc = [[OrderDetailInfoController alloc] init];
             vc.isPet = [@"2" isEqualToString: orderModel.user_type] ? YES : NO;
             vc.orderModel = orderModel;
-            vc.title = orderModel.flight_number;
-            vc.hidesBottomBarWhenPushed = YES;
+            vc.start_city_name = orderModel.start_city_name;
+            vc.to_city_name = orderModel.to_city_name;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             [HSToast hsShowBottomWithText:model.msg];

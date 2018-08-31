@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -32,22 +32,22 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oU-vw-HZh">
-                    <rect key="frame" x="67.5" y="224.5" width="100" height="30"/>
+                    <rect key="frame" x="67.5" y="318.5" width="100" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Uve-GR-eXX"/>
                         <constraint firstAttribute="width" constant="100" id="mw6-Q3-zui"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="返回首页">
-                        <color key="titleColor" red="0.14901960784313725" green="0.61568627450980395" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="JumpMainPageBtnClick:" destination="-1" eventType="touchUpInside" id="1yi-Xf-CD0"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2R-15-dh2">
-                    <rect key="frame" x="207.5" y="224.5" width="100" height="30"/>
-                    <color key="backgroundColor" red="0.14901960780000001" green="0.61568627450000002" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="207.5" y="318.5" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="查看运单"/>
                     <connections>
@@ -62,8 +62,8 @@
                     </constraints>
                 </imageView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tv-hm-7X1">
-                    <rect key="frame" x="30" y="274.5" width="315" height="32"/>
-                    <color key="backgroundColor" red="0.14901960780000001" green="0.61568627450000002" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="30" y="368.5" width="315" height="32"/>
+                    <color key="backgroundColor" red="0.4941176471" green="0.76078431369999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="XpW-Sm-xwY"/>
                     </constraints>
@@ -77,6 +77,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="4oU-vw-HZh" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="1xa-tZ-vrR"/>
                 <constraint firstItem="aVD-gy-QYI" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.4" id="Bru-wM-NeF"/>
                 <constraint firstItem="c2R-15-dh2" firstAttribute="width" secondItem="4oU-vw-HZh" secondAttribute="width" id="Dto-cj-JhJ"/>
                 <constraint firstItem="X2v-E0-ePI" firstAttribute="top" secondItem="aVD-gy-QYI" secondAttribute="bottom" constant="10" id="PC5-Hv-sDt"/>
@@ -85,7 +86,6 @@
                 <constraint firstItem="4tv-hm-7X1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bpj-1y-cn7"/>
                 <constraint firstItem="c2R-15-dh2" firstAttribute="leading" secondItem="4oU-vw-HZh" secondAttribute="trailing" constant="40" id="bw1-os-aGU"/>
                 <constraint firstItem="X2v-E0-ePI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="k0R-8d-Hbh"/>
-                <constraint firstItem="4oU-vw-HZh" firstAttribute="top" secondItem="X2v-E0-ePI" secondAttribute="bottom" constant="20" id="oBe-DZ-5VD"/>
                 <constraint firstItem="aVD-gy-QYI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="p2r-r2-bKw"/>
                 <constraint firstItem="c2R-15-dh2" firstAttribute="height" secondItem="4oU-vw-HZh" secondAttribute="height" id="rbA-YV-amy"/>
                 <constraint firstAttribute="trailing" secondItem="4tv-hm-7X1" secondAttribute="trailing" constant="30" id="uNy-MN-aR0"/>

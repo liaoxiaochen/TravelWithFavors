@@ -25,7 +25,7 @@
     self.jumpOrderListBtn.layer.cornerRadius = self.jumpOrderListBtn.height/2;
     self.jumpMainPageBtn.layer.cornerRadius = self.jumpMainPageBtn.height/2;
     self.jumpMainPageBtn.layer.borderWidth = 1;
-    self.jumpMainPageBtn.layer.borderColor = [UIColor colorWithHexString:@"#269D2E"].CGColor;
+    self.jumpMainPageBtn.layer.borderColor = [UIColor hdMainColor].CGColor;
     
     if (self.result) {
         self.title = @"支付成功";

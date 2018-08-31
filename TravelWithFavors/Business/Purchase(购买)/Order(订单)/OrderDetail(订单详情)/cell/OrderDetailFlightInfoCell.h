@@ -13,4 +13,7 @@
 
 @property (nonatomic, strong) HRorderModel *orderModel;
 
+@property (nonatomic, strong) NSString*start_city_name;
+@property (nonatomic, strong) NSString *to_city_name;
+
 @end

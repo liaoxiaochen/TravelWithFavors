@@ -20,6 +20,7 @@
 #import "HSToast.h"
 #import "BaseModel.h"
 #pragma mark --categary
+#import "CustomField.h"
 #import "UIColor+Hex.h"
 #import "UITableView+PlaceHolderView.h"
 #import "NSArray+Extension.h"
@@ -28,6 +29,13 @@
 #import "UINavigationBar+Awesome.h"
 #import "UILabel+HDSpacing.h"
 #import "NSDate+Time.h"
+#import "UIView+LSCore.h"
+#import "UIButton+ImageTitle.h"
+#import "LananBlockClass-Header.h"
+#import "UIView+ViewTouch.h"
+#import "UIButton+CZHExtension.h"
+#import "UIBarButtonItem+Badge.h"
+
 #pragma mark --third--
 #import <YYModel/YYModel.h>
 #import <YYCache/YYCache.h>
@@ -35,6 +43,10 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <MJRefresh/MJRefresh.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <SDCycleScrollView/SDCycleScrollView.h>
+#import "GBCollectionViewCell.h"
+#import "IBAlertView.h"
+
 //shareSDK
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -48,6 +60,7 @@
 //新浪微博SDK头文件
 #import "WeiboSDK.h"
 //#import <mob_sharesdk/WeiboSDK.h>
+#import "LBPhotoBrowserManager.h"
 //新浪微博SDK需要在项目Build Settings中的Other Linker Flags添加”-ObjC”
 #endif
 #endif /* TFPrefixHeader_pch */

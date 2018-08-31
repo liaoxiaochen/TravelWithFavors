@@ -10,7 +10,7 @@
 #import "HDDateHelper.h"
 #import "NSDate+HDCalculateDay.h"
 #import "UIPickerView+malPicker.h"
-#define kDefaultMinLimitedDate @"1970-01-01 00:00" //最小时间
+#define kDefaultMinLimitedDate @"1900-01-01 00:00" //最小时间
 #define kDefaultMaxLimitedDate @"2060-12-31 23:59" //最大时间
 @interface HDDatePickerView ()<UIPickerViewDelegate,UIPickerViewDataSource>{
     // 时间数据源的数组中，选中元素的索引
@@ -51,14 +51,14 @@
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.yearPicker.frame = CGRectMake(28, 0, 36, self.bounds.size.height);
-    self.monthPicker.frame = CGRectMake(124, 0, 36, self.bounds.size.height);
-    self.dayPicker.frame = CGRectMake(self.bounds.size.width - 44 - 36, 0, 36, self.bounds.size.height);
-    self.yearLabel.frame = CGRectMake(CGRectGetMaxX(self.yearPicker.frame) + 10, (self.bounds.size.height - 20)/2, CGRectGetMinX(self.monthPicker.frame) - CGRectGetMaxX(self.yearPicker.frame) - 20, 20);
-
-    self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.monthPicker.frame) + 10, (self.bounds.size.height - 20)/2, CGRectGetMinX(self.dayPicker.frame) - CGRectGetMaxX(self.monthPicker.frame) - 20, 20);
-
-    self.dayLabel.frame = CGRectMake(CGRectGetMaxX(self.dayPicker.frame) + 10, (self.bounds.size.height - 20)/2, self.bounds.size.width - CGRectGetMaxX(self.dayPicker.frame) - 20, 20);
+    
+    self.yearPicker.frame = CGRectMake((SCREEN_WIDTH - 248) / 2, 0, 36, self.bounds.size.height);
+    self.yearLabel.frame = CGRectMake(CGRectGetMaxX(self.yearPicker.frame) + 10, (self.bounds.size.height - 20)/2, 40, 20);
+    self.monthPicker.frame = CGRectMake(CGRectGetMaxX(self.yearLabel.frame) + 10, 0, 36, self.bounds.size.height);
+    self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.monthPicker.frame) + 10, (self.bounds.size.height - 20)/2, 40, 20);
+    self.dayPicker.frame = CGRectMake(CGRectGetMaxX(self.monthLabel.frame) + 10, 0, 36, self.bounds.size.height);
+    self.dayLabel.frame = CGRectMake(CGRectGetMaxX(self.dayPicker.frame) + 10, (self.bounds.size.height - 20)/2, 40, 20);
+    
 }
 #pragma mark --自定义方法
 - (void)loadData {
@@ -302,7 +302,7 @@
     if (!_yearLabel) {
         _yearLabel = [[UILabel alloc] init];
         _yearLabel.text = @"年";
-        _yearLabel.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _yearLabel.textColor = [UIColor hdTextColor];
         _yearLabel.font = [UIFont systemFontOfSize:15.0f];
         _yearLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -312,7 +312,7 @@
     if (!_monthLabel) {
         _monthLabel = [[UILabel alloc] init];
         _monthLabel.text = @"月";
-        _monthLabel.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _monthLabel.textColor = [UIColor hdTextColor];
         _monthLabel.font = [UIFont systemFontOfSize:15.0f];
         _monthLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -322,7 +322,7 @@
     if (!_dayLabel) {
         _dayLabel = [[UILabel alloc] init];
         _dayLabel.text = @"日";
-        _dayLabel.textColor = [UIColor colorWithHexString:@"#FF980D"];
+        _dayLabel.textColor = [UIColor hdTextColor];
         _dayLabel.font = [UIFont systemFontOfSize:15.0f];
         _dayLabel.textAlignment = NSTextAlignmentLeft;
     }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="156" id="KGk-i7-Jjw" customClass="MallOrderAddressTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="520" height="156"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="520" height="155.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buytickets_dingwei" translatesAutoresizingMaskIntoConstraints="NO" id="a6J-ck-Z9x">
+                        <rect key="frame" x="20" y="68" width="15" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="EWn-Uz-NrD"/>
+                            <constraint firstAttribute="height" constant="20" id="ojL-No-r1n"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyS-RS-HRz">
+                        <rect key="frame" x="55" y="10" width="35" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="crz-Ci-lRd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="省市区地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ApJ-3Y-cIg">
+                        <rect key="frame" x="55" y="130.5" width="425" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Ztn-gT-6Ux"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sc_tjgd" translatesAutoresizingMaskIntoConstraints="NO" id="CVH-qv-HdS">
+                        <rect key="frame" x="500" y="70.5" width="10" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="SG8-HC-lbf"/>
+                            <constraint firstAttribute="height" constant="15" id="pfY-fe-i8O"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="CVH-qv-HdS" secondAttribute="trailing" constant="10" id="4LY-qf-VWo"/>
+                    <constraint firstAttribute="bottom" secondItem="ApJ-3Y-cIg" secondAttribute="bottom" constant="10" id="DF7-Gm-7cI"/>
+                    <constraint firstItem="a6J-ck-Z9x" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="N3W-dT-Apb"/>
+                    <constraint firstItem="ApJ-3Y-cIg" firstAttribute="leading" secondItem="a6J-ck-Z9x" secondAttribute="trailing" constant="20" id="Oqa-1u-3Px"/>
+                    <constraint firstItem="VyS-RS-HRz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Vk0-79-1Cq"/>
+                    <constraint firstItem="a6J-ck-Z9x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="gD6-hT-34t"/>
+                    <constraint firstItem="CVH-qv-HdS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mrW-6f-75H"/>
+                    <constraint firstItem="VyS-RS-HRz" firstAttribute="leading" secondItem="a6J-ck-Z9x" secondAttribute="trailing" constant="20" id="qvO-qU-4wA"/>
+                    <constraint firstItem="CVH-qv-HdS" firstAttribute="leading" secondItem="ApJ-3Y-cIg" secondAttribute="trailing" constant="20" id="yeQ-0B-Jkk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="personAddress" destination="ApJ-3Y-cIg" id="gmG-t9-533"/>
+                <outlet property="personName" destination="VyS-RS-HRz" id="ame-5B-d7y"/>
+            </connections>
+            <point key="canvasLocation" x="-240" y="38"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="buytickets_dingwei" width="10" height="13"/>
+        <image name="sc_tjgd" width="8" height="11"/>
+    </resources>
+</document>

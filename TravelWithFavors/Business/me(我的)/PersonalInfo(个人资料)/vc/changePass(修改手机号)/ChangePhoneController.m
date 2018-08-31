@@ -23,12 +23,12 @@
     [self configView];
 }
 - (void)configView{
-    UILabel *top = [[UILabel alloc] initWithFrame:CGRectMake(10, [AppConfig getNavigationBarHeight], SCREEN_WIDTH - 20, 35)];
+    UILabel *top = [[UILabel alloc] initWithFrame:CGRectMake(10, [AppConfig getNavigationBarHeight], SCREEN_WIDTH - 20, 20)];
     top.text = @"为了确认是您本人的操作，需要输入密码才能修改手机号";
-    top.textColor = [UIColor colorWithHexString:@"#333333"];
-    top.font = [UIFont systemFontOfSize:11.0f];
+    top.textColor = [UIColor hdPlaceHolderColor];
+    top.font = [UIFont systemFontOfSize:10.0f];
     [self.view addSubview:top];
-    self.passTextField.frame = CGRectMake(1, CGRectGetMaxY(top.frame), SCREEN_WIDTH - 2, 50);
+    self.passTextField.frame = CGRectMake(1, CGRectGetMaxY(top.frame), SCREEN_WIDTH - 2, 40);
     [self.view addSubview:self.passTextField];
     self.nextBtn.frame = CGRectMake(10, CGRectGetMaxY(self.passTextField.frame) + 68, SCREEN_WIDTH - 20, 40);
     [self.view addSubview:self.nextBtn];
@@ -55,18 +55,18 @@
 - (MyTextField *)passTextField{
     if (!_passTextField) {
         _passTextField = [[HDSpaceTextField alloc] init];
-
-        UIView *left = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 50)];
+        
+        UIView *left = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
         _passTextField.leftView = left;
         _passTextField.leftViewMode = UITextFieldViewModeAlways;
-        UIView *right = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 50)];
+        UIView *right = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
         _passTextField.rightView = right;
         _passTextField.rightViewMode = UITextFieldViewModeAlways;
         _passTextField.borderStyle = UITextBorderStyleNone;
         _passTextField.placeholder = @"请输入登录密码";
-        _passTextField.placeholderFont = [UIFont systemFontOfSize:11.0f];
+        _passTextField.placeholderFont = [UIFont systemFontOfSize:14.0f];
         _passTextField.secureTextEntry = YES;
-        _passTextField.placeholderColor = [UIColor colorWithHexString:@"#333333"];
+        _passTextField.placeholderColor = [UIColor hdPlaceHolderColor];
         _passTextField.font = [UIFont systemFontOfSize:17.0f];
         _passTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passTextField.backgroundColor = [UIColor whiteColor];
@@ -77,7 +77,7 @@
 - (UIButton *)nextBtn{
     if (!_nextBtn) {
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _nextBtn.layer.cornerRadius = 3;
+        _nextBtn.layer.cornerRadius = 20;
         _nextBtn.backgroundColor = [UIColor hdMainColor];
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
         _nextBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -92,13 +92,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

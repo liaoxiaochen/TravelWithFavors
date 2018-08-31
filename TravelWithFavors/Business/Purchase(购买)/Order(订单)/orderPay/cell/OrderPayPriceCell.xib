@@ -67,7 +67,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCB-2q-Hya">
                                 <rect key="frame" x="0.0" y="26" width="233" height="26"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="基建" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0a-Rt-4M9">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="机建" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0a-Rt-4M9">
                                         <rect key="frame" x="0.0" y="0.0" width="27" height="26"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -342,6 +342,7 @@
                 <outlet property="passengerLB" destination="nOh-Af-wlT" id="1DL-pZ-dFw"/>
                 <outlet property="petCountLB" destination="plc-GE-s1f" id="yOj-cz-oms"/>
                 <outlet property="petPriceLB" destination="lbX-Ua-3qu" id="pKR-RD-GsL"/>
+                <outlet property="petView" destination="bFm-y8-3FM" id="aqC-8z-TrE"/>
                 <outlet property="petViewHeight" destination="2w9-VV-ek5" id="v9a-Xp-R1B"/>
                 <outlet property="phoneLB" destination="L21-OF-V1j" id="qRx-Cd-KSE"/>
             </connections>

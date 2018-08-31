@@ -19,11 +19,12 @@
 #import "LoginNavigationController.h"
 #import "LoginController.h"
 #import "PersonalInfo.h"
-
+#import "TripMainViewController.h"
 #import "HRmyOrderListViewController.h"
+#import "MallOrderListViewController.h"
 
 static NSString *const cellID = @"MeMainCell";
-@interface MeMainController ()
+@interface MeMainController ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) MeMainHeaderView *headerView;
 @property (nonatomic, strong) NSArray *dataLists;
 @property (nonatomic, strong) PersonalInfo *userInfo;
@@ -33,23 +34,18 @@ static NSString *const cellID = @"MeMainCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (![AppConfig getLoginState]) {
-        self.headerView.loginBtn.hidden = NO;
-        self.headerView.iconImageView.hidden = YES;
-    }else{
-        self.headerView.loginBtn.hidden = YES;
-        self.headerView.iconImageView.hidden = NO;
-    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tableView.frame = CGRectMake(0, [AppConfig getNavigationBarHeight], SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getTabBarHeight] - [AppConfig getNavigationBarHeight]);
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.navigationController.delegate = self;
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT - [AppConfig getTabBarHeight]);
+    self.tableView.backgroundColor = [UIColor hdTableViewBackGoundColor];
     self.tableView.rowHeight = 44;
+    
     self.tableView.tableHeaderView = self.headerView;
-
+    
     if ([AppConfig getUserIcon]) {
         UIImage *image = [[[SDWebImageManager sharedManager] imageCache] imageFromDiskCacheForKey:[NSURL URLWithString:[AppConfig getUserIcon]].absoluteString];
         if (image) {
@@ -63,7 +59,7 @@ static NSString *const cellID = @"MeMainCell";
         [weakSelf myIntegralVC];
     };
     self.headerView.levelBlock = ^{
-      //等级
+        //等级
         [weakSelf myLevelVC];
     };
     if ([AppConfig getLoginState]) {
@@ -72,7 +68,17 @@ static NSString *const cellID = @"MeMainCell";
     //登录成功
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSeccess) name:@"loginSeccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"logout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notLogin) name:@"notLogin" object:nil];
+
+    
 }
+
+- (void)notLogin {
+    self.navigationController.tabBarController.hidesBottomBarWhenPushed=NO;
+    self.navigationController.tabBarController.selectedIndex=0;  //0
+    
+}
+
 - (void)myLevelVC{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [HttpNetRequestTool requestUrlString:@"/user/index/grade"];
@@ -101,11 +107,7 @@ static NSString *const cellID = @"MeMainCell";
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [HSToast hsShowBottomWithText:error];
             }];
-  
-//            MyLevelController *vc = [[MyLevelController alloc] init];
-//            vc.level = [self.userInfo.grade integerValue];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+            
         }else{
             [HSToast hsShowBottomWithText:model.msg];
         }
@@ -113,7 +115,7 @@ static NSString *const cellID = @"MeMainCell";
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [HSToast hsShowBottomWithText:error];
     }];
-
+    
 }
 - (void)myIntegralVC{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -143,11 +145,7 @@ static NSString *const cellID = @"MeMainCell";
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [HSToast hsShowBottomWithText:error];
             }];
-          
-//            MyIntegralController *vc = [[MyIntegralController alloc] init];
-//            vc.score = [NSString nullString:self.userInfo.score dispathString:@""];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
+
         }else{
             [HSToast hsShowBottomWithText:model.msg];
         }
@@ -193,79 +191,125 @@ static NSString *const cellID = @"MeMainCell";
 }
 #pragma mark --UITableViewDataSouce
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray *arr = self.dataLists[section];
+    return arr.count;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataLists.count;
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MeMainCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:self options:nil] objectAtIndex:0];
     }
-    NSDictionary *dict = self.dataLists[indexPath.row];
+    NSArray *arr = self.dataLists[indexPath.section];
+    NSDictionary *dict = arr[indexPath.row];
     cell.dict = dict;
     return cell;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
+    return 10;
+}
 #pragma mark --UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if ([AppConfig getLoginState]) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                //个人资料
-                PersonalInfoController *vc = [[PersonalInfoController alloc] init];
-                __weak typeof(self) weakSelf = self;
-                vc.loginOutBlock = ^{
-                  //退出登录
-                    LoginController *vc = [[LoginController alloc] init];
-                    LoginNavigationController *nav = [[LoginNavigationController alloc] initWithRootViewController:vc];
-                    [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
-                    weakSelf.userInfo = nil;
-                    weakSelf.headerView.info = weakSelf.userInfo;
-                };
-                vc.userInfoBlock = ^(PersonalInfo *info) {
-                    weakSelf.userInfo = info;
-                    weakSelf.headerView.info = info;
-                };
-                vc.userInfo = self.userInfo;
-                //vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+        if (indexPath.section == 0) {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    //个人资料
+                    PersonalInfoController *vc = [[PersonalInfoController alloc] init];
+                    __weak typeof(self) weakSelf = self;
+                    vc.loginOutBlock = ^{
+                        
+                        self.navigationController.tabBarController.selectedIndex = 0;
+                        //退出登录
+                        LoginController *vc = [[LoginController alloc] init];
+                        LoginNavigationController *nav = [[LoginNavigationController alloc] initWithRootViewController:vc];
+                        [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
+                        weakSelf.userInfo = nil;
+                        weakSelf.headerView.info = weakSelf.userInfo;
+                        
+                    };
+                    vc.userInfoBlock = ^(PersonalInfo *info) {
+                        weakSelf.userInfo = info;
+                        weakSelf.headerView.info = info;
+                    };
+                    vc.userInfo = self.userInfo;
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 1:{
+                    //我的行程
+                    TripMainViewController *vc = [[TripMainViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+//                case 2:{
+//                    //我的订单
+//                    HRmyOrderListViewController *vc = [[HRmyOrderListViewController alloc] init];
+//                    vc.hidesBottomBarWhenPushed = YES;
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
+//                    break;
+             
+                case 2:{
+                    //商城订单
+                    MallOrderListViewController *vc = [[MallOrderListViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    break;
+                }
+                case 3:{
+                    //我的证件
+                    MyCertificatesController *vc = [[MyCertificatesController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    break;
+                }
+                case 4:{
+                    //我的宠物
+                    MyPetListsController *vc = [[MyPetListsController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                    
+                    
+                default:
+                    break;
             }
-                break;
-            case 1:{
-                //我的订单
-                HRmyOrderListViewController *vc = [[HRmyOrderListViewController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    MeSetController *vc = [[MeSetController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 1:{
+                    //意见反馈
+                    OpinionController *vc = [[OpinionController alloc] init];
+                    vc.phone = [NSString nullString:self.userInfo.mobile dispathString:[AppConfig getUserName]];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
+                    
             }
-                break;
-            case 2:{
-                //我的宠物
-                MyPetListsController *vc = [[MyPetListsController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 3:{
-                //我的证件
-                MyCertificatesController *vc = [[MyCertificatesController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 4:{
-                MeSetController *vc = [[MeSetController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            default:{
-                //意见反馈
-                OpinionController *vc = [[OpinionController alloc] init];
-                vc.phone = [NSString nullString:self.userInfo.mobile dispathString:[AppConfig getUserName]];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
         }
+        
+        
     }else{
         //登录
         LoginController *vc = [[LoginController alloc] init];
@@ -279,18 +323,20 @@ static NSString *const cellID = @"MeMainCell";
         scrollView.contentOffset = CGPointZero;
     }
 }
+
+
 #pragma mark --load--
 - (MeMainHeaderView *)headerView{
     if (!_headerView) {
         _headerView = [[[NSBundle mainBundle] loadNibNamed:@"MeMainHeaderView" owner:self options:nil] objectAtIndex:0];
         _headerView.backgroundColor = [UIColor whiteColor];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 156);
+        _headerView.frame = CGRectMake(0, 10, SCREEN_WIDTH, 130);
     }
     return _headerView;
 }
 - (NSArray *)dataLists{
     if (!_dataLists) {
-        _dataLists = @[@{@"title":@"个人资料",@"image":@"me_grzl"},@{@"title":@"我的订单",@"image":@"me_dingdan"},@{@"title":@"我的宠物",@"image":@"me_chongwu"},@{@"title":@"我的证件",@"image":@"me_zj"},@{@"title":@"设置",@"image":@"me_sz"},@{@"title":@"意见反馈",@"image":@"me_yjfk"}];
+        _dataLists = @[@[@{@"title":@"个人资料",@"image":@"me_grzl"},@{@"title":@"我的行程",@"image":@"me_dingdan"}, @{@"title":@"商城订单",@"image":@"me_dingdan"},@{@"title":@"我的证件",@"image":@"me_zj"},@{@"title":@"我的宠物",@"image":@"me_chongwu"}],@[@{@"title":@"设置",@"image":@"me_sz"},@{@"title":@"意见反馈",@"image":@"me_yjfk"}]];
     }
     return _dataLists;
 }
@@ -298,19 +344,29 @@ static NSString *const cellID = @"MeMainCell";
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+#pragma mark - UINavigationControllerDelegate
+// 将要显示控制器
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // 判断要显示的控制器是否是自己
+    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
+    
+    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
