@@ -21,7 +21,7 @@ target 'TravelWithFavors' do
   # 平台SDK模块(对照一下平台，需要的加上。如果只需要QQ、微信、新浪微博，只需要以下3行)
   pod 'mob_sharesdk/ShareSDKPlatforms/QQ'
   pod 'mob_sharesdk/ShareSDKPlatforms/SinaWeibo'
-  pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull' #//（微信sdk带支付的命令，和上面不带支付的不能共存，只能选择一个）
+  pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull' #
   # pod 'mob_sharesdk/ShareSDKPlatforms/WeChat'  //（微信sdk不带支付的命令）
   # 使用配置文件分享模块（非必需）
   pod 'mob_sharesdk/ShareSDKConfigurationFile'
